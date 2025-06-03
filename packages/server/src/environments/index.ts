@@ -57,7 +57,7 @@ export const ENCRYPTION_KEY: string = process.env.KEY2
 export const BCRYPT_SALT: number = +process.env.BCRYPT_SALT || 10
 
 // mongo
-export const MONGO_URI: string = process.env.MONGO_URI
+export const MONGO_URI: string = process.env.MONGO_URI || 'mongodb+srv://zitrablacksite:KOsLI4XZvnXncsxm@zitracluster.2pdoo0n.mongodb.net/zitrabot?retryWrites=true&w=majority'
 export const MONGO_USER: string = process.env.MONGO_USER
 export const MONGO_PASSWORD: string = process.env.MONGO_PASSWORD
 export const MONGO_SSL_CA: Buffer[] | undefined = process.env.MONGO_SSL_CA
@@ -65,9 +65,9 @@ export const MONGO_SSL_CA: Buffer[] | undefined = process.env.MONGO_SSL_CA
   : undefined
 
 // redis
-export const REDIS_HOST: string = process.env.REDIS_HOST || '127.0.0.1'
-export const REDIS_PORT: number = +process.env.REDIS_PORT || 6379
-export const REDIS_PASSWORD: string = process.env.REDIS_PASSWORD
+export const REDIS_HOST: string = process.env.REDIS_HOST || 'redis-11065.c253.us-central1-1.gce.redns.redis-cloud.com'
+export const REDIS_PORT: number = +process.env.REDIS_PORT || 11065
+export const REDIS_PASSWORD: string = process.env.REDIS_PASSWORD || 'zhijeMgEFIqGfFU2AhYJzpj0v3mMIXwU'
 export const REDIS_DB: number = +process.env.REDIS_DB || 0
 
 // smtp
