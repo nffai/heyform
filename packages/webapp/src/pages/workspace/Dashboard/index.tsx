@@ -1,8 +1,9 @@
 import { useTranslation } from 'react-i18next'
 
+import { getTimePeriod } from '@/utils'
+
 import IconWavingHand from '@/assets/waving-hand.webp'
 import { useUserStore } from '@/store'
-import { getTimePeriod } from '@/utils'
 
 import Overview from './Overview'
 import RecentForms from './RecentForms'

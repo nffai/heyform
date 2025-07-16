@@ -1,4 +1,3 @@
-import { validatePayload } from '@heyform-inc/answer-utils'
 import {
   ActionEnum,
   Choice,
@@ -9,10 +8,12 @@ import {
   LogicPayload,
   Variable
 } from '@heyform-inc/shared-types-enums'
-import { nanoid } from '@heyform-inc/utils'
 import { IconPlus, IconTrash } from '@tabler/icons-react'
 import { type FC, type ReactNode, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
+
+import { validatePayload } from '@heyform-inc/answer-utils'
+import { nanoid } from '@heyform-inc/utils'
 
 import { Button, Form, Tooltip } from '@/components'
 import { FormFieldType } from '@/types'
@@ -219,7 +220,7 @@ export const PayloadList: FC<PayloadListProps> = ({
             )}
 
             <Button.Ghost size="md" onClick={handleAdd}>
-              <IconPlus className="h-5 w-5 text-secondary" />
+              <IconPlus className="text-secondary h-5 w-5" />
               {t('form.builder.logic.rule.addRule')}
             </Button.Ghost>
           </div>

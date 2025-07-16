@@ -1,4 +1,3 @@
-import { applyLogicToFields } from '@heyform-inc/answer-utils'
 import type {
   FormField,
   FormSettings,
@@ -8,11 +7,9 @@ import type {
   Variable
 } from '@heyform-inc/shared-types-enums'
 import { QUESTION_FIELD_KINDS } from '@heyform-inc/shared-types-enums'
-import { helper } from '@heyform-inc/utils'
 import { useContext } from 'react'
 import store2 from 'store2'
 
-import type { AnyMap, IFormField } from './typings'
 import {
   LRU,
   createStoreContext,
@@ -22,6 +19,10 @@ import {
   replaceHTML,
   validateLogicField
 } from './utils'
+import { applyLogicToFields } from '@heyform-inc/answer-utils'
+import { helper } from '@heyform-inc/utils'
+
+import type { AnyMap, IFormField } from './typings'
 
 let LRU_CACHE: LRU
 

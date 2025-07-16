@@ -5,7 +5,6 @@
     "sourceMap": true,
     "outDir": "./dist",
     "baseUrl": "./",
-    "strict": false,
     "paths": {
       "@decorator": ["src/common/decorator"],
       "@graphql": ["src/common/graphql"],
@@ -14,16 +13,13 @@
       "@interceptor": ["src/common/interceptor"],
       "@middleware": ["src/common/middleware"],
       "@config": ["src/config"],
-			"@environments": ["src/environments/index"],
-			"@environments/*": ["src/environments/*"],
+      "@environments": ["src/environments"],
       "@controller": ["src/controller"],
       "@model": ["src/model"],
       "@resolver": ["src/resolver"],
       "@service": ["src/service"],
       "@schedule": ["src/schedule"],
-      "@utils": ["src/utils"],
-      "@heyforms/integrations": ["src/utils/integrations"],
-      "@heyforms/nestjs": ["src/utils/nestjs"]
+      "@utils": ["src/utils"]
     },
     "incremental": true,
     "skipLibCheck": true,
@@ -37,6 +33,5 @@
     "allowUnreachableCode": false,
     "allowUnusedLabels": false
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx"],
-  "exclude": ["node_modules", "dashboard", "dist", "**/node_modules/@heyform-inc/shared-types-enums"]
+  "exclude": ["view", "node_modules", "dist"]
 }

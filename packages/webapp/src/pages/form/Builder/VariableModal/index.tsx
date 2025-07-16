@@ -1,7 +1,8 @@
 import { Variable } from '@heyform-inc/shared-types-enums'
-import { helper, nanoid } from '@heyform-inc/utils'
 import { useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+
+import { helper, nanoid } from '@heyform-inc/utils'
 
 import { Form, Input, Modal, Select } from '@/components'
 import { VARIABLE_INPUT_TYPES, VARIABLE_KIND_CONFIGS } from '@/consts'

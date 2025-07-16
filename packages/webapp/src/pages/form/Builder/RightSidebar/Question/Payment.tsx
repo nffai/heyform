@@ -1,14 +1,15 @@
 import { NumberPrice } from '@heyform-inc/shared-types-enums'
-import { helper } from '@heyform-inc/utils'
 import { IconArrowUpRight } from '@tabler/icons-react'
 import { useBoolean, useRequest } from 'ahooks'
 import { startTransition, useCallback, useMemo, useState } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
 
-import { Button, Input, Select, useAlert } from '@/components'
 import { PaymentService } from '@/services'
-import { useFormStore } from '@/store'
 import { useParam, useWindow } from '@/utils'
+import { helper } from '@heyform-inc/utils'
+
+import { Button, Input, Select, useAlert } from '@/components'
+import { useFormStore } from '@/store'
 
 import { useStoreContext } from '../../store'
 import { RequiredSettingsProps } from './Required'
@@ -123,7 +124,7 @@ export default function PaymentSettings({ field }: RequiredSettingsProps) {
               div: <div />,
               a: <a className="text-primary underline" href="#" target="_blank" rel="noreferrer" />,
               button: (
-                <Button.Link className="!h-auto !p-0 text-primary underline hover:bg-transparent" />
+                <Button.Link className="text-primary !h-auto !p-0 underline hover:bg-transparent" />
               )
             }}
           />
@@ -197,7 +198,7 @@ export default function PaymentSettings({ field }: RequiredSettingsProps) {
           <IconArrowUpRight className="inline h-5 w-5" />
         </Button>
 
-        {error && <div className="text-sm/6 text-error">{error.message}</div>}
+        {error && <div className="text-error text-sm/6">{error.message}</div>}
       </div>
     )
   }

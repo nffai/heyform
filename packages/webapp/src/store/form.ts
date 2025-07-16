@@ -1,21 +1,22 @@
-import { htmlUtils } from '@heyform-inc/answer-utils'
 import { getTheme } from '@heyform-inc/form-renderer'
 import {
   FormSettings,
   ThemeSettings,
   UNSELECTABLE_FIELD_KINDS
 } from '@heyform-inc/shared-types-enums'
-import { helper } from '@heyform-inc/utils'
 import { type Dayjs } from 'dayjs'
 import { create } from 'zustand'
 import computed from 'zustand-computed'
+
+import { getTimeZone, parseDuration, unixToDayjs } from '@/utils'
+import { htmlUtils } from '@heyform-inc/answer-utils'
+import { helper } from '@heyform-inc/utils'
 import { immer } from 'zustand/middleware/immer'
 
 import { TypeNumberValue } from '@/components'
 import { APP_STATUS_ENUM, DEFAULT_EMBED_CONFIGS } from '@/consts'
 import { DEFAULT_LNG } from '@/i18n'
 import { AppType, FormType, IntegratedAppType, IntegrationType } from '@/types'
-import { getTimeZone, parseDuration, unixToDayjs } from '@/utils'
 
 interface TempSettings extends FormSettings {
   closeForm?: boolean
@@ -38,11 +39,9 @@ interface FormStoreType {
   embedType: EmbedType
   themeSettings?: ThemeSettings
 
-  // Integrations
   apps: AppType[]
   integrations: IntegrationType[]
 
-  // Form preview
   previewMode?: 'desktop' | 'mobile'
 
   setForm: (form?: FormType) => void
@@ -77,10 +76,8 @@ const computeState = (state: FormStoreType): ComputedStoreType => {
 
     let status = APP_STATUS_ENUM.PENDING
 
-    if (helper.isValid(integration?.attributes)) {
+    if (helper.isValid(integration?.config)) {
       status = APP_STATUS_ENUM.ACTIVE
-    } else if (app.internalType === 3) {
-      status = APP_STATUS_ENUM.REDIRECT_TO_EXTERNAL
     }
 
     return {
@@ -122,7 +119,6 @@ export const useFormStore = create<FormStoreType>()(
           if (form?.settings) {
             const tempSettings = form.settings as TempSettings
 
-            // Form status
             tempSettings.closeForm = !tempSettings.active
 
             if (!tempSettings.expirationTimeZone) {

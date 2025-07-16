@@ -41,7 +41,7 @@ const DropdownItem: FC<DropdownItemProps> = ({ option, onClick }) => {
   return (
     <Item
       key={option.value}
-      className="flex cursor-pointer items-center gap-x-2 rounded-lg border-0 px-3.5 py-2.5 text-left text-base/6 outline-none focus-visible:outline-none disabled:opacity-60 data-[highlighted]:bg-accent-light sm:px-3 sm:py-1.5 sm:text-sm/6"
+      className="data-[highlighted]:bg-accent-light flex cursor-pointer items-center gap-x-2 rounded-lg border-0 px-3.5 py-2.5 text-left text-base/6 outline-none focus-visible:outline-none disabled:opacity-60 sm:px-3 sm:py-1.5 sm:text-sm/6"
       data-slot="item"
       data-value={option.value}
       disabled={option.disabled}
@@ -92,7 +92,7 @@ export const Dropdown: FC<DropdownProps> = ({
           align="end"
           {...contentProps}
           className={cn(
-            'isolate z-10 w-max overflow-y-auto rounded-xl bg-foreground p-1 shadow-lg outline outline-1 outline-transparent ring-1 ring-accent-light animate-in fade-in-0 zoom-in-95 focus:outline-none data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2',
+            'bg-foreground ring-accent-light animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 isolate z-10 w-max overflow-y-auto rounded-xl p-1 shadow-lg outline outline-1 outline-transparent ring-1 focus:outline-none',
             contentProps?.className
           )}
         >

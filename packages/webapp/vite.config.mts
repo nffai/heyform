@@ -84,14 +84,8 @@ export default ({ mode }: ConfigEnv) => {
           cookieDomainRewrite: {
             [env.VITE_COOKIE_DOMAIN_REWRITE]: env.VITE_COOKIE_DOMAIN
           },
-          // Remove `Secure` and `SameSite from proxyRes's `set-cookie`
-          // https://vitejs.dev/config/#server-proxy
+          
           configure: (proxy: any) => {
-            proxy.on('proxyReq', function(proxyReq: any) {
-              proxyReq.setHeader('Authorization', 'Basic cm9vdDo2NjY=')
-            })
-
-            // https://github.com/http-party/node-http-proxy/pull/1166#issuecomment-328764776
             proxy.on('proxyRes', function(proxyRes: any) {
               const removeSecure = (str: string) => str.replace(/; Secure|; SameSite=[^;]/gi, '')
               const set = proxyRes.headers['set-cookie']
@@ -107,13 +101,7 @@ export default ({ mode }: ConfigEnv) => {
         '/api': {
           target: env.VITE_PROXY_TARGET,
           secure: false,
-          changeOrigin: true,
-          // https://vitejs.dev/config/#server-proxy
-          configure: (proxy: any) => {
-            proxy.on('proxyReq', function(proxyReq: any) {
-              proxyReq.setHeader('Authorization', 'Basic cm9vdDo2NjY=')
-            })
-          }
+          changeOrigin: true
         }
       }
     }

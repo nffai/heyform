@@ -6,7 +6,7 @@ import { Variables } from './Variables'
 
 export const Logic: FC = () => {
   return (
-    <div className="space-y-4 divide-y divide-accent-light p-4">
+    <div className="divide-accent-light space-y-4 divide-y p-4">
       <HiddenFields />
       <Variables />
       <Rules />

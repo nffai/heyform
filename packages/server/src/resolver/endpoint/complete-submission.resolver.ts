@@ -1,10 +1,3 @@
-import { CompleteSubmissionInput, CompleteSubmissionType } from '@graphql'
-import { EndpointAnonymousIdGuard } from '@guard'
-import {
-  applyLogicToFields,
-  fieldValuesToAnswers,
-  flattenFields
-} from '@heyform-inc/answer-utils'
 import {
   Answer,
   CaptchaKindEnum,
@@ -13,19 +6,23 @@ import {
   SubmissionStatusEnum,
   Variable
 } from '@heyform-inc/shared-types-enums'
+import { BadRequestException, UseGuards } from '@nestjs/common'
+
+import { CompleteSubmissionInput, CompleteSubmissionType } from '@graphql'
+import { EndpointAnonymousIdGuard } from '@guard'
+import { applyLogicToFields, fieldValuesToAnswers, flattenFields } from '@heyform-inc/answer-utils'
 import { helper, timestamp } from '@heyform-inc/utils'
-import { BadRequestException, Headers, UseGuards } from '@nestjs/common'
 import { Args, Mutation, Resolver } from '@nestjs/graphql'
 import {
   EndpointService,
   FormReportService,
   FormService,
   IntegrationService,
-  QueueService,
+  PaymentService,
   SubmissionIpLimitService,
   SubmissionService
 } from '@service'
-import { ClientInfo, GqlClient } from '@decorator'
+import { ClientInfo, GqlClient } from '@utils'
 
 @Resolver()
 @UseGuards(EndpointAnonymousIdGuard)
@@ -37,12 +34,11 @@ export class CompleteSubmissionResolver {
     private readonly submissionIpLimitService: SubmissionIpLimitService,
     private readonly formReportService: FormReportService,
     private readonly integrationService: IntegrationService,
-    private readonly queueService: QueueService
+    private readonly paymentService: PaymentService
   ) {}
 
   @Mutation(returns => CompleteSubmissionType)
   async completeSubmission(
-    @Headers('x-anonymous-id') anonymousId: string,
     @GqlClient() client: ClientInfo,
     @Args('input') input: CompleteSubmissionInput
   ): Promise<CompleteSubmissionType> {
@@ -64,53 +60,20 @@ export class CompleteSubmissionResolver {
       throw new BadRequestException('The form does not have content')
     }
 
-    // const team = await this.teamService.findWithPlanById(form.teamId)
+    if (
+      form.settings.enableQuotaLimit &&
+      helper.isValid(form.settings.quotaLimit) &&
+      form.settings.quotaLimit > 0
+    ) {
+      const count = await this.submissionService.countInForm(input.formId)
 
-    /**
-     * If team subscription has expired, submit submission is prohibited
-     */
-    // if (team.subscription.status !== SubscriptionStatusEnum.ACTIVE) {
-    //   throw new BadRequestException('The workspace subscription expired')
-    // }
+      if (count >= form.settings.quotaLimit) {
+        throw new BadRequestException(
+          'The submission quota exceeds, new submissions are no longer accepted'
+        )
+      }
+    }
 
-    // const submissionQuota = await this.submissionService.countAllInTeam(team.id)
-
-    /**
-     * If the submission limit in the plan equals `-1`,
-     * then the number of submissions will not be limited
-     */
-    // Refactor at Jan 2, 2024
-
-    // Discard at Dec 20, 2021 (v2021.12.3)
-    // /**
-    //  * If the submission limit in the plan equals `-1`,
-    //  * then the number of submissions will not be limited
-    //  */
-    // if (
-    //   team.submissionQuota >= team.plan.submissionLimit &&
-    //   team.plan.submissionLimit !== -1
-    // ) {
-    //   throw new BadRequestException(
-    //     'The submission quota exceeds, new submissions are no longer accepted'
-    //   )
-    // }
-
-    // 检查是否超出了 form 自定义的可以接收的的数量
-    // if (
-    //   form.settings.enableQuotaLimit &&
-    //   helper.isValid(form.settings.quotaLimit) &&
-    //   form.settings.quotaLimit > 0
-    // ) {
-    //   const count = await this.submissionService.countInForm(input.formId)
-
-    //   if (count >= form.settings.quotaLimit) {
-    //     throw new BadRequestException(
-    //       'The submission quota exceeds, new submissions are no longer accepted'
-    //     )
-    //   }
-    // }
-
-    // 检查是否有 IP 限制
     if (
       form.settings.enableIpLimit &&
       helper.isValid(form.settings.ipLimitCount) &&
@@ -121,9 +84,7 @@ export class CompleteSubmissionResolver {
 
     // Check password
     if (form.settings.requirePassword) {
-      const { password } = this.endpointService.decryptToken(
-        input.passwordToken
-      )
+      const { password } = this.endpointService.decryptToken(input.passwordToken)
 
       if (password !== form.settings.password) {
         throw new BadRequestException('The password does not match')
@@ -131,9 +92,7 @@ export class CompleteSubmissionResolver {
     }
 
     // Start submit time
-    const { timestamp: startAt } = this.endpointService.decryptToken(
-      input.openToken
-    )
+    const { timestamp: startAt } = this.endpointService.decryptToken(input.openToken)
 
     // Bot prevention check
     if (form.settings?.captchaKind !== CaptchaKindEnum.NONE) {
@@ -152,11 +111,7 @@ export class CompleteSubmissionResolver {
         input.answers
       )
 
-      answers = fieldValuesToAnswers(
-        fields,
-        input.answers,
-        input.partialSubmission
-      )
+      answers = fieldValuesToAnswers(fields, input.answers, input.partialSubmission)
       variables = form.variables?.map(variable => ({
         ...variable,
         value: variableValues[variable.id]
@@ -186,24 +141,12 @@ export class CompleteSubmissionResolver {
       status = SubmissionStatusEnum.PRIVATE
     }
 
-    // Discard at Dec 20, 2021 (v2021.12.3)
-    // // 自增 submission 使用数量
-    // await this.teamService.update(form.teamId, {
-    //   $inc: {
-    //     submissionQuota: 1
-    //   }
-    // })
-
-    // TODO - add transaction
     const endAt = timestamp()
 
     const submissionId = await this.submissionService.create({
       teamId: form.teamId,
       formId: form.id,
       category,
-      // 关联 contact
-      // TODO - 检察 contact 是否存在于 team 中
-      contactId: input.contactId,
       title: form.name,
       answers,
       hiddenFields: input.hiddenFields,
@@ -211,7 +154,6 @@ export class CompleteSubmissionResolver {
       startAt,
       endAt,
       ip: client.ip,
-      geoLocation: client.geoLocation,
       userAgent: client.userAgent,
       status
     })
@@ -220,29 +162,21 @@ export class CompleteSubmissionResolver {
     const answer = answers.find(a => a.kind === FieldKindEnum.PAYMENT)
     const result: CompleteSubmissionType = {}
 
-    if (helper.isValid(answer)) {
-      // const amount = answer.value.amount
-      // const applicationFeeAmount = Big(answer.value.amount)
-      //   .times(team.plan?.commissionRate)
-      //   .toNumber()
-      const applicationFeeAmount = 0
-
-      // result.clientSecret = await this.paymentService.createPaymentIntent({
-      //   amount,
-      //   currency: answer.value.currency,
-      //   applicationFeeAmount,
-      //   stripeAccountId: form.stripeAccount.accountId,
-      //   metadata: {
-      //     submissionId,
-      //     fieldId: answer.id
-      //   }
-      // })
+    if (helper.isValid(answer) && helper.isValid(form.stripeAccount)) {
+      result.clientSecret = await this.paymentService.createPaymentIntent({
+        amount: answer.value.amount,
+        currency: answer.value.currency,
+        stripeAccountId: form.stripeAccount.accountId,
+        metadata: {
+          submissionId,
+          fieldId: answer.id
+        }
+      })
 
       await this.submissionService.updateAnswer(submissionId, {
         ...answer,
         value: {
           ...answer.value,
-          applicationFeeAmount,
           clientSecret: result.clientSecret
         }
       })
@@ -251,14 +185,8 @@ export class CompleteSubmissionResolver {
     // Form report Queue
     this.formReportService.addQueue(form.id)
 
-    // Email notification Queue
-    // @ts-ignore
-    if (form.settings?.enableEmailNotification) {
-      this.queueService.addEmailQueue(form.id, submissionId)
-    }
-
     // Integration Queue
-    this.integrationService.addQueue(form.id, submissionId)
+    this.integrationService.addQueue(form, submissionId)
 
     return result
   }

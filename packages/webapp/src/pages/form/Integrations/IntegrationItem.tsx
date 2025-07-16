@@ -1,15 +1,16 @@
-import { helper } from '@heyform-inc/utils'
 import { IconPencil, IconTrash } from '@tabler/icons-react'
 import { useRequest } from 'ahooks'
 import { FC, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { IntegrationService } from '@/services'
+import { useParam } from '@/utils'
+import { helper } from '@heyform-inc/utils'
+
 import { Button, Image, Switch, Tooltip } from '@/components'
 import { APP_STATUS_ENUM, INTEGRATION_STATUS_ENUM } from '@/consts'
-import { IntegrationService } from '@/services'
 import { useAppStore, useFormStore } from '@/store'
 import { IntegratedAppType } from '@/types'
-import { useParam } from '@/utils'
 
 interface IntegrationItemProps {
   app: IntegratedAppType
@@ -24,9 +25,9 @@ const IntegrationItem: FC<IntegrationItemProps> = ({ app }) => {
 
   const active = useMemo(
     () =>
-      helper.isValid(app.integration?.attributes) &&
+      helper.isValid(app.integration?.config) &&
       app.integration?.status === INTEGRATION_STATUS_ENUM.ACTIVE,
-    [app.integration?.attributes, app.integration?.status]
+    [app.integration?.config, app.integration?.status]
   )
 
   const { loading: toggleLoading, run: toggleRun } = useRequest(
@@ -53,10 +54,6 @@ const IntegrationItem: FC<IntegrationItemProps> = ({ app }) => {
     }
   )
 
-  function handleOpenLink() {
-    window.open(app.homepage, '_blank')
-  }
-
   function handleConnect() {
     openModal('IntegrationSettingsModal', { app })
   }
@@ -72,13 +69,6 @@ const IntegrationItem: FC<IntegrationItemProps> = ({ app }) => {
 
   const children = useMemo(() => {
     switch (app.status) {
-      case APP_STATUS_ENUM.REDIRECT_TO_EXTERNAL:
-        return (
-          <Button size="sm" onClick={handleOpenLink}>
-            {t('form.integrations.connect')}
-          </Button>
-        )
-
       case APP_STATUS_ENUM.ACTIVE:
         return (
           <div className="flex items-center gap-x-1">
@@ -105,21 +95,16 @@ const IntegrationItem: FC<IntegrationItemProps> = ({ app }) => {
           </Button>
         )
     }
-  }, [app.status, handleConnect, handleOpenLink, t, deleteLoading])
-
-  // Migrate to the new Slack integration before it is deprecated in the next version.
-  if (app.uniqueId === 'legacyslack' && !app.isAuthorized) {
-    return null
-  }
+  }, [handleConnect, t, deleteLoading])
 
   return (
-    <li className="cursor-default rounded-lg border border-input px-4 py-6 text-sm">
+    <li className="border-input cursor-default rounded-lg border px-4 py-6 text-sm">
       <div className="flex items-center justify-between">
-        <Image className="h-8 w-8 rounded-lg border border-accent-light" src={app.avatar} />
+        <Image className="border-accent-light h-8 w-8 rounded-lg border" src={app.icon} />
         {children}
       </div>
       <div className="mt-2 font-medium">{app.name}</div>
-      <div className="mt-1 text-secondary">{app.description}</div>
+      <div className="text-secondary mt-1">{app.description}</div>
     </li>
   )
 }

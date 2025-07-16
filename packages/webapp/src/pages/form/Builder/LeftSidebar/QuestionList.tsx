@@ -1,24 +1,25 @@
-import { htmlUtils } from '@heyform-inc/answer-utils'
 import { numberToChar, questionNumber } from '@heyform-inc/form-renderer'
 import {
   FieldKindEnum,
   OTHER_FIELD_KINDS,
   QUESTION_FIELD_KINDS
 } from '@heyform-inc/shared-types-enums'
-import { helper } from '@heyform-inc/utils'
 import { IconCaretDownFilled, IconDotsVertical, IconPlus } from '@tabler/icons-react'
 import { FC, MouseEvent, useCallback, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Panel, PanelGroup, PanelResizeHandle } from 'react-resizable-panels'
 import { ReactSortable } from 'react-sortablejs'
 
+import { getFieldFromKind } from '../utils'
+import { cn, nextTick } from '@/utils'
+import { htmlUtils } from '@heyform-inc/answer-utils'
+import { helper } from '@heyform-inc/utils'
+
 import { Button, Dropdown, Tooltip } from '@/components'
 import { ALL_FIELD_CONFIGS } from '@/consts'
 import { FormFieldType } from '@/types'
-import { cn, nextTick } from '@/utils'
 
 import { useStoreContext } from '../store'
-import { getFieldFromKind } from '../utils'
 
 interface QuestionIconProps extends ComponentProps {
   configs?: AnyMap[]
@@ -49,7 +50,7 @@ export const QuestionIcon: FC<QuestionIconProps> = ({
   return (
     <div
       className={cn(
-        'flex h-6 w-12 items-center justify-between rounded border border-input bg-foreground px-1.5 [&_[data-slot=icon]]:-ml-0.5 [&_[data-slot=icon]]:h-4 [&_[data-slot=icon]]:w-4 [&_[data-slot=index]]:text-xs [&_[data-slot=index]]:font-medium',
+        'border-input bg-foreground flex h-6 w-12 items-center justify-between rounded border px-1.5 [&_[data-slot=icon]]:-ml-0.5 [&_[data-slot=icon]]:h-4 [&_[data-slot=icon]]:w-4 [&_[data-slot=index]]:text-xs [&_[data-slot=index]]:font-medium',
         className
       )}
       style={style}
@@ -257,7 +258,7 @@ const Question: FC<QuestionProps> = ({
           <QuestionIcon kind={field.kind} index={field.index} parentIndex={parentField?.index} />
 
           {/* Title */}
-          <div className="question-title ml-3 mr-1 line-clamp-2 flex-1 shrink basis-0 overflow-hidden break-words text-xs font-semibold text-secondary group-hover:text-primary group-data-[active=true]/root:text-primary">
+          <div className="question-title text-secondary group-hover:text-primary group-data-[active=true]/root:text-primary ml-3 mr-1 line-clamp-2 flex-1 shrink basis-0 overflow-hidden break-words text-xs font-semibold">
             {htmlUtils.plain(field.title as string)}
           </div>
         </div>
@@ -277,12 +278,12 @@ const Question: FC<QuestionProps> = ({
               onClick={handleMenuClick}
             >
               <Button.Link
-                className="question-dropdown !h-5 !w-5 rounded opacity-0 aria-expanded:bg-accent-light aria-expanded:opacity-100"
+                className="question-dropdown aria-expanded:bg-accent-light !h-5 !w-5 rounded opacity-0 aria-expanded:opacity-100"
                 size="sm"
                 iconOnly
               >
                 <Tooltip label={t('form.builder.question.menuTip')}>
-                  <IconDotsVertical className="h-4 w-4 text-secondary" />
+                  <IconDotsVertical className="text-secondary h-4 w-4" />
                 </Tooltip>
               </Button.Link>
             </Dropdown>
@@ -295,7 +296,7 @@ const Question: FC<QuestionProps> = ({
               iconOnly
               onClick={handleToggleCollapse}
             >
-              <IconCaretDownFilled className="h-4 w-4 rotate-180 text-secondary transition-transform duration-150" />
+              <IconCaretDownFilled className="text-secondary h-4 w-4 rotate-180 transition-transform duration-150" />
             </Button.Link>
           )}
         </div>
@@ -426,11 +427,11 @@ export default function QuestionList() {
         </div>
       </Panel>
 
-      <PanelResizeHandle className="mx-2 border-t border-accent-light" />
+      <PanelResizeHandle className="border-accent-light mx-2 border-t" />
 
       <Panel className="flex flex-col" defaultSize={30} maxSize={65}>
         <div className="flex items-center justify-between px-4 py-2">
-          <div className="text-sm/6 font-medium text-primary">
+          <div className="text-primary text-sm/6 font-medium">
             {t('form.builder.sidebar.endings')}
           </div>
 

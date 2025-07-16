@@ -1,11 +1,12 @@
-import { ENCRYPTION_KEY } from '@environments'
+import { BadRequestException, Headers, UseGuards } from '@nestjs/common'
+
+import { FORM_ENCRYPTION_KEY } from '@environments'
 import { VerifyPasswordInput } from '@graphql'
 import { EndpointAnonymousIdGuard } from '@guard'
-import { aesEncryptObject } from '@heyforms/nestjs'
 import { timestamp } from '@heyform-inc/utils'
-import { BadRequestException, Headers, UseGuards } from '@nestjs/common'
 import { Args, Query, Resolver } from '@nestjs/graphql'
 import { FormService } from '@service'
+import { aesEncryptObject } from '@utils'
 
 @Resolver()
 @UseGuards(EndpointAnonymousIdGuard)
@@ -31,10 +32,7 @@ export class FormPasswordResolver {
       throw new BadRequestException('The form does not active')
     }
 
-    if (
-      !form.settings.requirePassword ||
-      input.password !== form.settings.password
-    ) {
+    if (!form.settings.requirePassword || input.password !== form.settings.password) {
       throw new BadRequestException('The password does not match')
     }
 
@@ -44,7 +42,7 @@ export class FormPasswordResolver {
         anonymousId,
         password: input.password
       },
-      ENCRYPTION_KEY
+      FORM_ENCRYPTION_KEY
     )
   }
 }

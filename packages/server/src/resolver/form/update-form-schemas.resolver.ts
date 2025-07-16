@@ -1,9 +1,10 @@
+import { BadRequestException, HttpStatus } from '@nestjs/common'
+
 import { Auth, FormGuard } from '@decorator'
 import { FormSchemasType, UpdateFormSchemasInput } from '@graphql'
 import { timestamp } from '@heyform-inc/utils'
 import { Args, Mutation, Resolver } from '@nestjs/graphql'
 import { FormService } from '@service'
-import { BadRequestException, HttpStatus } from '@nestjs/common'
 
 @Resolver()
 @Auth()
@@ -12,9 +13,7 @@ export class UpdateFormSchemasResolver {
 
   @Mutation(returns => FormSchemasType)
   @FormGuard()
-  async updateFormSchemas(
-    @Args('input') input: UpdateFormSchemasInput
-  ): Promise<FormSchemasType> {
+  async updateFormSchemas(@Args('input') input: UpdateFormSchemasInput): Promise<FormSchemasType> {
     const form = await this.formService.findById(input.formId)
 
     if (form.version > input.version) {
@@ -26,12 +25,6 @@ export class UpdateFormSchemasResolver {
     }
 
     const updates = {
-      // Discard at Apr 14, 2022
-      // name: input.name,
-      // nameSchema: input.nameSchema,
-      // welcomePage: input.welcomePage,
-      // thankYouPage: input.thankYouPage,
-      // Refactor at Jun 22, 2024
       _drafts: JSON.stringify(input.drafts),
       fieldsUpdatedAt: timestamp(),
       version: input.version + 1

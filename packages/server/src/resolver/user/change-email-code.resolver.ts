@@ -1,7 +1,8 @@
+import { BadRequestException } from '@nestjs/common'
+
 import { Auth, User } from '@decorator'
 import { ChangeEmailCodeInput } from '@graphql'
 import { UserModel } from '@model'
-import { BadRequestException } from '@nestjs/common'
 import { Args, Query, Resolver } from '@nestjs/graphql'
 import { AuthService, MailService, UserService } from '@service'
 import { isDisposableEmail } from '@utils'
@@ -32,20 +33,10 @@ export class ChangeEmailCodeResolver {
       throw new BadRequestException('The email address is already exists')
     }
 
-    // @Discard at 3 Mar 2022
-    // 修改邮箱地址不需要输入密码
-    // // Check if change email attempts is exceeded
-    // const attemptsKey = `limit:change_email:${user.id}`
     //
-    // await this.authService.attemptsCheck(attemptsKey, async () => {
-    //   const verified = await comparePassword(input.password, user.password)
-    //
-    //   if (!verified) {
-    //     throw new BadRequestException('The password does not match')
-    //   }
-    // })
 
-    // Add a code of new email address to cache
+    //
+
     const key = `verify_email:${user.id}:${input.email}`
     const code = await this.authService.getVerificationCode(key)
 

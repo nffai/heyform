@@ -83,7 +83,7 @@ function Tr<T, K>({ index, record, columns, isSelected, onSelect, onClick }: TrP
 
   return (
     <tr
-      className="cursor-pointer border-b border-accent hover:bg-primary/[2.5%] data-[selected]:bg-primary/[2.5%] [&:hover_[data-slot=expand]]:opacity-100"
+      className="border-accent hover:bg-primary/[2.5%] data-[selected]:bg-primary/[2.5%] cursor-pointer border-b [&:hover_[data-slot=expand]]:opacity-100"
       data-selected={isSelected ? '' : undefined}
       onClick={handleClick}
     >
@@ -244,7 +244,7 @@ export function Table<T, K>({
       } else {
         return (
           <table className={classNames?.table}>
-            <thead className="border-b border-accent">{Thead}</thead>
+            <thead className="border-accent border-b">{Thead}</thead>
             <tbody>{TBody}</tbody>
           </table>
         )

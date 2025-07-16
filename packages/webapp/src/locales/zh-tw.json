@@ -509,9 +509,6 @@
       "檢索您的 HeyForm 帳戶資訊"
     ]
   },
-  "onboarding": {
-    "title": "入門"
-  },
   "workspace": {
     "notExist": "該工作區不存在。",
     "backHome": "返回 HeyForm",
@@ -552,12 +549,6 @@
       "headline": "您已被邀請加入 <span1>{{owner}}</span1> 的工作區：<span2>{{name}}</span2>",
       "subHeadline": "立即加入工作區並開始協作吧！",
       "join": "加入"
-    },
-    "trial": {
-      "title": "開始7天免費試用",
-      "subHeadline": "無需合同，只需在控制面板上單擊一下即可降級或取消訂閱。",
-      "startTrial": "開始試用",
-      "continueWithFree": "繼續使用免費計劃"
     }
   },
   "dashboard": {
@@ -624,110 +615,6 @@
       "sentSuccessMessage": "已通知受邀成員通過電子郵件註冊 HeyForm"
     }
   },
-  "billing": {
-    "title": "帳單",
-    "planName": "{{name}} 套餐",
-    "year": "年",
-    "month": "月",
-    "cycles": ["永久", "每月", "每年"],
-    "save16": "節省 16%",
-    "keepFreePlan": "繼續使用免費套餐",
-    "plans": {
-      "headline": "套餐",
-      "subHeadline": "工作區 <strong>{{workspaceName}}</strong> 當前使用的是 {{planName}} 套餐。",
-      "view": "查看套餐"
-    },
-    "subscription": {
-      "headline": "當前套餐",
-      "subHeadline": "工作區目前使用的是 {{planName}} 套餐。",
-      "manage": "管理訂閱",
-      "renewsOn": "續訂日期：{{date}}。",
-      "neverExpires": "永不過期。",
-      "canceled": "已於 {{canceledAt}} 取消，有效期至 {{endAt}}。"
-    },
-    "invoices": {
-      "headline": "發票",
-      "subHeadline": "訪問 <button>Stripe 客戶門戶</button> 查看您的發票。"
-    },
-    "upgrade": {
-      "title": "升級套餐",
-      "headline": "升級您的套餐",
-      "subHeadline": "您已達到當前套餐的限制或正在嘗試使用高級功能。請升級以解鎖此功能。",
-      "removeBranding": "升級到高級版以移除 HeyForm 品牌標識",
-      "customDomain": "升級到高級版以設置自定義域名",
-      "translations": "升級到高級版以翻譯表單問題",
-      "customCSS": "升級到高級版以設置自定義 CSS",
-      "report": "升級到基礎版以查看表單報告",
-      "customize": "升級到基礎版以自定義表單",
-      "exportData": "升級到基礎版以導出 CSV 數據",
-      "theme": "升級到基礎版以設置表單主題",
-      "metadata": "升級到基礎版以設置鏈接設置",
-      "confirm": "升级",
-      "remaining_one": "剩餘 {{count}} 天",
-      "remaining_other": "剩餘 {{count}} 天",
-      "trialing": "試用中",
-      "trialTip_zero": "{{name}} 試用期今天結束",
-      "trialTip_one": "{{name}} 試用期還剩 {{count}} 天",
-      "trialTip_other": "{{name}} 試用期還剩 {{count}} 天",
-      "hiddenFields": "升級到基本版以新增隱藏欄位",
-      "brandKit": "升級到高級版以設置品牌套件",
-      "redirect": "升級到基本版以設置重導",
-      "upgradeTip": "免費套餐將於2025年5月1日停止服務。建議您升級至進階計劃或選擇自託管解決方案。"
-    },
-    "payment": {
-      "headline": "升級套餐",
-      "couponCode": {
-        "label": "優惠碼",
-        "require": "優惠碼不能為空"
-      },
-      "apply": "套用",
-      "subtotal": "小計",
-      "discount": "折扣",
-      "total": "總計",
-      "confirm": "立即升級"
-    },
-    "downgrade": {
-      "headline": "降級套餐",
-      "subHeadline": "一旦您確認降級，您的工作區：<strong>{{workspaceName}}</strong> 將無法再訪問 <strong>{{planName}}</strong> 套餐的功能。",
-      "confirm": "確認降級"
-    },
-    "features": {
-      "basic": [
-        "無限表單",
-        "每月 5,000 次回應",
-        "10GB 工作區存儲",
-        "表單報告",
-        "自定義元數據",
-        "隱藏欄位",
-        "主題自定義",
-        "完成後重定向",
-        "下載數據"
-      ],
-      "premium": [
-        "BASIC 套餐的所有功能",
-        "每月 20,000 次回應",
-        "20GB 工作區存儲",
-        "最多邀請 3 名成員",
-        "自訂域名",
-        "自訂 CSS",
-        "移除 HeyForm 品牌標誌",
-        "優先支援服務"
-      ],
-      "business": [
-        "PREMIUM 套餐的所有功能",
-        "每月 150,000 次回應",
-        "50GB 工作區存儲",
-        "最多邀請 10 名成員",
-        "支付無佣金",
-        "文件上傳無大小限制"
-      ]
-    },
-    "success": {
-      "title": "付款成功",
-      "description": "感謝您的付款。您的訂單正在處理中。",
-      "button": "返回儀表板"
-    }
-  },
   "settings": {
     "title": "工作區設置",
     "branding": {
@@ -751,25 +638,6 @@
         "input": "您的答案在此填寫",
         "next": "下一步"
       }
-    },
-    "customDomain": {
-      "headline": "自訂域名",
-      "subHeadline": "自訂域名允許您在自己的非 HeyForm 域名上訪問表單。 <a>了解更多 <icon /></a>",
-      "placeholder": "例如：yourcustomdomain.com",
-      "invalid": "域名無效",
-      "tip1": "自訂域名允許您在自己的非 HeyForm 域名上訪問表單（例如：yourcustomdomain.com）。HeyForm 支持所有頂級域名作為自訂域名。<a>了解更多 <icon /></a>",
-      "tip2": "請將以下 DNS 記錄添加到您的域名提供商的 DNS 設置中。您可以使用此工具驗證您的域名 DNS 記錄：<a>DNS 查詢 <icon /></a>",
-      "type": "類型",
-      "name": "名稱",
-      "cname": "CNAME",
-      "aname": "A",
-      "content": "內容",
-      "ttl": "TTL",
-      "ttlAuto": "自動 / 預設",
-      "dnsOnly": "僅 DNS",
-      "proxyStatus": "代理狀態",
-      "proxyTip": "對於像 Cloudflare 這樣的域名提供商，我們建議您禁用代理功能",
-      "dnsError": "我們無法驗證您的 DNS 記錄。如果您已經設定，請稍後再試。"
     },
     "exportData": {
       "title": "匯出資料",

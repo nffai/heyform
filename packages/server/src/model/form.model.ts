@@ -1,18 +1,19 @@
 import {
   FormField,
   FormKindEnum,
-  FormModel as IForModel,
   FormSettings,
   FormStatusEnum,
   HiddenField,
+  FormModel as IForModel,
   InteractiveModeEnum,
   StripeAccount,
   ThemeSettings
 } from '@heyform-inc/shared-types-enums'
 import { Logic, Variable } from '@heyform-inc/shared-types-enums'
-import { helper, nanoid, parseJson } from '@heyform-inc/utils'
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose'
 import { Document } from 'mongoose'
+
+import { helper, nanoid, parseJson } from '@heyform-inc/utils'
 
 @Schema({
   timestamps: true,
@@ -36,12 +37,6 @@ export class FormModel extends Document {
   @Prop({ required: true })
   name: string
 
-  // Discard at Apr 14, 2022
-  // // HeyForm Form Builder v2.0
-  // @Prop({ default: [] })
-  // nameSchema?: any[]
-
-  // @Discarded
   @Prop()
   description?: string
 
@@ -64,30 +59,18 @@ export class FormModel extends Document {
   @Prop()
   settings?: FormSettings
 
-  // Discard at Apr 14, 2022
-  // // HeyForm Form Builder v2.0
-  // @Prop()
-  // welcomePage?: ThankYouPage
-  //
-  // // HeyForm Form Builder v2.0
-  // @Prop()
-  // thankYouPage?: ThankYouPage
-
   @Prop({ default: [] })
   fields?: FormField[]
 
-  // Add in April 22, 2024
   @Prop({ default: [] })
   hiddenFields?: HiddenField[]
 
   @Prop({ type: Map, default: {} })
   translations?: IForModel['translations']
 
-  // Add in Jun 30, 2022
   @Prop({ default: [] })
   logics?: Logic[]
 
-  // Add in Jun 30, 2022
   @Prop({ default: [] })
   variables?: Variable[]
 
@@ -97,8 +80,6 @@ export class FormModel extends Document {
   @Prop()
   themeSettings?: ThemeSettings
 
-  // Stripe
-  // Add at Sep 29, 2022
   @Prop()
   stripeAccount?: StripeAccount
 
@@ -117,8 +98,6 @@ export class FormModel extends Document {
   @Prop({ default: 0 })
   version: number
 
-  // AI forms
-  // Add at Jul 26, 2024
   @Prop()
   topic?: string
 
@@ -159,9 +138,7 @@ FormSchema.virtual('isDraft').get(function () {
 })
 
 FormSchema.virtual('canPublish').get(function () {
-  return (
-    helper.isValid(this._drafts) && this._drafts !== JSON.stringify(this.fields)
-  )
+  return helper.isValid(this._drafts) && this._drafts !== JSON.stringify(this.fields)
 })
 
 FormSchema.index({ teamId: 1, projectId: 1 }, { unique: false })

@@ -3,10 +3,11 @@ import { IconCalendar, IconDots, IconPrinter } from '@tabler/icons-react'
 import { FC, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { formatDay, unixDate } from '@/utils'
+
 import { Button, Dropdown, Modal, TableRef, TableState, Tooltip } from '@/components'
 import { useModal } from '@/store'
 import { SubmissionType } from '@/types'
-import { formatDay, unixDate } from '@/utils'
 
 import SubmissionCell, { SubmissionHeaderCell } from './SubmissionCell'
 
@@ -31,7 +32,7 @@ const SubmissionItem: FC<SubmissionItemProps> = ({ submission, field }) => {
   return (
     <div className="grid grid-cols-1 gap-5 pt-4 text-sm/6 sm:grid-cols-[min(50%,theme(spacing.80))_auto]">
       <SubmissionHeaderCell
-        className="items-start gap-x-2 text-secondary [&_[data-slot=icon]]:h-5 [&_[data-slot=icon]]:w-5 [&_[data-slot=label]]:text-wrap [&_[data-slot=question-icon]]:h-6 [&_[data-slot=question-icon]]:w-6"
+        className="text-secondary items-start gap-x-2 [&_[data-slot=icon]]:h-5 [&_[data-slot=icon]]:w-5 [&_[data-slot=label]]:text-wrap [&_[data-slot=question-icon]]:h-6 [&_[data-slot=question-icon]]:w-6"
         field={field}
       />
       <div className="min-w-0 flex-1">
@@ -79,13 +80,13 @@ const SubmissionDetail: FC<SubmissionDetailProps> = () => {
     <div className="flex h-full flex-col">
       <div className="flex items-end px-6 pb-2 pt-6">
         <div className="flex-1">
-          <h1 className="text-2xl/8 font-semibold text-primary sm:text-xl/8">
+          <h1 className="text-primary text-2xl/8 font-semibold sm:text-xl/8">
             {t('form.submissions.detail.headline')}
           </h1>
 
           <div className="mt-2 flex flex-wrap gap-4">
-            <span className="flex items-center gap-3 text-base/6 text-primary sm:text-sm/6">
-              <IconCalendar className="h-4 w-4 text-secondary" />
+            <span className="text-primary flex items-center gap-3 text-base/6 sm:text-sm/6">
+              <IconCalendar className="text-secondary h-4 w-4" />
               <span>{submitDate}</span>
             </span>
           </div>
@@ -132,7 +133,7 @@ const SubmissionDetail: FC<SubmissionDetailProps> = () => {
       </div>
 
       <div className="scrollbar flex-1 overflow-y-auto px-6 pb-6">
-        <div className="space-y-4 divide-y divide-accent-light">
+        <div className="divide-accent-light space-y-4 divide-y">
           {fields.map(field => (
             <SubmissionItem key={field.id} submission={payload?.submission} field={field} />
           ))}

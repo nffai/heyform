@@ -1,12 +1,13 @@
-import { helper } from '@heyform-inc/utils'
 import { useEffect, useState } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
-import { Form, Input, PasswordStrength } from '@/components'
 import { AuthService } from '@/services'
-import { useUserStore } from '@/store'
 import { useRouter } from '@/utils'
+import { helper } from '@heyform-inc/utils'
+
+import { Form, Input, PasswordStrength } from '@/components'
+import { useUserStore } from '@/store'
 
 const ResetPassword = () => {
   const { t } = useTranslation()
@@ -45,7 +46,7 @@ const ResetPassword = () => {
     <div className="mx-auto grid w-[21.875rem] gap-6 py-12 lg:py-0">
       <div className="grid gap-2 text-center">
         <h1 className="text-3xl font-bold">{t('resetPassword.title')}</h1>
-        <p className="text-sm text-secondary">
+        <p className="text-secondary text-sm">
           {t('resetPassword.subHeadline', { email: temporaryEmail })}
         </p>
       </div>
@@ -89,7 +90,7 @@ const ResetPassword = () => {
             {
               required: true,
               pattern:
-                /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[!#$%&()*+\-,.\/\\:<=>?@\[\]^_{|}~0-9a-zA-Z]{8,}$/,
+                /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[!#$%&()*+\-,./\\:<=>?@[\]^_{|}~0-9a-zA-Z]{8,}$/,
               message: t('components.password.invalid')
             },
             {
@@ -119,12 +120,12 @@ const ResetPassword = () => {
         </Form.Item>
       </Form.Simple>
 
-      <p className="text-center text-sm text-secondary">
+      <p className="text-secondary text-center text-sm">
         <Trans
           t={t}
           i18nKey="forgotPassword.toLogin"
           components={{
-            a: <Link className="underline underline-offset-4 hover:text-primary" to="/login" />
+            a: <Link className="hover:text-primary underline underline-offset-4" to="/login" />
           }}
         />
       </p>

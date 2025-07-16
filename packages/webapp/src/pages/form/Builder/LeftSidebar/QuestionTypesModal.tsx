@@ -2,17 +2,13 @@ import { FieldKindEnum } from '@heyform-inc/shared-types-enums'
 import { FC, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Modal, useOnboardingStorage } from '@/components'
-import {
-  ADD_QUESTION2_STORAGE_NAME,
-  ALL_FIELD_CONFIGS,
-  BLOCK_GROUPS,
-  FIELD_WELCOME_CONFIG
-} from '@/consts'
+import { getFieldFromKind } from '../utils'
+
+import { Modal } from '@/components'
+import { ALL_FIELD_CONFIGS, BLOCK_GROUPS, FIELD_WELCOME_CONFIG } from '@/consts'
 import { useAppStore, useModal } from '@/store'
 
 import { useStoreContext } from '../store'
-import { getFieldFromKind } from '../utils'
 import { QuestionIcon } from './QuestionList'
 
 interface QuestionTypeItemProps {
@@ -30,7 +26,6 @@ const QuestionTypeItem: FC<QuestionTypeItemProps> = ({
 
   const { closeModal } = useAppStore()
   const { dispatch } = useStoreContext()
-  const { setItem } = useOnboardingStorage()
 
   const isDisabled =
     (config.kind === FieldKindEnum.WELCOME && isWelcomeDisabled) ||
@@ -40,8 +35,6 @@ const QuestionTypeItem: FC<QuestionTypeItemProps> = ({
     if (isDisabled) {
       return
     }
-
-    setItem(ADD_QUESTION2_STORAGE_NAME, true)
 
     closeModal('QuestionTypesModal')
     dispatch({
@@ -56,7 +49,7 @@ const QuestionTypeItem: FC<QuestionTypeItemProps> = ({
     <li>
       <button
         type="button"
-        className="group flex w-full items-center gap-x-2 rounded-md px-2 py-1.5 text-sm/6 font-medium text-primary hover:bg-accent-light aria-disabled:pointer-events-none aria-disabled:opacity-60"
+        className="text-primary hover:bg-accent-light group flex w-full items-center gap-x-2 rounded-md px-2 py-1.5 text-sm/6 font-medium aria-disabled:pointer-events-none aria-disabled:opacity-60"
         aria-disabled={isDisabled}
         onClick={handleClick}
       >
@@ -92,7 +85,7 @@ const QuestionTypesComponent = () => {
 
   return (
     <div>
-      <h2 className="text-balance text-xl/6 font-semibold text-primary sm:text-lg/6">
+      <h2 className="text-primary text-balance text-xl/6 font-semibold sm:text-lg/6">
         {t('form.builder.sidebar.addQuestion')}
       </h2>
 
@@ -101,7 +94,7 @@ const QuestionTypesComponent = () => {
           <div key={index} className="space-y-8">
             {row.map(group => (
               <div key={group.name}>
-                <div className="pl-2 text-sm/6 font-medium text-secondary">{t(group.name)}</div>
+                <div className="text-secondary pl-2 text-sm/6 font-medium">{t(group.name)}</div>
                 <ul className="mt-1 space-y-1" key={group.name}>
                   {group.list.map(config => (
                     <QuestionTypeItem

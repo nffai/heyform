@@ -1,8 +1,8 @@
-import { Args, Query, Resolver } from '@nestjs/graphql'
 import { Auth, Team, TeamGuard, User } from '@decorator'
-import { FormService, ProjectService } from '@service'
 import { SearchTeamInput, SearchTeamType } from '@graphql'
 import { TeamModel, UserModel } from '@model'
+import { Args, Query, Resolver } from '@nestjs/graphql'
+import { FormService, ProjectService } from '@service'
 
 @Resolver()
 @Auth()
@@ -20,11 +20,7 @@ export class SearchTeamResolver {
     @Args('input') input: SearchTeamInput
   ) {
     const projectIds = await this.projectService.findProjectsByMemberId(user.id)
-    const forms = await this.formService.searchInTeam(
-      team.id,
-      projectIds,
-      input.query
-    )
+    const forms = await this.formService.searchInTeam(team.id, projectIds, input.query)
 
     return {
       forms,

@@ -73,7 +73,7 @@ export default function Question() {
       <TypeSwitcher />
 
       {/* Settings */}
-      <div className="mb-4 border-b border-accent-light pb-4">
+      <div className="border-accent-light mb-4 border-b pb-4">
         <div className="text-sm/6 font-medium">{t('form.builder.settings.title')}</div>
         <Settings field={state.currentField} />
       </div>

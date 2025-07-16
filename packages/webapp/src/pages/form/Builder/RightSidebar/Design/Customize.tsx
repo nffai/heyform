@@ -1,15 +1,16 @@
 import { GOOGLE_FONTS, SYSTEM_FONTS, insertWebFont } from '@heyform-inc/form-renderer'
 import { FormTheme } from '@heyform-inc/shared-types-enums'
-import { helper } from '@heyform-inc/utils'
 import { useRequest } from 'ahooks'
 import { useForm as useRCForm } from 'rc-field-form'
 import { FC, useEffect, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Button, ColorPicker, Form, ImagePicker, Input, Select, useToast } from '@/components'
 import { FormService } from '@/services'
-import { useFormStore } from '@/store'
 import { nextTick, useParam } from '@/utils'
+import { helper } from '@heyform-inc/utils'
+
+import { Button, ColorPicker, Form, ImagePicker, Input, Select, useToast } from '@/components'
+import { useFormStore } from '@/store'
 
 import ImageBrightness, { ImageBrightnessProps } from '../Question/ImageBrightness'
 
@@ -214,7 +215,7 @@ export default function Customize() {
           </Form.Item>
         </div>
 
-        <div className="border-t border-accent-light pt-4">
+        <div className="border-accent-light border-t pt-4">
           <Form.Item
             name="backgroundImage"
             className="[&_[data-slot=content]]:flex-none [&_[data-slot=control]]:flex [&_[data-slot=control]]:items-center [&_[data-slot=control]]:justify-between"
@@ -225,14 +226,14 @@ export default function Customize() {
         </div>
 
         {helper.isValid(themeSettings?.theme?.backgroundImage) && (
-          <div className="border-t border-accent-light pt-4">
+          <div className="border-accent-light border-t pt-4">
             <Form.Item name="backgroundBrightness">
               <ImageBrightness imageURL={themeSettings?.theme?.backgroundImage} />
             </Form.Item>
           </div>
         )}
 
-        <div className="border-t border-accent-light pt-4">
+        <div className="border-accent-light border-t pt-4">
           <Form.Item
             name="customCSS"
             label={
@@ -245,7 +246,7 @@ export default function Customize() {
           </Form.Item>
         </div>
 
-        <div className="sticky bottom-4 flex items-center gap-x-4 border-t border-accent-light bg-foreground pt-4">
+        <div className="border-accent-light bg-foreground sticky bottom-4 flex items-center gap-x-4 border-t pt-4">
           <Button.Ghost size="md" onClick={handleRevert}>
             {t('components.revert')}
           </Button.Ghost>

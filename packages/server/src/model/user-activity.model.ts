@@ -1,7 +1,7 @@
-import { GeoLocation } from '@heyforms/nestjs'
-import { UserAgent } from '@heyforms/nestjs'
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose'
 import { Document } from 'mongoose'
+
+import { UserAgent } from '@utils'
 
 export enum UserActivityKindEnum {
   LOGIN = 1,
@@ -28,9 +28,6 @@ export class UserActivityModel extends Document {
   ip: string
 
   @Prop()
-  geoLocation: GeoLocation
-
-  @Prop()
   userAgent: UserAgent
 
   @Prop()
@@ -40,6 +37,4 @@ export class UserActivityModel extends Document {
   addition?: Record<string, any>
 }
 
-export const UserActivitySchema = SchemaFactory.createForClass(
-  UserActivityModel
-)
+export const UserActivitySchema = SchemaFactory.createForClass(UserActivityModel)

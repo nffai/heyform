@@ -8,14 +8,9 @@ import { FormService } from '@service'
 export class UpdateFormVariablesResolver {
   constructor(private readonly formService: FormService) {}
 
-  /**
-   * Update form variables
-   */
   @Mutation(returns => Boolean)
   @FormGuard()
-  async updateFormVariables(
-    @Args('input') input: UpdateFormVariablesInput
-  ): Promise<boolean> {
+  async updateFormVariables(@Args('input') input: UpdateFormVariablesInput): Promise<boolean> {
     return this.formService.update(input.formId, {
       variables: input.variables
     })

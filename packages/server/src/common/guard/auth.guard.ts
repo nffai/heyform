@@ -1,6 +1,3 @@
-import { COOKIE_USERID_NAME } from '@config'
-import { SESSION_MAX_AGE } from '@environments'
-import { helper, hs, timestamp } from '@heyform-inc/utils'
 import {
   CanActivate,
   ExecutionContext,
@@ -8,6 +5,10 @@ import {
   Injectable,
   UnauthorizedException
 } from '@nestjs/common'
+
+import { COOKIE_DEVICE_ID_NAME } from '@config'
+import { SESSION_MAX_AGE } from '@environments'
+import { helper, hs, timestamp } from '@heyform-inc/utils'
 import { GqlExecutionContext } from '@nestjs/graphql'
 import { AuthService, UserService } from '@service'
 
@@ -26,7 +27,7 @@ export class AuthGuard implements CanActivate {
       req = context.switchToHttp().getRequest()
     }
 
-    const deviceId = req.get('x-device-id') || req.cookies[COOKIE_USERID_NAME]
+    const deviceId = req.get('x-device-id') || req.cookies[COOKIE_DEVICE_ID_NAME]
     const user = this.authService.getSession(req)
 
     if (helper.isValid(user)) {
@@ -40,12 +41,8 @@ export class AuthGuard implements CanActivate {
         const detail = await this.userService.findById(user.id)
 
         if (helper.isValid(detail)) {
-          if (detail.isBlocked) {
-            throw new UnauthorizedException('Your account has been blocked')
-          }
           req.user = detail
 
-          // Renew session at maxAge/2
           const now = timestamp()
           const expire = hs(SESSION_MAX_AGE)
 

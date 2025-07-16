@@ -6,12 +6,13 @@ import { FC, useEffect, useMemo } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
 import { Link, NavLink } from 'react-router-dom'
 
+import { FormService } from '@/services'
+import { cn, timeFromNow, useParam, useRouter } from '@/utils'
+
 import IconLink from '@/assets/link.svg?react'
 import IconMoveTo from '@/assets/move-to.svg?react'
 import { Button, Dropdown, Skeleton, Tooltip, useAlert, usePrompt } from '@/components'
-import { FormService } from '@/services'
 import { useFormStore, useWorkspaceStore } from '@/store'
-import { cn, timeFromNow, useParam, useRouter } from '@/utils'
 
 import { WorkspaceLayout } from '../Workspace'
 
@@ -232,7 +233,7 @@ export const FormLayout: FC<LayoutProps> = ({ options, children }) => {
       {/* Back to project */}
       <div className="max-lg:hidden">
         <Link
-          className="-ml-[0.15rem] inline-flex items-center gap-2 text-sm/6 text-secondary hover:text-primary"
+          className="text-secondary hover:text-primary -ml-[0.15rem] inline-flex items-center gap-2 text-sm/6"
           to={`/workspace/${workspaceId}/project/${projectId}/`}
         >
           <IconChevronLeft className="h-4 w-4" />
@@ -276,7 +277,7 @@ export const FormLayout: FC<LayoutProps> = ({ options, children }) => {
           </Skeleton>
 
           <Skeleton className="[&_[data-slot=skeleton]]:w-64" loading={loading}>
-            <div className="text-sm/6 text-secondary">
+            <div className="text-secondary text-sm/6">
               <Trans
                 t={t}
                 i18nKey="form.metadata3"
@@ -311,14 +312,14 @@ export const FormLayout: FC<LayoutProps> = ({ options, children }) => {
 
       {/* Navigation */}
       <div className="mt-5 overflow-x-auto">
-        <div className="border-b border-accent-light">
-          <nav className="flex items-center gap-6 text-sm font-medium text-secondary">
+        <div className="border-accent-light border-b">
+          <nav className="text-secondary flex items-center gap-6 text-sm font-medium">
             {navigations.map(n => (
               <NavLink
                 key={n.value}
                 className={({ isActive }) =>
-                  cn('text-nowrap py-3 hover:text-primary', {
-                    'relative text-primary after:absolute after:inset-x-0 after:-bottom-px after:h-0.5 after:rounded-full after:bg-primary':
+                  cn('hover:text-primary text-nowrap py-3', {
+                    'text-primary after:bg-primary relative after:absolute after:inset-x-0 after:-bottom-px after:h-0.5 after:rounded-full':
                       isActive
                   })
                 }

@@ -1,7 +1,8 @@
-import { excludeObject, qs, toURLQuery } from '@heyform-inc/utils'
 import { useBoolean } from 'ahooks'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
+
+import { excludeObject, qs, toURLQuery } from '@heyform-inc/utils'
 
 export function useQuery(): AnyMap {
   const location = useLocation()
@@ -123,10 +124,7 @@ export function useWindow(
     const timer = setInterval(() => {
       if (!win) {
         clearInterval(timer)
-      }
-
-      // Check if the window is closed every second
-      else if (win.closed) {
+      } else if (win.closed) {
         clearInterval(timer)
         onClose?.()
       }
@@ -149,8 +147,6 @@ export function useWindow(
 export function useApiError() {
   const handleApiError = (error: Error) => {
     console.error('API Error:', error)
-    // Here you would normally use a notification system to show the error
-    // For example: notification.error({ message: 'Error', description: error.message })
   }
 
   return { handleApiError }
@@ -178,6 +174,5 @@ export function useKey(key: string, callback: (event: KeyboardEvent) => void) {
     return () => {
       document.removeEventListener('keydown', handleKeyDown)
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 }

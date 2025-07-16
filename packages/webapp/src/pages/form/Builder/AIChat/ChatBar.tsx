@@ -1,12 +1,13 @@
-import { nanoid } from '@heyform-inc/utils'
 import { IconSend } from '@tabler/icons-react'
 import { useMemo, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Button, Input, InputRef } from '@/components'
 import { FormService } from '@/services'
-import { useFormStore } from '@/store'
 import { nextTick, useParam } from '@/utils'
+import { nanoid } from '@heyform-inc/utils'
+
+import { Button, Input, InputRef } from '@/components'
+import { useFormStore } from '@/store'
 
 import { useStoreContext } from '../store'
 import { useChatStore } from './ChatStore'
@@ -173,12 +174,12 @@ export default function ChatBar() {
   return (
     <Input
       ref={inputRef}
-      className="[&_[data-slot=input]]:h-10 [&_[data-slot=input]]:rounded-none [&_[data-slot=input]]:border-x-0 [&_[data-slot=input]]:border-b-0 [&_[data-slot=input]]:pr-11 [&_[data-slot=input]]:focus:border-input [&_[data-slot=input]]:focus:shadow-none"
+      className="[&_[data-slot=input]]:focus:border-input [&_[data-slot=input]]:h-10 [&_[data-slot=input]]:rounded-none [&_[data-slot=input]]:border-x-0 [&_[data-slot=input]]:border-b-0 [&_[data-slot=input]]:pr-11 [&_[data-slot=input]]:focus:shadow-none"
       placeholder={t('form.chat.compose')}
       trailing={
         <Button.Link
           size="sm"
-          className="-mr-1 text-secondary hover:text-primary"
+          className="text-secondary hover:text-primary -mr-1"
           loading={loading}
           iconOnly
           onClick={inputRef.current?.submit}
@@ -187,7 +188,6 @@ export default function ChatBar() {
         </Button.Link>
       }
       disabled={loading}
-      autoFocus
       onEnter={handleEnter}
     />
   )

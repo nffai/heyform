@@ -10,8 +10,6 @@ export class ProjectMemberModel extends Document {
   memberId: string
 }
 
-export const ProjectMemberSchema = SchemaFactory.createForClass(
-  ProjectMemberModel
-)
+export const ProjectMemberSchema = SchemaFactory.createForClass(ProjectMemberModel)
 
 ProjectMemberSchema.index({ projectId: 1, memberId: 1 }, { unique: true })

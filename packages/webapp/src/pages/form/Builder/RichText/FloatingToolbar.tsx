@@ -1,13 +1,13 @@
-import { helper } from '@heyform-inc/utils'
 import { IconBold, IconItalic, IconLink, IconUnderline, IconUnlink } from '@tabler/icons-react'
 import type { CSSProperties, FC } from 'react'
 import { startTransition, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Button, Form, Input, Portal } from '@/components'
-import { nextTick } from '@/utils'
-
 import { getStyleFromRect } from './utils'
+import { nextTick } from '@/utils'
+import { helper } from '@heyform-inc/utils'
+
+import { Button, Form, Input, Portal } from '@/components'
 
 interface FloatingToolbarProps extends Omit<ComponentProps, 'onChange'> {
   visible?: boolean
@@ -127,7 +127,7 @@ export const FloatingToolbar: FC<FloatingToolbarProps> = ({
       <div className="floating-toolbar">
         <div className="floating-toolbar-mask" onClick={onClose} />
         <div
-          className="floating-toolbar-container flex items-center rounded-md bg-foreground px-2 py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+          className="floating-toolbar-container bg-foreground flex items-center rounded-md px-2 py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
           style={portalStyle}
           {...restProps}
         >

@@ -3,8 +3,9 @@ import { useLocalStorageState, useRequest } from 'ahooks'
 import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { CHANGELOG_STORAGE_KEY } from '@/consts'
 import { ChangelogService } from '@/services'
+
+import { CHANGELOG_STORAGE_KEY } from '@/consts'
 import { useAppStore } from '@/store'
 
 export default function ChangelogButton() {
@@ -27,11 +28,11 @@ export default function ChangelogButton() {
   return (
     <div
       role="button"
-      className="flex w-full items-center rounded-lg px-2.5 py-2.5 text-left text-sm font-medium hover:bg-accent-light sm:px-1.5 sm:py-1.5 lg:py-2"
+      className="hover:bg-accent-light flex w-full items-center rounded-lg px-2.5 py-2.5 text-left text-sm font-medium sm:px-1.5 sm:py-1.5 lg:py-2"
       onClick={handleClick}
     >
       <div className="flex flex-1 items-center gap-3">
-        <IconGift className="h-5 w-5 stroke-secondary group-hover:stroke-primary" />
+        <IconGift className="stroke-secondary group-hover:stroke-primary h-5 w-5" />
         <span className="truncate">{t('workspace.sidebar.whatsNew')}</span>
       </div>
 

@@ -1,16 +1,10 @@
+import { BadRequestException } from '@nestjs/common'
+
 import { Auth, Team, TeamGuard, User } from '@decorator'
 import { DissolveTeamInput } from '@graphql'
 import { TeamModel, UserModel } from '@model'
 import { Args, Mutation, Resolver } from '@nestjs/graphql'
-import {
-  AuthService,
-  FormService,
-  MailService,
-  PaymentService,
-  SubmissionService,
-  TeamService
-} from '@service'
-import { BadRequestException } from '@nestjs/common'
+import { AuthService, FormService, MailService, SubmissionService, TeamService } from '@service'
 
 @Resolver()
 @Auth()
@@ -20,7 +14,6 @@ export class DissolveTeamResolver {
     private readonly teamService: TeamService,
     private readonly formService: FormService,
     private readonly submissionService: SubmissionService,
-    private readonly paymentService: PaymentService,
     private readonly mailService: MailService
   ) {}
 
@@ -32,20 +25,15 @@ export class DissolveTeamResolver {
     @Args('input') input: DissolveTeamInput
   ): Promise<boolean> {
     if (!team.isOwner) {
-      throw new BadRequestException(
-        "You don't have permission to dissolve workspace"
-      )
+      throw new BadRequestException("You don't have permission to dissolve workspace")
     }
 
-    // Check if dissolve team is exceeded
     const attemptsKey = `limit:dissolve_team:${team.id}`
 
     await this.authService.attemptsCheck(attemptsKey, async () => {
       const key = `verify_dissolve_team:${team.id}`
       await this.authService.checkVerificationCode(key, input.code)
     })
-
-    await this.paymentService.cancelSubscription(team.subscription.id)
 
     await this.teamService.delete(input.teamId)
     await this.teamService.deleteAllMemberInTeam(input.teamId)

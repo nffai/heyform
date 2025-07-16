@@ -1,9 +1,10 @@
-import { date, helper } from '@heyform-inc/utils'
-import { FormAnalyticModel } from '@model'
 import { Injectable } from '@nestjs/common'
 import { InjectModel } from '@nestjs/mongoose'
 import { Model } from 'mongoose'
+
 import { SubmissionService } from './submission.service'
+import { date, helper } from '@heyform-inc/utils'
+import { FormAnalyticModel } from '@model'
 
 interface FormAnalyticOptions {
   formId: string
@@ -26,12 +27,7 @@ export class FormAnalyticService {
     private readonly submissionService: SubmissionService
   ) {}
 
-  public async summary({
-    formId,
-    startAt,
-    endAt,
-    isNext
-  }: FormAnalyticOptions) {
+  public async summary({ formId, startAt, endAt, isNext }: FormAnalyticOptions) {
     const [avgTotalVisits, result] = await Promise.all([
       this.getAverageTotalVisits(formId, startAt, endAt),
       this.submissionService.analytic(
@@ -63,11 +59,7 @@ export class FormAnalyticService {
     }
   }
 
-  public async getAverageTotalVisits(
-    formId: string,
-    startAt: Date,
-    endAt: Date
-  ): Promise<number> {
+  public async getAverageTotalVisits(formId: string, startAt: Date, endAt: Date): Promise<number> {
     const result = await this.formAnalyticModel.aggregate([
       {
         $match: {
@@ -89,9 +81,6 @@ export class FormAnalyticService {
     return result[0]?.avgTotalVisits || 0
   }
 
-  /**
-   * Increase total visits
-   */
   public async updateTotalVisits(formId: string): Promise<void> {
     const formAnalytic = await this.findFormAnalyticInToday(formId)
 
@@ -114,9 +103,7 @@ export class FormAnalyticService {
     }
   }
 
-  private async findFormAnalyticInToday(
-    formId: string
-  ): Promise<FormAnalyticModel> {
+  private async findFormAnalyticInToday(formId: string): Promise<FormAnalyticModel> {
     const today = date()
 
     return this.formAnalyticModel.findOne({

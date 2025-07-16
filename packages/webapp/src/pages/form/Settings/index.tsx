@@ -1,13 +1,14 @@
-import { helper, toSecond } from '@heyform-inc/utils'
 import { useRequest } from 'ahooks'
 import { useForm as useRCForm } from 'rc-field-form'
 import { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { AnchorNavigation, Button, Form } from '@/components'
 import { FormService } from '@/services'
-import { useFormStore } from '@/store'
 import { useParam } from '@/utils'
+import { helper, toSecond } from '@heyform-inc/utils'
+
+import { AnchorNavigation, Button, Form } from '@/components'
+import { useFormStore } from '@/store'
 
 import FormSettingsAccess from './Access'
 import FormSettingsEmailNotification from './EmailNotification'
@@ -49,16 +50,13 @@ export default function FormSettings() {
         delete settings._ipLimitTime
       }
 
-      // Form status
       settings.active = !settings.closeForm
       delete settings.closeForm
 
-      // Translations
       if (helper.isValid(settings.languages)) {
         settings.languages = settings.languages.filter((l: string) => l !== settings.locale)
       }
 
-      // Save form settings
       await FormService.update(formId, settings)
 
       updateForm({ settings })
@@ -119,7 +117,7 @@ export default function FormSettings() {
 
         <div className="flex-1">
           <Form
-            className="space-y-10 divide-y divide-accent-light"
+            className="divide-accent-light space-y-10 divide-y"
             form={rcForm}
             initialValues={tempSettings}
             onValuesChange={handleValuesChange}
@@ -131,8 +129,8 @@ export default function FormSettings() {
             <FormSettingsTranslations />
             <FormSettingsProtection />
 
-            <div className="sticky bottom-0 mt-10 flex items-center justify-end gap-x-4 border-t border-accent bg-foreground py-6">
-              {error && !loading && <div className="text-sm/6 text-error">{error.message}</div>}
+            <div className="border-accent bg-foreground sticky bottom-0 mt-10 flex items-center justify-end gap-x-4 border-t py-6">
+              {error && !loading && <div className="text-error text-sm/6">{error.message}</div>}
 
               <Button type="submit" loading={loading} disabled={isDisabled}>
                 {t('components.saveChanges')}

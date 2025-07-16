@@ -47,6 +47,7 @@ Choosing our hosted version not only saves a significant amount of time and reso
 └── packages
     ├── answer-utils       (form submission utils for server and webapp)
     ├── embed              (form embed javascript library)
+    ├── form-renderer      (form rendering library)
     ├── shared-types-enums (shared types/enums for server and webapp)
     ├── utils              (common utils for server and webapp)
     ├── server             (node server)
@@ -59,7 +60,7 @@ Interested in self-hosting HeyForm on your server? Take a look at the [self-host
 
 ### One Click Deployment
 
-<a href="https://railway.app/template/f5vBKm?referralCode=bDs1YJ">
+<a href="https://railway.app/template/f5vBKm">
 	<img src="https://railway.app/button.svg" alt="Deploy on Railway" height="36" />
 </a>
 

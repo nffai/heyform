@@ -1,13 +1,14 @@
 import { FormStatusEnum } from '@heyform-inc/shared-types-enums'
-import { helper } from '@heyform-inc/utils'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Async, EmptyState, Repeat } from '@/components'
 import { FormService } from '@/services'
+import { useParam } from '@/utils'
+import { helper } from '@heyform-inc/utils'
+
+import { Async, EmptyState, Repeat } from '@/components'
 import { useAppStore } from '@/store'
 import { FormType } from '@/types'
-import { useParam } from '@/utils'
 
 import FormItem from './FormItem'
 
@@ -42,14 +43,14 @@ export default function ProjectForms() {
       fetch={fetch}
       refreshDeps={[projectId]}
       loader={
-        <div className="divide-y divide-accent-light [&_:first-of-type]:border-t-0">
+        <div className="divide-accent-light divide-y [&_:first-of-type]:border-t-0">
           <Repeat count={3}>
             <FormItem.Skeleton />
           </Repeat>
         </div>
       }
       emptyRender={() => (
-        <div className="mt-4 flex flex-1 items-center justify-center rounded-lg border border-dashed border-accent-light py-36 shadow-sm">
+        <div className="border-accent-light mt-4 flex flex-1 items-center justify-center rounded-lg border border-dashed py-36 shadow-sm">
           <EmptyState
             headline={t('project.forms.headline')}
             subHeadline={t('dashboard.pickTemplate')}
@@ -59,7 +60,7 @@ export default function ProjectForms() {
         </div>
       )}
     >
-      <div className="divide-y divide-accent-light [&_:first-of-type]:border-t-0">
+      <div className="divide-accent-light divide-y [&_:first-of-type]:border-t-0">
         {forms.map(f => (
           <FormItem key={f.id} form={f} onChange={handleChange} />
         ))}

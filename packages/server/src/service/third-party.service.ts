@@ -1,15 +1,9 @@
-/**
- * @program: servers
- * @description: Third Party service
- * @author: Mufeng
- * @date: 2021-06-11 11:30
- **/
-
-import { hs, timestamp } from '@heyform-inc/utils'
-import { ThirdPartyOauthModel } from '@model'
 import { Injectable } from '@nestjs/common'
 import { InjectModel } from '@nestjs/mongoose'
 import { Model } from 'mongoose'
+
+import { hs, timestamp } from '@heyform-inc/utils'
+import { ThirdPartyOauthModel } from '@model'
 
 @Injectable()
 export class ThirdPartyService {
@@ -32,10 +26,7 @@ export class ThirdPartyService {
     })
   }
 
-  async findByAppAndOpenId(
-    appId: string,
-    openId: string
-  ): Promise<ThirdPartyOauthModel | null> {
+  async findByAppAndOpenId(appId: string, openId: string): Promise<ThirdPartyOauthModel | null> {
     return this.thirdPartyOauthModel.findOne({
       appId,
       openId: {
@@ -45,17 +36,12 @@ export class ThirdPartyService {
     })
   }
 
-  async create(
-    thirdPartyOauth: ThirdPartyOauthModel | any
-  ): Promise<string | null> {
+  async create(thirdPartyOauth: ThirdPartyOauthModel | any): Promise<string | null> {
     const result = await this.thirdPartyOauthModel.create(thirdPartyOauth)
     return result.id
   }
 
-  public async update(
-    thirdPartyOauthId: string,
-    updates: Record<string, any>
-  ): Promise<boolean> {
+  public async update(thirdPartyOauthId: string, updates: Record<string, any>): Promise<boolean> {
     const result = await this.thirdPartyOauthModel.updateOne(
       {
         _id: thirdPartyOauthId

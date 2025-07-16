@@ -1,4 +1,3 @@
-import { helper, timestamp } from '@heyform-inc/utils'
 import { LayoutProps } from '@heyooo-inc/react-router'
 import { IconChevronLeft, IconMenu } from '@tabler/icons-react'
 import { useAsyncEffect } from 'ahooks'
@@ -6,12 +5,14 @@ import { FC, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link, useLocation } from 'react-router-dom'
 
+import { UserService, WorkspaceService } from '@/services'
+import { clearCookie, cn, getCookie, useParam, useRouter } from '@/utils'
+import { helper, timestamp } from '@heyform-inc/utils'
+
 import Logo from '@/assets/logo.svg?react'
 import { Button, useAlert } from '@/components'
 import { REDIRECT_COOKIE_NAME } from '@/consts'
-import { UserService, WorkspaceService } from '@/services'
 import { useAppStore, useUserStore, useWorkspaceStore } from '@/store'
-import { clearCookie, cn, getCookie, useParam, useRouter } from '@/utils'
 
 import ChangePasswordModal from './ChangePasswordModal'
 import ChangelogsModal from './ChangelogsModal'
@@ -38,10 +39,6 @@ export const LoginGuard: FC<LayoutProps> = ({ options, children }) => {
 
     if (!user.isEmailVerified) {
       return router.replace('/verify-email')
-    }
-
-    if (!options?.isOnboardingPage && user.isOnboardRequired) {
-      return router.redirect('/onboarding')
     }
   }, [])
 
@@ -80,7 +77,7 @@ export const LoginGuard: FC<LayoutProps> = ({ options, children }) => {
   return <>{children}</>
 }
 
-const INVITATION_URL_REGEX = /\/workspace\/[^\/]+\/invitation\/[^\/]+/i
+const INVITATION_URL_REGEX = /\/workspace\/[^/]+\/invitation\/[^/]+/i
 
 export const WorkspaceGuard: FC<LayoutProps> = ({ options, children }) => {
   const { t } = useTranslation()
@@ -107,8 +104,6 @@ export const WorkspaceGuard: FC<LayoutProps> = ({ options, children }) => {
 
     setWorkspaces(result)
 
-    // If users enter from the invitation link, they will be redirected to the invitation page
-    // even if they don't have any workspaces.
     if (INVITATION_URL_REGEX.test(redirectUri)) {
       return router.redirect(redirectUri)
     }
@@ -154,7 +149,6 @@ export const WorkspaceGuard: FC<LayoutProps> = ({ options, children }) => {
         }
       }
 
-      // Navigate to last visited workspace
       router.replace(`/workspace/${workspaceId}/`)
     }
   }, [location])
@@ -210,8 +204,8 @@ export const BaseLayout: FC<LayoutProps> = ({ options, children }) => {
 
   return (
     <LoginGuard>
-      <div className="flex min-h-screen flex-col bg-foreground">
-        <div className="sticky top-0 flex items-center justify-between bg-foreground p-4">
+      <div className="bg-foreground flex min-h-screen flex-col">
+        <div className="bg-foreground sticky top-0 flex items-center justify-between p-4">
           <a href="/" className="flex items-center gap-2" title="HeyForm">
             <Logo className="h-8 w-auto" />
             <span className="text-xl font-medium">HeyForm</span>
@@ -263,10 +257,9 @@ const LayoutComponent: FC<LayoutProps> = ({ options, children }) => {
     <>
       <div
         className={cn(
-          'relative isolate flex min-h-svh w-full bg-foreground max-lg:flex-col lg:bg-background',
+          'bg-foreground lg:bg-background relative isolate flex min-h-svh w-full max-lg:flex-col',
           {
-            '[&_[data-slot=layout-main]]:pt-16 [&_[data-slot=layout-main]]:lg:pt-16 [&_[data-slot=layout-sidebar]]:top-16':
-              false
+            '[&_[data-slot=layout-main]]:pt-16 [&_[data-slot=layout-main]]:lg:pt-16 [&_[data-slot=layout-sidebar]]:top-16': false
           },
           options?.className
         )}
@@ -278,7 +271,7 @@ const LayoutComponent: FC<LayoutProps> = ({ options, children }) => {
           data-slot="layout-main"
         >
           <div
-            className="grow p-6 lg:rounded-lg lg:bg-foreground lg:p-10 lg:shadow-sm lg:ring-1 lg:ring-accent-light dark:lg:ring-input"
+            className="lg:bg-foreground lg:ring-accent-light dark:lg:ring-input grow p-6 lg:rounded-lg lg:p-10 lg:shadow-sm lg:ring-1"
             data-slot="layout-container"
           >
             <div className="mx-auto flex min-h-full max-w-6xl flex-col" data-slot="layout-inner">

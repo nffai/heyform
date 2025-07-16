@@ -10,16 +10,16 @@ import {
 import { loadDevMessages, loadErrorMessages } from '@apollo/client/dev'
 import { setContext } from '@apollo/client/link/context'
 import { onError } from '@apollo/client/link/error'
-import { helper } from '@heyform-inc/utils'
 import { RetryLink } from 'apollo-link-retry'
 import ApolloLinkTimeout from 'apollo-link-timeout'
+
+import { helper } from '@heyform-inc/utils'
 
 import { GRAPHQL_API_URL, IS_PROD } from '@/consts'
 
 import { clearAuthState, getDeviceId } from './auth'
 
 if (!IS_PROD) {
-  // Adds messages only in a dev environment
   loadDevMessages()
   loadErrorMessages()
 }
@@ -40,7 +40,6 @@ const retryLink: any = new RetryLink({
 const timeoutLink = new ApolloLinkTimeout(30_000)
 
 const headerLink = setContext((_, { headers }) => {
-  // get `User-ID` from local storage or cookie if it exists
   const deviceId = getDeviceId()
   return {
     headers: {
@@ -67,7 +66,6 @@ const cache = new InMemoryCache({
   addTypename: false
 })
 
-// Disable apollo devtools tips
 window.__APOLLO_DEVTOOLS_GLOBAL_HOOK__ = true
 
 const client = new ApolloClient({
@@ -76,7 +74,6 @@ const client = new ApolloClient({
   cache
 })
 
-// https://github.com/apollographql/apollo-client/issues/5903
 function responseInterceptor<T = Any>(response: ApolloQueryResult<T>): T {
   const operationName = Object.keys(response)[0]
 

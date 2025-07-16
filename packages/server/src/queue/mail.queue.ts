@@ -1,15 +1,12 @@
-import { SmtpOptionsFactory } from '@config'
-import {
-  SmtpMessage,
-  SmtpOptions,
-  smtpSendMail
-} from '@heyforms/nestjs'
 import { Process, Processor } from '@nestjs/bull'
-import { FailedTaskService } from '@service'
 import { Job } from 'bull'
-import { BaseQueue, BaseQueueJob } from './base.queue'
 
-export interface MailQueueJob extends BaseQueueJob {
+import { SmtpOptionsFactory } from '@config'
+import { SmtpMessage, SmtpOptions, smtpSendMail } from '@utils'
+
+import { BaseQueue } from './base.queue'
+
+export interface MailQueueJob {
   data: SmtpMessage
 }
 
@@ -17,13 +14,13 @@ export interface MailQueueJob extends BaseQueueJob {
 export class MailQueue extends BaseQueue {
   private readonly options!: SmtpOptions
 
-  constructor(failedTaskService: FailedTaskService) {
-    super(failedTaskService)
+  constructor() {
+    super()
     this.options = SmtpOptionsFactory()
   }
 
   @Process()
-  async sendMail(job: Job<MailQueueJob>) {
+  async process(job: Job<MailQueueJob>) {
     return smtpSendMail(this.options, job.data.data)
   }
 }

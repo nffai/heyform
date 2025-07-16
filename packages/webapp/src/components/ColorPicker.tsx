@@ -1,4 +1,3 @@
-import { helper } from '@heyform-inc/utils'
 import { Content, PopoverContentProps, Portal, Root, Trigger } from '@radix-ui/react-popover'
 import { IconChevronDown, IconChevronUp } from '@tabler/icons-react'
 import colorToRgba from 'color-rgba'
@@ -16,6 +15,7 @@ import {
 import { HexAlphaColorPicker } from 'react-colorful'
 
 import { cn } from '@/utils'
+import { helper } from '@heyform-inc/utils'
 
 interface HexColorInputProps {
   value?: string
@@ -149,7 +149,7 @@ const HexColorInput: FC<HexColorInputProps> = ({ value: rawValue, onChange }) =>
 
   return (
     <input
-      className="w-full flex-1 appearance-none rounded-lg border border-input bg-transparent px-3.5 py-1 text-base/[1.4rem] placeholder:text-secondary focus:outline-none sm:px-3 sm:text-sm/[1.4rem]"
+      className="border-input placeholder:text-secondary w-full flex-1 appearance-none rounded-lg border bg-transparent px-3.5 py-1 text-base/[1.4rem] focus:outline-none sm:px-3 sm:text-sm/[1.4rem]"
       value={value}
       spellCheck="false"
       autoComplete="off"
@@ -231,7 +231,7 @@ export const AlphaInput: FC<AlphaInputProps> = ({ color, onChange }) => {
   return (
     <div className="relative">
       <input
-        className="max-w-20 appearance-none rounded-lg border border-input bg-transparent py-1 pl-3.5 pr-6 text-base/[1.4rem] placeholder:text-secondary focus:outline-none sm:pl-3 sm:text-sm/[1.4rem]"
+        className="border-input placeholder:text-secondary max-w-20 appearance-none rounded-lg border bg-transparent py-1 pl-3.5 pr-6 text-base/[1.4rem] focus:outline-none sm:pl-3 sm:text-sm/[1.4rem]"
         ref={ref}
         spellCheck="false"
         value={value}
@@ -241,13 +241,13 @@ export const AlphaInput: FC<AlphaInputProps> = ({ color, onChange }) => {
       />
       <div className="absolute bottom-0 right-2 top-0 flex flex-col justify-center">
         <button
-          className="flex h-3 w-4 items-center justify-center rounded-sm text-secondary hover:bg-accent-light focus:text-primary"
+          className="text-secondary hover:bg-accent-light focus:text-primary flex h-3 w-4 items-center justify-center rounded-sm"
           onClick={handleIncrease}
         >
           <IconChevronUp className="h-4 w-4" />
         </button>
         <button
-          className="flex h-3 w-4 items-center justify-center rounded-sm text-secondary hover:bg-accent-light focus:text-primary"
+          className="text-secondary hover:bg-accent-light focus:text-primary flex h-3 w-4 items-center justify-center rounded-sm"
           onClick={handleDecrease}
         >
           <IconChevronDown className="h-4 w-4" />
@@ -304,7 +304,7 @@ const ColorPickerComponent: FC<ColorPickerProps> = ({
             <li key={row} className="h-5 w-5">
               <button
                 type="button"
-                className="h-full w-full rounded-md border border-input"
+                className="border-input h-full w-full rounded-md border"
                 style={{
                   backgroundColor: row
                 }}
@@ -326,7 +326,7 @@ export const ColorPicker: FC<ColorPickerProps> = ({ contentProps, ...restProps }
       <Trigger asChild>
         <button
           type="button"
-          className="h-5 w-5 rounded-md border border-input"
+          className="border-input h-5 w-5 rounded-md border"
           style={{
             backgroundColor: restProps.value
           }}
@@ -338,7 +338,7 @@ export const ColorPicker: FC<ColorPickerProps> = ({ contentProps, ...restProps }
           sideOffset={8}
           {...contentProps}
           className={cn(
-            'z-10 w-[16.5rem] origin-top-left rounded-lg bg-foreground p-4 text-sm shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none data-[align=end]:origin-top-right data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-90 data-[state=open]:zoom-in-90',
+            'bg-foreground data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-90 data-[state=open]:zoom-in-90 z-10 w-[16.5rem] origin-top-left rounded-lg p-4 text-sm shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none data-[align=end]:origin-top-right',
             contentProps?.className
           )}
         >

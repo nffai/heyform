@@ -1,8 +1,9 @@
 import { useRequest } from 'ahooks'
 import { useTranslation } from 'react-i18next'
 
-import { Button, ImageFormPicker, Input, Modal, usePrompt } from '@/components'
 import { UserService } from '@/services'
+
+import { Button, ImageFormPicker, Input, Modal, usePrompt } from '@/components'
 import { useAppStore, useModal, useUserStore } from '@/store'
 
 const UserAccount = () => {
@@ -99,7 +100,7 @@ const UserAccount = () => {
           <div className="block text-sm font-medium leading-6 text-gray-900">
             {t('user.avatar.headline')}
           </div>
-          <p data-slot="text" className="text-base/5 text-secondary sm:text-sm/5">
+          <p data-slot="text" className="text-secondary text-base/5 sm:text-sm/5">
             {t('user.avatar.subHeadline')}
           </p>
         </div>
@@ -107,7 +108,7 @@ const UserAccount = () => {
       </div>
 
       <div className="space-y-1">
-        <label htmlFor="name" className="block text-sm/6 font-medium leading-6 text-primary">
+        <label htmlFor="name" className="text-primary block text-sm/6 font-medium leading-6">
           {t('user.name')}
         </label>
         <Input id="name" value={user?.name} onChange={handleNameChange} />
@@ -139,7 +140,7 @@ const UserAccount = () => {
 
       <div>
         <div className="text-base/7 font-medium sm:text-sm/5">{t('user.deletion.headline')}</div>
-        <p className="mt-1 text-base/5 text-secondary sm:text-sm/5">
+        <p className="text-secondary mt-1 text-base/5 sm:text-sm/5">
           {t('user.deletion.subHeadline')}
         </p>
         <div className="mt-3">

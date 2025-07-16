@@ -12,9 +12,6 @@ export class MoveFormResolver {
     private readonly formService: FormService
   ) {}
 
-  /**
-   * Create form
-   */
   @Mutation(returns => Boolean)
   @FormGuard()
   async moveForm(
@@ -22,10 +19,7 @@ export class MoveFormResolver {
     @User() user: UserModel,
     @Args('input') input: MoveFormInput
   ): Promise<boolean> {
-    const member = await this.projectService.findProjectByMemberId(
-      user.id,
-      input.targetProjectId
-    )
+    const member = await this.projectService.findProjectByMemberId(user.id, input.targetProjectId)
 
     if (member) {
       const project = await this.projectService.findOne({

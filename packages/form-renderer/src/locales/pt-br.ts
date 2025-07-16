@@ -2,7 +2,7 @@ export default {
   'Made with HeyForm': 'Feito com <icon></icon> <span>HeyForm</span>',
   'This field is required': 'Este campo é obrigatório',
   'File type is not supported': 'Tipo de arquivo não suportado',
-  "File size can't exceed {{size}}": "O tamanho do arquivo não pode exceder {{size}}",
+  "File size can't exceed {{size}}": 'O tamanho do arquivo não pode exceder {{size}}',
   'Files should not be empty': 'Os arquivos não devem estar vazios',
   'Re-select file': 'Selecionar arquivo novamente',
   'Upload a file or drag and drop': 'Carregue um arquivo ou arraste e solte',
@@ -53,9 +53,11 @@ export default {
     'Obrigado por completar este formulário. Agora crie o seu próprio formulário.',
   'Form unavailable': 'Formulário indisponível',
   'Create a heyform': 'Crie um heyform',
-  "The form can't receive new submissions now.": 'O formulário não pode receber novas submissões agora.',
+  "The form can't receive new submissions now.":
+    'O formulário não pode receber novas submissões agora.',
   "This page doesn't exist": 'Esta página não existe',
-  'If you have any questions, please contact us.': 'Se você tiver alguma dúvida, por favor, entre em contato conosco.',
+  'If you have any questions, please contact us.':
+    'Se você tiver alguma dúvida, por favor, entre em contato conosco.',
   Questions: 'Perguntas',
   'Search country': 'Pesquisar país',
   'Previous question': 'Pergunta anterior',

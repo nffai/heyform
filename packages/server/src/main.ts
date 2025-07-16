@@ -1,28 +1,20 @@
-import {
-  APP_LISTEN_HOSTNAME,
-  APP_LISTEN_PORT,
-  SENTRY_IO_DSN
-} from '@environments'
-import { ms } from '@heyform-inc/utils'
 import { ValidationPipe } from '@nestjs/common'
 import { NestFactory } from '@nestjs/core'
 import { NestExpressApplication } from '@nestjs/platform-express'
-import * as Sentry from '@sentry/node'
-import { hbs } from '@utils'
 import * as cookieParser from 'cookie-parser'
 import * as rateLimit from 'express-rate-limit'
 import * as helmet from 'helmet'
 import { join } from 'path'
 import * as serveStatic from 'serve-static'
+
+import { APP_LISTEN_HOSTNAME, APP_LISTEN_PORT, STATIC_DIR, VIEW_DIR } from '@environments'
+import { helper, ms } from '@heyform-inc/utils'
+import { Logger, hbs } from '@utils'
+
 import { AppModule } from './app.module'
 import { AllExceptionsFilter } from './common/filter'
 
 async function bootstrap() {
-  // Sentry
-  Sentry.init({
-    dsn: SENTRY_IO_DSN
-  })
-
   const app = await NestFactory.create<NestExpressApplication>(AppModule, {
     bodyParser: false
   })
@@ -37,14 +29,10 @@ async function bootstrap() {
   // Catch all exceptions
   app.useGlobalFilters(new AllExceptionsFilter())
 
-  // Enable cors
   app.enableCors({
     origin: true,
     credentials: true
   })
-
-  // see https://github.com/nestjs/nest/issues/1788#issuecomment-474766198
-  app.disable('x-powered-by')
 
   // Enable cookie
   app.use(cookieParser())
@@ -55,13 +43,19 @@ async function bootstrap() {
   // Static assets
   app.use(
     '/static',
-    serveStatic(join(__dirname, '..', 'static'), {
+    serveStatic(STATIC_DIR, {
       maxAge: '30d',
-      extensions: ['png', 'svg', 'js', 'css']
+      extensions: ['jpg', 'jpeg', 'bmp', 'webp', 'gif', 'png', 'svg', 'js', 'css'],
+      setHeaders: (res, path) => {
+        const { attname } = res.req.query
+
+        if (helper.isValid(attname)) {
+          res.setHeader('Content-Disposition', `attachment; filename="${attname}"`)
+        }
+      }
     })
   )
 
-  // Serve uploaded files - used by the community version
   app.use(
     '/static/upload',
     serveStatic(join(process.cwd(), 'uploads'), {
@@ -70,31 +64,14 @@ async function bootstrap() {
     })
   )
 
-  // Middleware is no longer needed as we'll be using absolute URLs for avatars
-  // This code is kept but commented out for reference
-  /*
-  app.use((req, res, next) => {
-    // Check if URL looks like a profile avatar path from DB (starts with slash, then has segments)
-    if (req.path && req.path.match(/^\/[A-Za-z0-9]{8}\/[A-Za-z0-9]{24}\//)) {
-      // Extract the filename (last segment)
-      const segments = req.path.split('/');
-      const filename = segments[segments.length - 1];
-
-      // Redirect to the actual file in uploads directory
-      return res.redirect(`/static/upload/${filename}`);
-    }
-    next();
-  });
-  */
-
   // Template rendering
   app.engine('html', hbs.__express)
-  app.setBaseViewsDir(join(__dirname, '..', 'view'))
+  app.setBaseViewsDir(VIEW_DIR)
   app.setViewEngine('html')
 
   /**
    * Limit the number of user's requests
-   * 1000 requests pre minute
+   * 1000 requests per minute
    */
   app.use(
     rateLimit({
@@ -115,7 +92,12 @@ async function bootstrap() {
     })
   )
 
-  await app.listen(APP_LISTEN_PORT, APP_LISTEN_HOSTNAME)
+  await app.listen(APP_LISTEN_PORT, APP_LISTEN_HOSTNAME, () => {
+    Logger.info(
+      `Server is running on http://${APP_LISTEN_HOSTNAME}:${APP_LISTEN_PORT}`,
+      'NestApplication'
+    )
+  })
 }
 
 bootstrap()

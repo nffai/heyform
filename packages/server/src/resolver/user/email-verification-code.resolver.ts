@@ -1,6 +1,7 @@
+import { BadRequestException } from '@nestjs/common'
+
 import { Auth, User } from '@decorator'
 import { UserModel } from '@model'
-import { BadRequestException } from '@nestjs/common'
 import { Query, Resolver } from '@nestjs/graphql'
 import { AuthService, MailService } from '@service'
 
@@ -18,7 +19,6 @@ export class EmailVerificationCodeResolver {
       throw new BadRequestException('Email is already verified')
     }
 
-    // Add a code of verify email address to cache
     const key = `verify_email:${user.id}`
     const code = await this.authService.getVerificationCode(key)
 

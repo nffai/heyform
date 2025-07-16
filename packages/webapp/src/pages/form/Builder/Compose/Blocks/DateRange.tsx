@@ -3,8 +3,9 @@ import { IconChevronRight } from '@tabler/icons-react'
 import type { FC } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { DATE_FORMAT_MAPS } from '@/consts'
 import { cn } from '@/utils'
+
+import { DATE_FORMAT_MAPS } from '@/consts'
 
 import { FakeSubmit } from '../FakeSubmit'
 import type { BlockProps } from './Block'

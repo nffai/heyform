@@ -1,11 +1,12 @@
 import { FieldLayoutAlignEnum } from '@heyform-inc/shared-types-enums'
-import { helper } from '@heyform-inc/utils'
 import { startTransition, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { cn } from '@/utils'
+import { helper } from '@heyform-inc/utils'
+
 import { Button, ImagePicker } from '@/components'
 import { LAYOUT_OPTIONS } from '@/consts'
-import { cn } from '@/utils'
 
 import { useStoreContext } from '../../store'
 import ImageBrightness from './ImageBrightness'
@@ -86,7 +87,7 @@ export default function CoverAndLayout() {
       {helper.isURL(field.layout?.mediaUrl) && (
         <>
           {field.layout?.align !== FieldLayoutAlignEnum.INLINE && (
-            <div className="mt-4 border-t border-accent-light pt-4">
+            <div className="border-accent-light mt-4 border-t pt-4">
               <ImageBrightness
                 imageURL={field.layout?.mediaUrl}
                 value={field.layout?.brightness}
@@ -95,7 +96,7 @@ export default function CoverAndLayout() {
             </div>
           )}
 
-          <div className="mt-4 space-y-1 border-t border-accent-light pt-4">
+          <div className="border-accent-light mt-4 space-y-1 border-t pt-4">
             <label className="text-sm/6" htmlFor="#">
               {t('form.builder.settings.layout')}
             </label>
@@ -105,7 +106,7 @@ export default function CoverAndLayout() {
                 <div
                   key={row.value}
                   className={cn(
-                    'cursor-pointer rounded-lg border border-input text-secondary ring-1 ring-transparent hover:border-primary hover:text-primary',
+                    'border-input text-secondary hover:border-primary hover:text-primary cursor-pointer rounded-lg border ring-1 ring-transparent',
                     {
                       'border-primary text-primary ring-input': field.layout?.align === row.value
                     }

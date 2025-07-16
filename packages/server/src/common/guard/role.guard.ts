@@ -1,12 +1,8 @@
-import { helper } from '@heyform-inc/utils'
-import { SubscriptionStatusEnum, TeamModel, TeamRoleEnum } from '@model'
-import {
-  BadRequestException,
-  CanActivate,
-  ExecutionContext,
-  Inject
-} from '@nestjs/common'
+import { BadRequestException, CanActivate, ExecutionContext, Inject } from '@nestjs/common'
 import { Reflector } from '@nestjs/core'
+
+import { helper } from '@heyform-inc/utils'
+import { TeamModel, TeamRoleEnum } from '@model'
 import { GqlExecutionContext } from '@nestjs/graphql'
 import { FormService, TeamService } from '@service'
 
@@ -60,14 +56,8 @@ export class RoleGuard implements CanActivate {
 
     const user = req.user
 
-    const scope = this.reflector.get<RoleGuardScopeEnum>(
-      'scope',
-      context.getHandler()
-    )
-    const roles = this.reflector.get<TeamRoleEnum[]>(
-      'roles',
-      context.getHandler()
-    )
+    const scope = this.reflector.get<RoleGuardScopeEnum>('scope', context.getHandler())
+    const roles = this.reflector.get<TeamRoleEnum[]>('roles', context.getHandler())
 
     let teamId = args.input.teamId
     let team: TeamModel = null
@@ -88,39 +78,23 @@ export class RoleGuard implements CanActivate {
       teamId = form.teamId
     }
 
-    team = await this.teamService.findWithPlanById(teamId)
+    team = await this.teamService.findById(teamId)
 
     if (!team) {
       throw new BadRequestException('The workspace does not exist')
     }
 
     const isOwner = team.ownerId === user.id
-
-    // Non-owner members can't access the workspace if the workspace subscription expires
-    if (
-      team.subscription.status !== SubscriptionStatusEnum.ACTIVE &&
-      !isOwner
-    ) {
-      throw new BadRequestException({
-        code: 'WORKSPACE_SUBSCRIPTION_EXPIRED',
-        message: 'The workspace subscription has expired'
-      })
-    }
-
     const member = await this.teamService.findMemberById(teamId, user.id)
     const ownerRequired = roles.includes(TeamRoleEnum.OWNER)
 
     if (ownerRequired) {
       if (!isOwner) {
-        throw new BadRequestException(
-          'This operation is not allowed in the workspace'
-        )
+        throw new BadRequestException('This operation is not allowed in the workspace')
       }
     } else {
       if (!member || !roles.includes(member.role)) {
-        throw new BadRequestException(
-          'This operation is not allowed in the workspace'
-        )
+        throw new BadRequestException('This operation is not allowed in the workspace')
       }
     }
 
@@ -129,9 +103,7 @@ export class RoleGuard implements CanActivate {
       ownerId: team.ownerId,
       isOwner,
       role: member.role,
-      storageQuota: team.storageQuota,
-      plan: team?.plan,
-      subscription: team.subscription
+      storageQuota: team.storageQuota
     }
 
     return true

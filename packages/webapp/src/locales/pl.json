@@ -509,9 +509,6 @@
       "Pobierz informacje o swoim koncie HeyForm"
     ]
   },
-  "onboarding": {
-    "title": "Wprowadzenie"
-  },
   "workspace": {
     "notExist": "To miejsce pracy nie istnieje.",
     "backHome": "Powrót do HeyForm",
@@ -552,12 +549,6 @@
       "headline": "Zostałeś zaproszony do dołączenia do przestrzeni roboczej użytkownika <span1>{{owner}}</span1>: <span2>{{name}}</span2>",
       "subHeadline": "Dołącz do przestrzeni roboczej i zacznij współpracować już dziś!",
       "join": "Dołącz"
-    },
-    "trial": {
-      "title": "Rozpocznij 7-dniowy bezpłatny okres próbny",
-      "subHeadline": "Brak umów, możliwość obniżenia lub anulowania subskrypcji w dowolnym momencie za pomocą jednego kliknięcia z pulpitu nawigacyjnego.",
-      "startTrial": "Rozpocznij okres próbny",
-      "continueWithFree": "Kontynuuj z darmowym planem"
     }
   },
   "dashboard": {
@@ -624,110 +615,6 @@
       "sentSuccessMessage": "Zaproszeni członkowie zostali powiadomieni e-mailem, aby zarejestrować się w HeyForm"
     }
   },
-  "billing": {
-    "title": "Fakturowanie",
-    "planName": "Plan {{name}}",
-    "year": "rok",
-    "month": "miesiąc",
-    "cycles": ["Na zawsze", "Miesięcznie", "Rocznie"],
-    "save16": "Oszczędź 16%",
-    "keepFreePlan": "Kontynuuj korzystanie z darmowego planu",
-    "plans": {
-      "headline": "Plany",
-      "subHeadline": "Workspace <strong>{{workspaceName}}</strong> jest obecnie na planie {{planName}}.",
-      "view": "Zobacz plany"
-    },
-    "subscription": {
-      "headline": "Aktualny plan",
-      "subHeadline": "Workspace jest obecnie na planie {{planName}}.",
-      "manage": "Zarządzaj subskrypcją",
-      "renewsOn": "Odnawia się {{date}}.",
-      "neverExpires": "Nigdy nie wygasa.",
-      "canceled": "Anulowano w dniu {{canceledAt}}, ważne do {{endAt}}."
-    },
-    "invoices": {
-      "headline": "Faktury",
-      "subHeadline": "Odwiedź <button>portal klienta Stripe</button>, aby zobaczyć swoje faktury."
-    },
-    "upgrade": {
-      "title": "Ulepsz",
-      "headline": "Ulepsz swój plan",
-      "subHeadline": "Osiągnąłeś limit swojego obecnego planu lub próbujesz uzyskać dostęp do zaawansowanej funkcji. Proszę uaktualnić, aby ją odblokować.",
-      "removeBranding": "Uaktualnij do Premium, aby usunąć branding HeyForm",
-      "customDomain": "Uaktualnij do Premium, aby skonfigurować niestandardową domenę",
-      "translations": "Uaktualnij do Premium, aby tłumaczyć pytania w formularzu",
-      "customCSS": "Uaktualnij do Premium, aby skonfigurować niestandardowy CSS",
-      "report": "Uaktualnij do Basic, aby zobaczyć raport formularza",
-      "customize": "Uaktualnij do Basic, aby dostosować formularz",
-      "exportData": "Uaktualnij do Basic, aby eksportować CSV",
-      "theme": "Uaktualnij do Basic, aby ustawić motyw dla formularza",
-      "metadata": "Uaktualnij do Basic, aby skonfigurować ustawienia linków",
-      "confirm": "Aktualizuj",
-      "remaining_one": "Pozostał {{count}} dzień",
-      "remaining_other": "Pozostało {{count}} dni",
-      "trialing": "Okres próbny w toku",
-      "trialTip_zero": "Wersja próbna {{name}} kończy się dzisiaj",
-      "trialTip_one": "Wersja próbna {{name}} kończy się za {{count}} dzień",
-      "trialTip_other": "Wersja próbna {{name}} kończy się za {{count}} dni",
-      "upgradeTip": "Plan darmowy zostanie wycofany 1 maja 2025 roku. Rozważ przejście na plan premium lub rozwiązanie self-hosted.",
-      "hiddenFields": "Ulepsz do Basic, aby dodać ukryte pole",
-      "brandKit": "Uaktualnij do Premium, aby skonfigurować zestaw markowy",
-      "redirect": "Uaktualnij do Basic, aby ustawić przekierowanie"
-    },
-    "payment": {
-      "headline": "Zmień plan",
-      "couponCode": {
-        "label": "Kod kuponu",
-        "require": "Kod kuponu nie może być pusty"
-      },
-      "apply": "Zastosuj",
-      "subtotal": "Suma częściowa",
-      "discount": "Rabat",
-      "total": "Razem",
-      "confirm": "Zmień teraz"
-    },
-    "downgrade": {
-      "headline": "Obniż plan",
-      "subHeadline": "Po potwierdzeniu obniżenia, Twoje miejsce pracy: <strong>{{workspaceName}}</strong> nie będzie miało dostępu do funkcji planu <strong>{{planName}}</strong>.",
-      "confirm": "Obniżenie poziomu"
-    },
-    "features": {
-      "basic": [
-        "Nieograniczona liczba formularzy",
-        "5 000 odpowiedzi miesięcznie",
-        "10 GB przestrzeni roboczej na dane",
-        "Raport z formularza",
-        "Niestandardowe metadane",
-        "Ukryte pola",
-        "Dostosowanie motywu",
-        "Przekierowanie po zakończeniu",
-        "Pobierz dane"
-      ],
-      "premium": [
-        "Wszystko w BASIC",
-        "20 000 odpowiedzi miesięcznie",
-        "20GB przestrzeni roboczej",
-        "Zaproszenie do 3 członków",
-        "Niestandardowa domena",
-        "Niestandardowy CSS",
-        "Usunięcie brandingu HeyForm",
-        "Priorytetowe wsparcie techniczne"
-      ],
-      "business": [
-        "Wszystko w PREMIUM",
-        "150 000 odpowiedzi miesięcznie",
-        "50GB przestrzeni dyskowej w miejscu pracy",
-        "Zaproszenie do 10 członków",
-        "Brak prowizji od płatności",
-        "Brak limitu rozmiaru przesyłanych plików"
-      ]
-    },
-    "success": {
-      "title": "Płatność zakończona sukcesem",
-      "description": "Dziękujemy za płatność. Twoje zamówienie jest w trakcie realizacji.",
-      "button": "Powrót do pulpitu"
-    }
-  },
   "settings": {
     "title": "Ustawienia miejsca pracy",
     "branding": {
@@ -751,25 +638,6 @@
         "input": "Twoja odpowiedź tutaj",
         "next": "Dalej"
       }
-    },
-    "customDomain": {
-      "headline": "Niestandardowa domena",
-      "subHeadline": "Niestandardowe domeny pozwalają na udostępnienie formularza pod własnymi nazwami domen, niezwiązanymi z HeyForm. <a>Dowiedz się więcej <icon /></a>",
-      "placeholder": "np: twojadomena.com",
-      "invalid": "Domena jest nieprawidłowa",
-      "tip1": "Niestandardowe domeny pozwalają na udostępnienie formularzy pod własnymi nazwami domen (na przykład twojadomena.com). HeyForm obsługuje wszystkie najwyższego poziomu dla niestandardowych domen. <a>Dowiedz się więcej <icon /></a>",
-      "tip2": "Dodaj następujące rekordy DNS do ustawień DNS swojego dostawcy nazwy domeny. Możesz zweryfikować rekordy DNS swojej domeny za pomocą tego narzędzia: <a>DNS Lookup <icon /></a>",
-      "type": "Typ",
-      "name": "Nazwa",
-      "cname": "CNAME",
-      "aname": "A",
-      "content": "Treść",
-      "ttl": "TTL",
-      "ttlAuto": "Automatyczny / Domyślny",
-      "dnsOnly": "Tylko DNS",
-      "proxyStatus": "Status Proxy",
-      "proxyTip": "W przypadku dostawców nazw domen, takich jak Cloudflare, prosimy o wyłączenie funkcji Proxy.",
-      "dnsError": "Nie udało nam się zweryfikować Twoich rekordów DNS. Jeśli już to skonfigurowałeś, spróbuj ponownie później."
     },
     "exportData": {
       "title": "Eksportuj Dane",

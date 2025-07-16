@@ -35,9 +35,3 @@ dist
 lib
 packages/server/static
 *.tsbuildinfo
-
-.qodo
-packages/server/cache
-.gitlab-ci.yml
-.tasks
-packages/server/uploads

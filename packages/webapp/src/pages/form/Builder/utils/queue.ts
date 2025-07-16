@@ -97,7 +97,6 @@ export class Queue {
 
     let task = tasks.find(task => task.status === Status.IDLE)
 
-    // Try to reconsume failed tasks
     if (!task) {
       task = tasks[0]
     }
@@ -119,7 +118,6 @@ export class Queue {
     this.tasks[index].status = Status.PENDING
     this.lastSyncedAt = Date.now()
 
-    // Start callback
     this.callback?.('start', task)
 
     try {
@@ -131,14 +129,12 @@ export class Queue {
 
       this.remove(task.version)
 
-      // Complete callback
       this.callback?.('complete', task)
     } catch (err: unknown) {
       this.update(task.version, {
         status: Status.FAILED
       })
 
-      // Failed callback
       this.callback?.('failed', task, err as Error)
     }
   }

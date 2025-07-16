@@ -1,17 +1,7 @@
-import { FormType, PlanType, ProjectType } from '@graphql'
-import {
-  BillingCycleEnum,
-  FormModel,
-  PlanModel,
-  ProjectModel,
-  SubscriptionModel,
-  SubscriptionStatusEnum,
-  TeamRoleEnum
-} from '@model'
-import { Field, InputType, ObjectType } from '@nestjs/graphql'
 import {
   ArrayMinSize,
   IsArray,
+  IsBoolean,
   IsEmail,
   IsEnum,
   IsObject,
@@ -19,6 +9,10 @@ import {
   IsUrl,
   Length
 } from 'class-validator'
+
+import { FormType, ProjectType } from '@graphql'
+import { FormModel, ProjectModel, TeamRoleEnum } from '@model'
+import { Field, InputType, ObjectType } from '@nestjs/graphql'
 import { GraphQLJSONObject } from 'graphql-type-json'
 
 @InputType()
@@ -52,12 +46,6 @@ export class TeamDetailInput {
 export class SearchTeamInput extends TeamDetailInput {
   @Field()
   query: string
-}
-
-@InputType()
-export class FreeTrialInput extends TeamDetailInput {
-  @Field()
-  planId: string
 }
 
 @InputType()
@@ -131,20 +119,9 @@ export class UpdateTeamInput extends TeamDetailInput {
   avatar?: string
 
   @Field({ nullable: true })
+  @IsBoolean()
   @IsOptional()
   removeBranding?: boolean
-
-  @Field({ nullable: true })
-  @IsOptional()
-  aiKey?: string
-
-  @Field({ nullable: true })
-  @IsOptional()
-  aiEndpoint?: string
-
-  @Field({ nullable: true })
-  @IsOptional()
-  aiModel?: string
 }
 
 @InputType()
@@ -179,39 +156,6 @@ export class UpdateTeamMemberInput extends TransferTeamInput {
   @Field(type => Number)
   @IsEnum([TeamRoleEnum.ADMIN, TeamRoleEnum.COLLABORATOR, TeamRoleEnum.MEMBER])
   role: TeamRoleEnum
-}
-
-@ObjectType()
-export class SubscriptionType {
-  @Field({ nullable: true })
-  id: string
-
-  @Field()
-  teamId: string
-
-  @Field()
-  planId: string
-
-  @Field()
-  billingCycle: BillingCycleEnum
-
-  @Field({ nullable: true })
-  startAt: number
-
-  @Field({ nullable: true })
-  endAt: number
-
-  @Field({ nullable: true })
-  isCanceled: boolean
-
-  @Field({ nullable: true })
-  canceledAt: number
-
-  @Field({ nullable: true })
-  trialing?: boolean
-
-  @Field()
-  status: SubscriptionStatusEnum
 }
 
 @ObjectType()
@@ -276,15 +220,6 @@ export class TeamType extends PublicTeamType {
   @Field()
   ownerId: string
 
-  // @Field({ nullable: true })
-  // enableCustomDomain?: boolean
-
-  // @Field({ nullable: true })
-  // customDomain?: string
-
-  @Field({ nullable: true })
-  removeBranding?: boolean
-
   @Field()
   inviteCode: string
 
@@ -294,13 +229,8 @@ export class TeamType extends PublicTeamType {
   @Field({ nullable: true })
   storageQuota?: number
 
-  // Discard at Dec 20, 2021 (v2021.12.3)
-  // Reverted at Nov 28, 2023
   @Field({ nullable: true })
   submissionQuota?: number
-
-  @Field({ nullable: true })
-  contactCount?: number
 
   @Field({ nullable: true })
   isOwner?: boolean
@@ -311,45 +241,24 @@ export class TeamType extends PublicTeamType {
   @Field(type => [BrandKitType], { nullable: true })
   brandKits: BrandKitType[]
 
-  @Field(type => PlanType, { nullable: true })
-  plan: PlanModel
-
-  @Field(type => SubscriptionType, { nullable: true })
-  subscription: SubscriptionModel
-
-  // @Discard
   @Field(type => Number, { nullable: true })
   role?: TeamRoleEnum
 
   @Field({ nullable: true })
-  trialEndAt?: number
-
-  @Field({ nullable: true })
-  aiKey?: string
-
-  @Field({ nullable: true })
-  aiEndpoint?: string
-
-  @Field({ nullable: true })
-  aiModel?: string
+  removeBranding?: boolean
 
   @Field()
   createdAt: Date
 }
 
 @ObjectType()
-export class TeamSubscriptionType {
+export class TeamOverviewType {
   @Field({ nullable: true })
   memberCount?: number
 
   @Field({ nullable: true })
-  contactCount?: number
-
-  @Field({ nullable: true })
   formCount?: number
 
-  // Discard at Dec 20, 2021 (v2021.12.3)
-  // Reverted at Nov 28, 2023
   @Field({ nullable: true })
   submissionQuota?: number
 

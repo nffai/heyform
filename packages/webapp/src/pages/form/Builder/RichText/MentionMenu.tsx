@@ -1,13 +1,14 @@
 import { stopEvent } from '@heyform-inc/form-renderer'
 import { FieldKindEnum, HiddenField, Variable } from '@heyform-inc/shared-types-enums'
-import { helper } from '@heyform-inc/utils'
 import { CSSProperties, FC, useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+
+import { cn } from '@/utils'
+import { helper } from '@heyform-inc/utils'
 
 import { Portal } from '@/components'
 import { CUSTOM_FIELDS_CONFIGS, VARIABLE_KIND_CONFIGS } from '@/consts'
 import { FormFieldType } from '@/types'
-import { cn } from '@/utils'
 
 import { QuestionIcon } from '../LeftSidebar/QuestionList'
 import { useStoreContext } from '../store'
@@ -105,7 +106,6 @@ const MentionMenuComponent: FC<MentionMenuProps> = ({
     [handleClose, handleHighlight, handleSelect, highlighted]
   )
 
-  // Filter questions by keyword
   useEffect(() => {
     if (visible) {
       const newGroups: MentionGroup[] = []
@@ -169,21 +169,21 @@ const MentionMenuComponent: FC<MentionMenuProps> = ({
     <div className="mention-menu">
       <div className="mention-menu-mask" onClick={onClose} />
       <div
-        className="mention-menu-container scrollbar isolate z-10 w-max min-w-52 overflow-y-auto rounded-xl bg-foreground p-1 shadow-lg outline outline-1 outline-transparent ring-1 ring-accent-light animate-in fade-in-0 zoom-in-95 focus:outline-none data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2"
+        className="mention-menu-container scrollbar bg-foreground ring-accent-light animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 isolate z-10 w-max min-w-52 overflow-y-auto rounded-xl p-1 shadow-lg outline outline-1 outline-transparent ring-1 focus:outline-none"
         style={portalStyle}
       >
         {groups.length > 0 ? (
           <div className="space-y-3 py-2">
             {groups.map(g => (
               <div key={g.type}>
-                <div className="px-3.5 text-sm/6 text-secondary sm:px-3">
+                <div className="text-secondary px-3.5 text-sm/6 sm:px-3">
                   {t(`form.builder.mention.${g.type}`)}
                 </div>
                 {g.items.map(row => (
                   <div
                     key={row.id}
                     className={cn(
-                      'flex cursor-pointer items-center gap-x-2 rounded-lg border-0 px-3.5 py-2.5 text-left text-base/6 outline-none hover:bg-accent disabled:opacity-60 sm:px-3 sm:py-1.5 sm:text-sm/6',
+                      'hover:bg-accent flex cursor-pointer items-center gap-x-2 rounded-lg border-0 px-3.5 py-2.5 text-left text-base/6 outline-none disabled:opacity-60 sm:px-3 sm:py-1.5 sm:text-sm/6',
                       {
                         'bg-input hover:bg-input': highlighted === row.id
                       }

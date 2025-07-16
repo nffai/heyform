@@ -1,12 +1,13 @@
 import { questionNumber } from '@heyform-inc/form-renderer'
 import { FieldLayoutAlignEnum, QUESTION_FIELD_KINDS } from '@heyform-inc/shared-types-enums'
-import { helper } from '@heyform-inc/utils'
 import type { FC } from 'react'
 import { RefObject, useCallback, useEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { FormFieldType } from '@/types'
 import { cn } from '@/utils'
+import { helper } from '@heyform-inc/utils'
+
+import { FormFieldType } from '@/types'
 
 import { RichText } from '../../RichText'
 import { useStoreContext } from '../../store'
@@ -63,7 +64,6 @@ export const Block: FC<BlockProps> = ({
   const handleTitleChangeCallback = useCallback(handleTitleChange, [field.id])
   const handleDescriptionChangeCallback = useCallback(handleDescriptionChange, [field.id])
 
-  // Reset RichText html
   useEffect(() => {
     if (titleRef.current) {
       titleRef.current!.innerHTML = (field.title as string) || ''

@@ -1,3 +1,5 @@
+import { apollo } from '@/utils'
+
 import {
   AIRTABLE_BASES_GQL,
   AIRTABLE_OAUTH_GQL,
@@ -41,7 +43,6 @@ import {
   UPDATE_INTEGRATION_SETTINGS_GQL,
   UPDATE_INTEGRATION_STATUS_GQL
 } from '@/consts'
-import { apollo } from '@/utils'
 
 export class IntegrationService {
   static async oauthUrl(formId: string, appId: string) {
@@ -81,14 +82,14 @@ export class IntegrationService {
     })
   }
 
-  static async updateSettings(formId: string, appId: string, data: AnyMap) {
+  static async updateSettings(formId: string, appId: string, config: AnyMap) {
     return apollo.mutate({
       mutation: UPDATE_INTEGRATION_SETTINGS_GQL,
       variables: {
         input: {
           formId,
           appId,
-          ...data
+          config
         }
       }
     })

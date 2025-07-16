@@ -1,8 +1,8 @@
-import { Args, Mutation, Resolver } from '@nestjs/graphql'
 import { Auth, TeamGuard } from '@decorator'
 import { UpdateBrandKitInput } from '@graphql'
-import { BrandKitService } from '@service'
 import { pickObject } from '@heyform-inc/utils'
+import { Args, Mutation, Resolver } from '@nestjs/graphql'
+import { BrandKitService } from '@service'
 
 @Resolver()
 @Auth()
@@ -11,17 +11,7 @@ export class UpdateBrandKitResolver {
 
   @Mutation(returns => Boolean)
   @TeamGuard()
-  async updateBrandKit(
-    // @Team() team: TeamModel,
-    @Args('input') input: UpdateBrandKitInput
-  ): Promise<boolean> {
-    // if (!team.plan.whitelabelBranding) {
-    //   throw new BadRequestException('Upgrade your plan to setup brand kit')
-    // }
-
-    return this.brandKitService.update(
-      input.teamId,
-      pickObject(input, [], ['teamId'])
-    )
+  async updateBrandKit(@Args('input') input: UpdateBrandKitInput): Promise<boolean> {
+    return this.brandKitService.update(input.teamId, pickObject(input, [], ['teamId']))
   }
 }

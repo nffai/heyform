@@ -1,15 +1,16 @@
 import { getTheme } from '@heyform-inc/form-renderer'
 import { FormTheme } from '@heyform-inc/shared-types-enums'
-import { helper } from '@heyform-inc/utils'
 import { useBoolean } from 'ahooks'
 import { FC } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { FormService } from '@/services'
+import { useParam } from '@/utils'
+import { helper } from '@heyform-inc/utils'
+
 import { Image, Loader, useToast } from '@/components'
 import { FORM_THEMES } from '@/consts'
-import { FormService } from '@/services'
 import { useFormStore, useWorkspaceStore } from '@/store'
-import { useParam } from '@/utils'
 
 const ThemeItem: FC<{ theme: FormTheme; logo?: string }> = ({ theme, logo }) => {
   const { t } = useTranslation()
@@ -57,7 +58,7 @@ const ThemeItem: FC<{ theme: FormTheme; logo?: string }> = ({ theme, logo }) => 
   return (
     <Image.Background
       as="li"
-      className="relative cursor-pointer rounded-lg bg-cover p-4 after:pointer-events-none after:absolute after:inset-0 after:rounded-lg after:border after:border-accent"
+      className="after:border-accent relative cursor-pointer rounded-lg bg-cover p-4 after:pointer-events-none after:absolute after:inset-0 after:rounded-lg after:border"
       src={theme.backgroundImage}
       style={{
         backgroundColor: theme.backgroundColor

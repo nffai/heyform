@@ -1,10 +1,11 @@
 import { CURRENCY_SYMBOLS } from '@heyform-inc/form-renderer'
 import { NumberPrice } from '@heyform-inc/shared-types-enums'
-import { helper } from '@heyform-inc/utils'
 import { IconChevronRight } from '@tabler/icons-react'
 import type { FC } from 'react'
 import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
+
+import { helper } from '@heyform-inc/utils'
 
 import { FakeSubmit } from '../FakeSubmit'
 import type { BlockProps } from './Block'

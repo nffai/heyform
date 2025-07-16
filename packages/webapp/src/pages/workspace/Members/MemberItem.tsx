@@ -2,11 +2,12 @@ import { IconDots } from '@tabler/icons-react'
 import { FC, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Avatar, Button, Dropdown, Tooltip, useAlert } from '@/components'
 import { WorkspaceService } from '@/services'
+import { timeFromNow } from '@/utils'
+
+import { Avatar, Button, Dropdown, Tooltip, useAlert } from '@/components'
 import { useUserStore, useWorkspaceStore } from '@/store'
 import { MemberType } from '@/types'
-import { timeFromNow } from '@/utils'
 
 const MemberItem: FC<{ member: MemberType }> = ({ member }) => {
   const { t, i18n } = useTranslation()
@@ -135,7 +136,7 @@ const MemberItem: FC<{ member: MemberType }> = ({ member }) => {
       >
         <Button.Link className="data-[state=open]:bg-accent-light" size="sm" iconOnly>
           <Tooltip label={t('members.menuTip')}>
-            <IconDots className="h-5 w-5 text-secondary" />
+            <IconDots className="text-secondary h-5 w-5" />
           </Tooltip>
         </Button.Link>
       </Dropdown>
@@ -144,7 +145,7 @@ const MemberItem: FC<{ member: MemberType }> = ({ member }) => {
 
   return (
     <tr className="hover:bg-primary/[2.5%]">
-      <td className="border-b border-accent p-4 sm:first:pl-1 sm:last:pr-1">
+      <td className="border-accent border-b p-4 sm:first:pl-1 sm:last:pr-1">
         <div className="flex items-center gap-4">
           <Avatar
             className="flex-shrink-0"
@@ -156,7 +157,7 @@ const MemberItem: FC<{ member: MemberType }> = ({ member }) => {
             <div className="font-medium">
               <span>{member.name}</span>
               {member.id === user.id && (
-                <span className="ml-1 font-normal text-secondary">({t('members.you')})</span>
+                <span className="text-secondary ml-1 font-normal">({t('members.you')})</span>
               )}
             </div>
             <div className="text-secondary">{member.email}</div>
@@ -164,15 +165,15 @@ const MemberItem: FC<{ member: MemberType }> = ({ member }) => {
         </div>
       </td>
 
-      <td className="border-b border-accent p-4 sm:first:pl-1 sm:last:pr-1">
+      <td className="border-accent border-b p-4 sm:first:pl-1 sm:last:pr-1">
         {member.isOwner ? t('members.owner') : t('members.member')}
       </td>
 
-      <td className="border-b border-accent p-4 sm:first:pl-1 sm:last:pr-1">
+      <td className="border-accent border-b p-4 sm:first:pl-1 sm:last:pr-1">
         {member.lastSeenAt ? timeFromNow(member.lastSeenAt, i18n.language) : ''}
       </td>
 
-      <td className="border-b border-accent p-4 sm:first:pl-1 sm:last:pr-1">{Action}</td>
+      <td className="border-accent border-b p-4 sm:first:pl-1 sm:last:pr-1">{Action}</td>
     </tr>
   )
 }
@@ -180,7 +181,7 @@ const MemberItem: FC<{ member: MemberType }> = ({ member }) => {
 const Skeleton = () => {
   return (
     <tr>
-      <td className="border-b border-accent p-4 sm:first:pl-1 sm:last:pr-1">
+      <td className="border-accent border-b p-4 sm:first:pl-1 sm:last:pr-1">
         <div className="flex items-center gap-4">
           <div className="skeleton h-10 w-10 rounded-full"></div>
           <div>
@@ -194,19 +195,19 @@ const Skeleton = () => {
         </div>
       </td>
 
-      <td className="border-b border-accent p-4 sm:first:pl-1 sm:last:pr-1">
+      <td className="border-accent border-b p-4 sm:first:pl-1 sm:last:pr-1">
         <div className="py-[0.3125rem]">
           <div className="skeleton h-3.5 w-36 rounded-sm"></div>
         </div>
       </td>
 
-      <td className="border-b border-accent p-4 sm:first:pl-1 sm:last:pr-1">
+      <td className="border-accent border-b p-4 sm:first:pl-1 sm:last:pr-1">
         <div className="py-[0.3125rem]">
           <div className="skeleton h-3.5 w-36 rounded-sm"></div>
         </div>
       </td>
 
-      <td className="border-b border-accent p-4 sm:first:pl-1 sm:last:pr-1"></td>
+      <td className="border-accent border-b p-4 sm:first:pl-1 sm:last:pr-1"></td>
     </tr>
   )
 }

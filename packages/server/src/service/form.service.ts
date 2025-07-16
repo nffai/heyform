@@ -1,20 +1,16 @@
-import { GOOGLE_RECAPTCHA_KEY } from '@environments'
-import {
-  CaptchaKindEnum,
-  FormField,
-  FormStatusEnum
-} from '@heyform-inc/shared-types-enums'
-import { helper, pickObject, timestamp } from '@heyform-inc/utils'
-const { isValidArray } = helper
-import { FormModel } from '@model'
+import { CaptchaKindEnum, FormField, FormStatusEnum } from '@heyform-inc/shared-types-enums'
+import { InjectQueue } from '@nestjs/bull'
 import { BadRequestException, Injectable } from '@nestjs/common'
 import { InjectModel } from '@nestjs/mongoose'
-import { getUpdateQuery } from '@utils'
-import { Model } from 'mongoose'
-import { TeamService } from './team.service'
-import { mapToObject } from '@heyforms/integrations'
 import { Queue } from 'bull'
-import { InjectQueue } from '@nestjs/bull'
+import { Model } from 'mongoose'
+
+import { TeamService } from './team.service'
+import { GOOGLE_RECAPTCHA_KEY } from '@environments'
+import { helper, pickObject, timestamp } from '@heyform-inc/utils'
+import { FormModel } from '@model'
+import { mapToObject } from '@utils'
+import { getUpdateQuery } from '@utils'
 
 interface UpdateFiledOptions {
   formId: string
@@ -48,7 +44,7 @@ export class FormService {
       teamId
     }
 
-    if (isValidArray(teamId)) {
+    if (helper.isValidArray(teamId)) {
       conditions.teamId = {
         $in: teamId
       }
@@ -82,11 +78,7 @@ export class FormService {
       .limit(limit)
   }
 
-  async searchInTeam(
-    teamId: string,
-    projectIds: string[],
-    keyword: string
-  ): Promise<FormModel[]> {
+  async searchInTeam(teamId: string, projectIds: string[], keyword: string): Promise<FormModel[]> {
     const conditions: Record<string, any> = {
       teamId,
       name: new RegExp(keyword, 'i')
@@ -165,7 +157,6 @@ export class FormService {
     })
   }
 
-  // Discard
   async countAll(teamId: string): Promise<number> {
     return new Promise((resolve, reject) => {
       this.formModel.countDocuments(
@@ -225,10 +216,7 @@ export class FormService {
     return !!result?.ok
   }
 
-  public async updateMany(
-    formIds: string[],
-    updates: Record<string, any>
-  ): Promise<boolean> {
+  public async updateMany(formIds: string[], updates: Record<string, any>): Promise<boolean> {
     const result = await this.formModel.updateMany(
       {
         _id: {
@@ -239,35 +227,6 @@ export class FormService {
     )
     return !!result?.ok
   }
-
-  // public async moveToTrash(formId: string | string[]): Promise<boolean> {
-  //   let result: any
-  //   const updates = {
-  //     // 移动到 trash 的时间
-  //     retentionAt: timestamp(),
-  //     status: FormStatusEnum.TRASH
-  //   }
-  //
-  //   if (helper.isValidArray(formId)) {
-  //     result = await this.formModel.update(
-  //       {
-  //         _id: {
-  //           $in: formId as string[]
-  //         }
-  //       },
-  //       updates
-  //     )
-  //   } else {
-  //     result = await this.formModel.updateOne(
-  //       {
-  //         _id: formId as string
-  //       },
-  //       updates
-  //     )
-  //   }
-  //
-  //   return !!result?.ok
-  // }
 
   public async delete(formId: string | string[]): Promise<boolean> {
     let result: any
@@ -303,11 +262,7 @@ export class FormService {
     return !!result?.ok
   }
 
-  public async updateField({
-    formId,
-    fieldId,
-    updates
-  }: UpdateFiledOptions): Promise<boolean> {
+  public async updateField({ formId, fieldId, updates }: UpdateFiledOptions): Promise<boolean> {
     const result = await this.formModel.updateOne(
       {
         _id: formId,
@@ -333,6 +288,7 @@ export class FormService {
         }
       },
       {
+        // @ts-ignore
         safe: true,
         multi: true
       }
@@ -340,8 +296,7 @@ export class FormService {
     return !!result?.ok
   }
 
-  // Check form quota
-  async checkQuota(teamId: string, formLimit: number): Promise<Boolean> {
+  async checkQuota(teamId: string, formLimit: number): Promise<boolean> {
     const count = await this.countAll(teamId)
 
     if (formLimit !== -1 && count >= formLimit) {
@@ -354,12 +309,9 @@ export class FormService {
     return true
   }
 
-  public async findPublicForm(
-    formId: string
-  ): Promise<Record<string, any> | undefined> {
+  public async findPublicForm(formId: string): Promise<Record<string, any> | undefined> {
     const form = await this.findById(formId)
 
-    // 表单不存在或者未公开
     if (!form || !form.settings.active) {
       return {
         id: formId,
@@ -381,7 +333,6 @@ export class FormService {
       }
     }
 
-    // 表单不在有效时间限制内
     const now = timestamp()
     if (
       form.settings.enableExpirationDate &&
@@ -457,13 +408,10 @@ export class FormService {
     })
     masked.translations = mapToObject(form.translations)
 
-    // 是否支持白标
-    const team = await this.teamService.findWithPlanById(form.teamId)
-    // if (team && team.plan.whitelabelBranding) {
-    // }
+    const team = await this.teamService.findById(form.teamId)
+
     masked.settings.removeBranding = team.removeBranding
 
-    // 是否使用 Google reCaptcha
     if (form.settings?.captchaKind === CaptchaKindEnum.GOOGLE_RECAPTCHA) {
       masked.settings.googleRecaptchaKey = GOOGLE_RECAPTCHA_KEY
     }

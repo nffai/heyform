@@ -2,6 +2,8 @@ import { FieldKindEnum, FormField } from '@heyform-inc/shared-types-enums'
 import type { FC } from 'react'
 import { useEffect, useMemo } from 'react'
 
+import { useTranslation } from '../utils'
+
 import { Address } from '../blocks/Address'
 import { Country } from '../blocks/Country'
 import { Date } from '../blocks/Date'
@@ -27,7 +29,6 @@ import { Website } from '../blocks/Website'
 import { Welcome } from '../blocks/Welcome'
 import { YesNo } from '../blocks/YesNo'
 import { useStore } from '../store'
-import { useTranslation } from '../utils'
 import { Footer } from './Footer'
 import { Header } from './Header'
 

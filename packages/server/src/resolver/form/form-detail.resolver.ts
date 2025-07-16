@@ -1,59 +1,40 @@
 import { Auth, FormGuard, Team } from '@decorator'
 import { FormDetailInput, FormType, PublicFormType } from '@graphql'
+import { date } from '@heyform-inc/utils'
 import { FormModel, TeamModel } from '@model'
 import { Args, Query, Resolver } from '@nestjs/graphql'
-import {
-  AppService,
-  // FormCustomReportService,
-  FormService,
-  IntegrationService,
-  SubmissionService
-} from '@service'
-import { date } from '@heyform-inc/utils'
+import { FormService, SubmissionService } from '@service'
 
 @Resolver()
 @Auth()
 export class FormDetailResolver {
   constructor(
-    private readonly appService: AppService,
-    private readonly integrationService: IntegrationService,
     private readonly formService: FormService,
-    private readonly submissionService: SubmissionService // private readonly formCustomReportService: FormCustomReportService
+    private readonly submissionService: SubmissionService
   ) {}
 
-  /**
-   * Detail of the form
-   *
-   * @param input
-   */
   @Query(returns => FormType)
   @FormGuard()
   async formDetail(
     @Team() team: TeamModel,
     @Args('input') input: FormDetailInput
   ): Promise<FormModel> {
-    const [form, submissionCount, customReport] = await Promise.all([
+    const [form, submissionCount] = await Promise.all([
       this.formService.findById(input.formId),
-      this.submissionService.count({ formId: input.formId }),
-      null
+      this.submissionService.count({ formId: input.formId })
     ])
 
     //@ts-ignore
     form.updatedAt = date(form.get('updatedAt')).unix()
 
-    // @ts-ignore
+    //@ts-ignore
     form.submissionCount = submissionCount
-
-    // @ts-ignore
-    form.customReport = customReport
 
     return form
   }
 
   @Query(returns => PublicFormType)
-  async publicForm(
-    @Args('input') input: FormDetailInput
-  ): Promise<PublicFormType> {
+  async publicForm(@Args('input') input: FormDetailInput): Promise<PublicFormType> {
     const form = await this.formService.findPublicForm(input.formId)
 
     if (!form) {
@@ -70,30 +51,17 @@ export class FormDetailResolver {
 
     const integrations: Record<string, any> = {}
 
-    /**
-     * @description: update form's apps and integrations
-     */
     if (form.settings?.active) {
-      const apps = await this.appService.findAllByUniqueIds([
-        'googleanalytics',
-        'facebookpixel'
-      ])
-      const result = await this.integrationService.findAllInFormByApps(
-        input.formId,
-        apps.map(app => app.id)
-      )
-
-      for (const row of result) {
-        const app = apps.find(app => app.id === row.appId)
-        integrations[app.uniqueId] = (row.attributes as any).get('trackingCode')
-      }
+      // const apps = await this.appService.findAllByUniqueIds(['googleanalytics', 'facebookpixel'])
+      // const result = await this.integrationService.findAllInFormByApps(
+      //   input.formId,
+      //   apps.map(app => app.id)
+      // )
+      // for (const row of result) {
+      //   const app = apps.find(app => app.id === row.appId)
+      //   integrations[app.uniqueId] = (row.attributes as any).get('trackingCode')
+      // }
     }
-
-    // console.log('form')
-    // console.log(form)
-    // console.log('form')
-
-
 
     return {
       id: form.id,

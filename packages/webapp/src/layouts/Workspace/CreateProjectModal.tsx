@@ -2,11 +2,12 @@ import { useBoolean } from 'ahooks'
 import { FC, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Async, Checkbox, Form, Input, Modal, Repeat, SimpleFormProps } from '@/components'
 import { ProjectService, WorkspaceService } from '@/services'
+import { uniqueArray, useParam, useRouter } from '@/utils'
+
+import { Async, Checkbox, Form, Input, Modal, Repeat, SimpleFormProps } from '@/components'
 import { useAppStore, useModal, useUserStore, useWorkspaceStore } from '@/store'
 import { MemberType, ProjectType } from '@/types'
-import { uniqueArray, useParam, useRouter } from '@/utils'
 
 import { ProjectMemberItem } from '../Project/ProjectMemberItem'
 
@@ -38,7 +39,7 @@ const AddMembers: FC<{ value?: string[]; onChange?: (value: string[]) => void }>
 
   return (
     <div className="scrollbar -mx-6 max-h-[18rem] px-6">
-      <div className="divide-y divide-accent-light">
+      <div className="divide-accent-light divide-y">
         <Async
           fetch={fetch}
           refreshDeps={[workspaceId]}

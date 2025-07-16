@@ -32,9 +32,9 @@ export const Slider: FC<SliderProps> = ({
 
   return (
     <div className={cn('relative h-3 w-full py-2.5', className)} {...restProps}>
-      <div className="h-0.5 rounded-sm bg-accent-light">
+      <div className="bg-accent-light h-0.5 rounded-sm">
         <div
-          className="relative mt-0 h-full bg-primary after:absolute after:-right-1.5 after:top-1/2 after:-mt-1.5 after:h-3 after:w-3 after:rounded-full after:bg-primary"
+          className="bg-primary after:bg-primary relative mt-0 h-full after:absolute after:-right-1.5 after:top-1/2 after:-mt-1.5 after:h-3 after:w-3 after:rounded-full"
           style={{
             width: `${(100 * (value - min)) / (max - min)}%`
           }}

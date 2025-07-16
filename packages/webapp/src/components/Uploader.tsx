@@ -1,11 +1,11 @@
-import { formatBytes, helper, parseBytes } from '@heyform-inc/utils'
 import { IconUpload } from '@tabler/icons-react'
 import { useRequest } from 'ahooks'
 import { ChangeEvent, DragEvent, FC, MouseEvent, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { AppService, UserService, WorkspaceService } from '@/services'
-import { cn, useParam } from '@/utils'
+import { UploadService } from '@/services'
+import { cn } from '@/utils'
+import { formatBytes, parseBytes } from '@heyform-inc/utils'
 
 import { Loader } from './Loader'
 
@@ -17,7 +17,7 @@ export interface UploaderProps extends Omit<ComponentProps, 'onChange'> {
   onChange?: (value?: string) => void
 }
 
-const MAX_SIZE = '2MB'
+const MAX_SIZE = '10MB'
 const ACCEPT_TYPES = ['image/jpeg', 'image/png', 'image/bmp', 'image/webp', 'image/gif']
 
 export const Uploader: FC<UploaderProps> = ({
@@ -29,7 +29,6 @@ export const Uploader: FC<UploaderProps> = ({
   onChange
 }) => {
   const { t } = useTranslation()
-  const { workspaceId } = useParam()
 
   const inputRef = useRef<HTMLInputElement | null>(null)
   const dragRef = useRef<HTMLDivElement | null>(null)
@@ -45,20 +44,7 @@ export const Uploader: FC<UploaderProps> = ({
         return
       }
 
-      let data: AnyMap
-
-      if (helper.isValid(workspaceId)) {
-        data = await WorkspaceService.cdnToken(workspaceId, file.name, file.type)
-      } else {
-        data = await UserService.cdnToken(file.name, file.type)
-      }
-
-      const { token, urlPrefix, key } = data
-      const url = `${urlPrefix}/${key}`
-
-      await AppService.upload(file, key, token)
-
-      return url
+      return (await UploadService.upload(file)).url
     },
     {
       manual: true,
@@ -138,7 +124,7 @@ export const Uploader: FC<UploaderProps> = ({
     <div
       ref={dragRef}
       className={cn(
-        'flex h-full w-full cursor-pointer justify-center rounded-lg border border-dashed border-input p-6 data-[dragging]:border-blue-600',
+        'border-input flex h-full w-full cursor-pointer justify-center rounded-lg border border-dashed p-6 data-[dragging]:border-blue-600',
         className
       )}
       data-dragging={dragging ? '' : undefined}
@@ -166,7 +152,7 @@ export const Uploader: FC<UploaderProps> = ({
         </div>
 
         <div className="mt-5">
-          <div className="text-sm/6 font-medium text-primary">
+          <div className="text-primary text-sm/6 font-medium">
             {file ? (
               <span>
                 {file.name} ({formatBytes(file!.size)})
@@ -177,9 +163,9 @@ export const Uploader: FC<UploaderProps> = ({
           </div>
 
           {error ? (
-            <p className="text-xs/6 text-error">{error}</p>
+            <p className="text-error text-xs/6">{error}</p>
           ) : (
-            <p className="text-xs/6 text-secondary">
+            <p className="text-secondary text-xs/6">
               {file
                 ? loading
                   ? t('components.uploader.uploading')

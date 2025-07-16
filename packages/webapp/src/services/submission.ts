@@ -1,5 +1,7 @@
 import { Answer, SubmissionCategoryEnum } from '@heyform-inc/shared-types-enums'
 
+import { apollo } from '@/utils'
+
 import {
   DELETE_SUBMISSIONS_GQL,
   SUBMISSIONS_GQL,
@@ -9,7 +11,6 @@ import {
   UPDATE_SUBMISSION_ANSWER_GQL
 } from '@/consts'
 import { SubmissionType } from '@/types'
-import { apollo } from '@/utils'
 
 export class SubmissionService {
   static submissions(input: {

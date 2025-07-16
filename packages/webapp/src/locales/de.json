@@ -509,9 +509,6 @@
       "Abrufen Ihrer HeyForm-Kontoinformationen"
     ]
   },
-  "onboarding": {
-    "title": "Einführung"
-  },
   "workspace": {
     "notExist": "Dieser Arbeitsbereich existiert nicht.",
     "backHome": "Zurück zu HeyForm",
@@ -552,12 +549,6 @@
       "headline": "Sie wurden eingeladen, dem Arbeitsbereich von <span1>{{owner}}</span1> beizutreten: <span2>{{name}}</span2>",
       "subHeadline": "Treten Sie dem Arbeitsbereich bei und beginnen Sie noch heute mit der Zusammenarbeit!",
       "join": "Beitreten"
-    },
-    "trial": {
-      "title": "Starten Sie Ihre 7-tägige kostenlose Testversion",
-      "subHeadline": "Keine Verträge, herabstufen oder kündigen Sie das Abonnement jederzeit mit einem Klick von Ihrem Dashboard aus.",
-      "startTrial": "Testversion starten",
-      "continueWithFree": "Mit dem kostenlosen Plan fortfahren"
     }
   },
   "dashboard": {
@@ -624,110 +615,6 @@
       "sentSuccessMessage": "Eingeladene Mitglieder wurden per E-Mail benachrichtigt, um sich bei HeyForm anzumelden"
     }
   },
-  "billing": {
-    "title": "Abrechnung",
-    "planName": "{{name}}-Plan",
-    "year": "Jahr",
-    "month": "Monat",
-    "cycles": ["Für immer", "Monatlich", "Jährlich"],
-    "save16": "Sparen Sie 16%",
-    "keepFreePlan": "Weiterhin den kostenlosen Plan nutzen",
-    "plans": {
-      "headline": "Pläne",
-      "subHeadline": "Workspace <strong>{{workspaceName}}</strong> befindet sich derzeit im {{planName}}-Plan.",
-      "view": "Pläne anzeigen"
-    },
-    "subscription": {
-      "headline": "Aktueller Plan",
-      "subHeadline": "Der Workspace befindet sich derzeit im {{planName}}-Plan.",
-      "manage": "Abonnement verwalten",
-      "renewsOn": "Verlängert am {{date}}.",
-      "neverExpires": "Läuft nie ab.",
-      "canceled": "Gekündigt am {{canceledAt}}, gültig bis {{endAt}}."
-    },
-    "invoices": {
-      "headline": "Rechnungen",
-      "subHeadline": "Besuchen Sie das <button>Stripe-Kundenportal</button>, um Ihre Rechnungen anzusehen."
-    },
-    "upgrade": {
-      "title": "Upgrade",
-      "headline": "Ihren Plan upgraden",
-      "subHeadline": "Sie haben das Limit Ihres aktuellen Plans erreicht oder versuchen, auf eine erweiterte Funktion zuzugreifen. Bitte upgraden Sie, um sie freizuschalten.",
-      "removeBranding": "Upgraden Sie auf Premium, um das HeyForm-Branding zu entfernen",
-      "customDomain": "Upgraden Sie auf Premium, um eine benutzerdefinierte Domain einzurichten",
-      "translations": "Upgraden Sie auf Premium, um Formularfragen zu übersetzen",
-      "customCSS": "Upgraden Sie auf Premium, um benutzerdefiniertes CSS einzurichten",
-      "report": "Upgraden Sie auf Basic, um den Formularbericht anzusehen",
-      "customize": "Upgraden Sie auf Basic, um das Formular anzupassen",
-      "exportData": "Upgraden Sie auf Basic, um CSV-Daten zu exportieren",
-      "theme": "Upgraden Sie auf Basic, um ein Thema für das Formular festzulegen",
-      "metadata": "Upgraden Sie auf Basic, um Linkeinstellungen vorzunehmen",
-      "confirm": "Upgrade",
-      "remaining_one": "{{count}} Tag verbleibend",
-      "remaining_other": "{{count}} Tage verbleibend",
-      "trialing": "Testversion läuft",
-      "trialTip_zero": "{{name}}-Testversion endet heute",
-      "trialTip_one": "{{name}}-Testversion endet in {{count}} Tag",
-      "trialTip_other": "{{name}}-Testversion endet in {{count}} Tagen",
-      "upgradeTip": "Der kostenlose Plan wird am 1. Mai 2025 eingestellt. Erwägen Sie einen Wechsel zum Premium-Plan oder zur selbst gehosteten Lösung.",
-      "hiddenFields": "Upgrade auf Basic, um ein verstecktes Feld hinzuzufügen",
-      "brandKit": "Upgrade auf Premium, um das Marken-Kit einzurichten",
-      "redirect": "Upgrade auf Basic, um die Umleitung einzurichten"
-    },
-    "payment": {
-      "headline": "Plan upgraden",
-      "couponCode": {
-        "label": "Gutscheincode",
-        "require": "Der Gutscheincode darf nicht leer sein"
-      },
-      "apply": "Anwenden",
-      "subtotal": "Zwischensumme",
-      "discount": "Rabatt",
-      "total": "Gesamtsumme",
-      "confirm": "Jetzt upgraden"
-    },
-    "downgrade": {
-      "headline": "Plan downgraden",
-      "subHeadline": "Sobald Sie das Downgrade bestätigen, hat Ihr Arbeitsbereich: <strong>{{workspaceName}}</strong> keinen Zugriff mehr auf die Funktionen des <strong>{{planName}}</strong>-Plans.",
-      "confirm": "Herabstufen"
-    },
-    "features": {
-      "basic": [
-        "Unbegrenzte Formulare",
-        "5.000 Antworten pro Monat",
-        "10GB Speicherplatz im Arbeitsbereich",
-        "Formularbericht",
-        "Benutzerdefinierte Metadaten",
-        "Versteckte Felder",
-        "Themenanpassung",
-        "Weiterleitung nach Abschluss",
-        "Daten herunterladen"
-      ],
-      "premium": [
-        "Alles in BASIC",
-        "20.000 Antworten pro Monat",
-        "20GB Speicherplatz im Arbeitsbereich",
-        "Bis zu 3 Mitglieder einladen",
-        "Eigene Domain",
-        "Eigenes CSS",
-        "HeyForm-Branding entfernen",
-        "Priorisierter Support"
-      ],
-      "business": [
-        "Alles in PREMIUM",
-        "150,000 Antworten pro Monat",
-        "50GB Speicherplatz im Arbeitsbereich",
-        "Laden Sie bis zu 10 Mitglieder ein",
-        "Keine Provision auf Zahlungen",
-        "Keine Größenbeschränkung für Datei-Uploads"
-      ]
-    },
-    "success": {
-      "title": "Zahlung erfolgreich",
-      "description": "Vielen Dank für Ihre Zahlung. Ihre Bestellung wird bearbeitet.",
-      "button": "Zurück zum Dashboard"
-    }
-  },
   "settings": {
     "title": "Arbeitsbereich-Einstellungen",
     "branding": {
@@ -751,25 +638,6 @@
         "input": "Ihre Antwort kommt hier hin",
         "next": "Weiter"
       }
-    },
-    "customDomain": {
-      "headline": "Eigene Domain",
-      "subHeadline": "Eigene Domains ermöglichen es Ihnen, Formulare unter Ihren eigenen, nicht-HeyForm-Domainnamen zugänglich zu machen. <a>Mehr erfahren <icon /></a>",
-      "placeholder": "z.B.: yourcustomdomain.com",
-      "invalid": "Die Domain ist ungültig",
-      "tip1": "Eigene Domains ermöglichen es Ihnen, Formulare unter Ihren eigenen, nicht-HeyForm-Domainnamen zugänglich zu machen (zum Beispiel yourcustomdomain.com). HeyForm unterstützt alle Top-Level-Domains für eigene Domains. <a>Mehr erfahren <icon /></a>",
-      "tip2": "Bitte fügen Sie die folgenden DNS-Einträge in die DNS-Einstellungen Ihres Domainanbieters ein. Sie können die DNS-Einträge Ihrer Domain mit diesem Tool überprüfen: <a>DNS Lookup <icon /></a>",
-      "type": "Typ",
-      "name": "Name",
-      "cname": "CNAME",
-      "aname": "A",
-      "content": "Inhalt",
-      "ttl": "TTL",
-      "ttlAuto": "Automatisch / Standard",
-      "dnsOnly": "Nur DNS",
-      "proxyStatus": "Proxy-Status",
-      "proxyTip": "Bei Domain-Anbietern wie Cloudflare bitten wir Sie, die Proxy-Funktion zu deaktivieren.",
-      "dnsError": "Wir konnten Ihre DNS-Einträge nicht verifizieren. Wenn Sie dies bereits eingerichtet haben, versuchen Sie es später erneut."
     },
     "exportData": {
       "title": "Daten exportieren",

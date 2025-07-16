@@ -42,7 +42,7 @@ const TabsComponent: FC<TabsProps> = ({ className, tabs, defaultTab, action, onC
   return (
     <Root className={className} value={activeTab} onValueChange={setActiveTab}>
       <div
-        className="flex h-12 items-center justify-between border-b border-accent-light px-4 pt-4 text-sm font-medium text-secondary"
+        className="border-accent-light text-secondary flex h-12 items-center justify-between border-b px-4 pt-4 text-sm font-medium"
         data-slot="nav"
       >
         <List className="relative flex items-center gap-x-6" data-slot="tablist">
@@ -50,7 +50,7 @@ const TabsComponent: FC<TabsProps> = ({ className, tabs, defaultTab, action, onC
             <Trigger
               key={t.value}
               ref={el => (triggersRef.current[t.value] = el as Any)}
-              className="pb-3 text-secondary aria-selected:text-primary"
+              className="text-secondary aria-selected:text-primary pb-3"
               data-slot="tab"
               data-tab={t.value}
               role="tab"
@@ -62,7 +62,7 @@ const TabsComponent: FC<TabsProps> = ({ className, tabs, defaultTab, action, onC
           ))}
 
           <div
-            className="absolute bottom-0 left-0 h-0.5 rounded-full bg-primary transition-all duration-300"
+            className="bg-primary absolute bottom-0 left-0 h-0.5 rounded-full transition-all duration-300"
             data-slot="underline"
             style={{
               width: underlineWidth,
@@ -92,12 +92,12 @@ const SegmentedControl: FC<TabsProps> = ({ className, tabs, defaultTab, action, 
 
   return (
     <Root className={className} value={activeTab} onValueChange={setActiveTab}>
-      <div className="grid h-10 rounded-md bg-accent-light p-1 text-secondary" data-slot="nav">
+      <div className="bg-accent-light text-secondary grid h-10 rounded-md p-1" data-slot="nav">
         <List className="flex items-center gap-x-1" data-slot="tablist">
           {tabs.map(t => (
             <Trigger
               key={t.value}
-              className="w-full flex-1 rounded-md px-3 py-1 text-sm/6 font-medium text-secondary hover:text-primary aria-selected:bg-foreground aria-selected:text-primary"
+              className="text-secondary hover:text-primary aria-selected:bg-foreground aria-selected:text-primary w-full flex-1 rounded-md px-3 py-1 text-sm/6 font-medium"
               data-slot="tab"
               data-tab={t.value}
               role="tab"

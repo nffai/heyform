@@ -43,10 +43,9 @@ export const Pagination: FC<PaginationProps> = ({
   return (
     <nav
       className={cn('flex items-center justify-between gap-x-4', className)}
-      role="navigation"
       aria-label="pagination"
     >
-      <div className="hidden text-sm/6 text-primary sm:block" data-slot="info">
+      <div className="text-primary hidden text-sm/6 sm:block" data-slot="info">
         {t('components.pagination.title', { page, maxPage })}
       </div>
 

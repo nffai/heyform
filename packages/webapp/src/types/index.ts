@@ -19,11 +19,10 @@ export interface FormType extends Omit<FormModel, 'fields'> {
 export interface ChangelogType {
   id: string
   title: string
-  html: string
+  content: string
   publishedAt: string
 }
 
 export * from './form'
-export * from './plan'
 export * from './user'
 export * from './workspace'

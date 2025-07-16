@@ -1,16 +1,12 @@
-// import { FormModel } from '@heyform-inc/shared-types-enums'
 import { IconEye, IconSend2, IconShare } from '@tabler/icons-react'
 import { observer } from 'mobx-react-lite'
 import { useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import {
-  Button // notification
-} from '@/components'
 import { FormService } from '@/services'
-import { useAppStore, useFormStore } from '@/store'
 
-// import { useStore } from '@/store'
+import { Button } from '@/components'
+import { useAppStore, useFormStore } from '@/store'
 
 export const FormActions = observer(() => {
   const { t } = useTranslation()
@@ -42,11 +38,7 @@ export const FormActions = observer(() => {
         active: true
       })
       appStore.openModal('isFormShareModalOpen')
-    } catch (err: any) {
-      // notification.error({
-      //   title: 'Failed to publish form'
-      // })
-    }
+    } catch (err: any) {}
 
     setLoading(false)
   }
@@ -70,7 +62,7 @@ export const FormActions = observer(() => {
         onClick: handlePublish
       }
     ],
-    // [formStore, handlePreview, handlePublish, handleShare, t]
+
     [t]
   )
 

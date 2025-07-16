@@ -1,6 +1,5 @@
 import { Button, Input, getChoiceKeyName } from '@heyform-inc/form-renderer'
 import { Choice, ChoiceBadgeEnum } from '@heyform-inc/shared-types-enums'
-import { clone, excludeObject, helper, nanoid } from '@heyform-inc/utils'
 import {
   IconPencil,
   IconPhoto,
@@ -13,8 +12,10 @@ import { FC, useCallback, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ReactSortable } from 'react-sortablejs'
 
-import { ImagePicker, ImagePickerRef } from '@/components'
 import { cn } from '@/utils'
+import { clone, excludeObject, helper, nanoid } from '@heyform-inc/utils'
+
+import { ImagePicker, ImagePickerRef } from '@/components'
 
 import { useStoreContext } from '../../store'
 import type { BlockProps } from './Block'
@@ -153,10 +154,8 @@ export const PictureChoice: FC<BlockProps> = ({ field, locale, ...restProps }) =
   function handleAddChoice() {
     const newChoiceId = nanoid(12)
 
-    // Show image picker modal
     handleSelectImage(newChoiceId)
 
-    // Create new choice
     dispatch({
       type: 'updateField',
       payload: {

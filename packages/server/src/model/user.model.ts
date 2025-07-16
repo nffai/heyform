@@ -34,24 +34,15 @@ export class UserModel extends Document {
   @Prop({ default: UserLangEnum.EN, enum: Object.values(UserLangEnum) })
   lang?: UserLangEnum
 
-  /**
-   * Stripe customer
-   *
-   * https://stripe.com/docs/api/customers
-   */
   @Prop()
   customerId?: string
 
   @Prop({ default: false })
   isEmailVerified?: boolean
 
-  // Add at 2021-12-27 (v2021.12.4)
-  // Is the user request to delete their account for GDPR
   @Prop({ default: false })
   isDeletionScheduled?: boolean
 
-  // Add at 2021-12-27 (v2021.12.4)
-  // Account deletion date in seconds for GDPR
   @Prop({ default: 0 })
   deletionScheduledAt?: number
 
@@ -64,46 +55,18 @@ export class UserModel extends Document {
   @Prop({ default: 0 })
   lastCheckedAt?: number
 
-  // Add at 31 Aug 2024
-  @Prop({ default: false })
-  isOnboardRequired?: boolean
-
-  // Add at 31 Aug 2024
-  @Prop({ default: 0 })
-  onboardedAt?: number
-
-  // Add at 5 Oct 2024
   @Prop({ default: 0 })
   publishedFormAt?: number
 
   @Prop()
-  crmLeadId?: string
-
-  @Prop()
   source?: string
 
-  /**
-   * Check if user is register from social login,
-   * isSocialAccount will not be used as a column in the user schema
-   */
   isSocialAccount?: boolean
 
-  /**
-   * Check if user has published form or not
-   */
   hasPublishedForm: boolean
 }
 
 export const UserSchema = SchemaFactory.createForClass(UserModel)
-
-// // I have removed the virtual definition for isOnboardRequired from UserSchema since it is already defined as a real field in the Mongoose schema.
-// UserSchema.virtual('isOnboardRequired').get(function () {
-//   if (!this.isOnboardRequired) {
-//     return true
-//   } else {
-//     return this.onboardedAt && this.onboardedAt > 0
-//   }
-// })
 
 UserSchema.virtual('hasPublishedForm').get(function () {
   return this.publishedFormAt && this.publishedFormAt > 0

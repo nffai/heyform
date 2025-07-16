@@ -8,18 +8,9 @@ import { FormService } from '@service'
 export class FormArchiveResolver {
   constructor(private readonly formService: FormService) {}
 
-  /**
-   * Update form archive
-   * and delete all submission if user disable archive
-   *
-   * @param input
-   */
   @Mutation(returns => Boolean)
   @FormGuard()
-  async formArchive(
-    @Args('input') input: UpdateFormArchiveInput
-  ): Promise<boolean> {
-    // Delete all submission once user disable archive
+  async formArchive(@Args('input') input: UpdateFormArchiveInput): Promise<boolean> {
     if (!input.allowArchive) {
     }
 

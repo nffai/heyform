@@ -15,10 +15,14 @@ declare global {
 
   interface Window {
     initGeetest4: any
+    grecaptcha: any
     plausible: any
     DEVICE_INFO: any
     TrackdeskObject: any
     heyform: {
+      form: any
+      query: any
+      locale: any
       device: {
         ios: boolean
         android: boolean
@@ -36,6 +40,8 @@ declare global {
       disableLoginWithApple?: boolean | string
       disableLoginWithGoogle?: boolean | string
       verifyUserEmail?: boolean | string
+      templatesURL?: string
+      helpCenterURL?: string
     }
     __APOLLO_DEVTOOLS_GLOBAL_HOOK__: boolean
   }

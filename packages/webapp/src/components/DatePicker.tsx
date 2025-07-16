@@ -21,10 +21,11 @@ import {
 import { useTranslation } from 'react-i18next'
 import { createStore as createZStore, useStore as useZStore } from 'zustand'
 import computed from 'zustand-computed'
+
+import { cn, isValidDayjs, nextTick, scrollIntoViewIfNeeded } from '@/utils'
 import { immer } from 'zustand/middleware/immer'
 
 import { DATE_FORMATS } from '@/consts'
-import { cn, isValidDayjs, nextTick, scrollIntoViewIfNeeded } from '@/utils'
 
 import { Input, InputProps } from './Input'
 
@@ -459,7 +460,7 @@ const Navigation = () => {
           <button
             type="button"
             tabIndex={-1}
-            className="rounded p-0.5 text-sm/6 font-medium hover:bg-accent-light"
+            className="hover:bg-accent-light rounded p-0.5 text-sm/6 font-medium"
             onClick={toggleMonthPicker}
           >
             {pendingDate.locale(locale).format(format.month)}
@@ -467,7 +468,7 @@ const Navigation = () => {
           <button
             type="button"
             tabIndex={-1}
-            className="rounded p-0.5 text-sm/6 font-medium hover:bg-accent-light"
+            className="hover:bg-accent-light rounded p-0.5 text-sm/6 font-medium"
             onClick={toggleYearPicker}
           >
             {pendingDate.locale(locale).format(format.year)}
@@ -476,7 +477,7 @@ const Navigation = () => {
         <button
           type="button"
           tabIndex={-1}
-          className="rounded p-0.5 text-primary transition-transform duration-200 ease-in-out hover:bg-accent-light data-[state=open]:rotate-180"
+          className="text-primary hover:bg-accent-light rounded p-0.5 transition-transform duration-200 ease-in-out data-[state=open]:rotate-180"
           data-state={isOpen ? 'open' : 'close'}
           onClick={togglePicker}
         >
@@ -488,7 +489,7 @@ const Navigation = () => {
         <button
           type="button"
           tabIndex={-1}
-          className="rounded p-0.5 text-primary hover:bg-accent-light"
+          className="text-primary hover:bg-accent-light rounded p-0.5"
           onClick={toPrevious}
         >
           {isOpen ? (
@@ -500,7 +501,7 @@ const Navigation = () => {
         <button
           type="button"
           tabIndex={-1}
-          className="rounded p-0.5 text-primary hover:bg-accent-light"
+          className="text-primary hover:bg-accent-light rounded p-0.5"
           onClick={toNext}
         >
           {isOpen ? (
@@ -527,7 +528,7 @@ const YearCell: FC<{ year: number }> = ({ year }) => {
       type="button"
       name="year"
       role="gridcell"
-      className={cn('h-9 rounded px-2 hover:bg-accent-light', {
+      className={cn('hover:bg-accent-light h-9 rounded px-2', {
         'bg-primary text-foreground hover:bg-primary': isSelected
       })}
       aria-selected={isSelected}
@@ -580,7 +581,7 @@ const MonthCell: FC<{ month: MonthType }> = ({ month }) => {
       type="button"
       name="month"
       role="gridcell"
-      className={cn('h-9 rounded px-3.5 hover:bg-accent-light', {
+      className={cn('hover:bg-accent-light h-9 rounded px-3.5', {
         'bg-primary text-foreground hover:bg-primary': isSelected
       })}
       aria-selected={isSelected}
@@ -639,7 +640,7 @@ const WeekView = () => {
   }, [locale, weekStartsOn])
 
   return (
-    <div className="flex items-center px-2 py-1 text-sm/6 text-secondary">
+    <div className="text-secondary flex items-center px-2 py-1 text-sm/6">
       {weeks.map(row => (
         <div key={row.value} className="w-9 text-center" aria-label={row.ariaLabel}>
           {row.label}
@@ -655,7 +656,6 @@ const DayCell: FC<{ date: DateType }> = ({ date }) => {
   const handleClick = useCallback(() => {
     let newValue = date.$
 
-    // Don't change hour/minute
     if (value) {
       newValue = newValue.hour(value.hour()).minute(value.minute()).clone()
     }
@@ -675,7 +675,7 @@ const DayCell: FC<{ date: DateType }> = ({ date }) => {
         name="day"
         role="gridcell"
         className={cn(
-          'flex h-9 w-9 items-center justify-center rounded border border-transparent text-sm/6 hover:bg-accent-light',
+          'hover:bg-accent-light flex h-9 w-9 items-center justify-center rounded border border-transparent text-sm/6',
           {
             'text-secondary': date.isOutOfMonth,
             'border-accent': date.isToday,
@@ -791,7 +791,7 @@ const TimeCell: FC<TimeCellProps> = ({ time, timeFormat }) => {
         name="time"
         tabIndex={-1}
         key={time.isoString}
-        className={cn('block rounded px-2 py-0.5 text-sm/6 hover:bg-accent-light', {
+        className={cn('hover:bg-accent-light block rounded px-2 py-0.5 text-sm/6', {
           'bg-primary text-foreground hover:bg-primary': time.isSelected,
           'pointer-events-none': time.isDisabled
         })}
@@ -823,7 +823,7 @@ const TimePanel = () => {
   }, [value, listRef])
 
   return (
-    <div className="flex h-[21rem] flex-col border-l border-accent-light">
+    <div className="border-accent-light flex h-[21rem] flex-col border-l">
       <div className="pb-2 pt-4">
         <div className="text-center text-sm/6">{t('components.datePicker.time')}</div>
       </div>
@@ -958,7 +958,7 @@ export const DatePicker: FC<DatePickerProps> = ({
 
         <Portal>
           <Content
-            className="z-10 origin-top-left rounded-lg bg-foreground text-sm shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-90 data-[state=open]:zoom-in-90"
+            className="bg-foreground data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-90 data-[state=open]:zoom-in-90 z-10 origin-top-left rounded-lg text-sm shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
             sideOffset={8}
             align="start"
           >

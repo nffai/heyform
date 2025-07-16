@@ -1,13 +1,14 @@
-import { htmlUtils } from '@heyform-inc/answer-utils'
 import { FieldLayoutAlignEnum, QUESTION_FIELD_KINDS } from '@heyform-inc/shared-types-enums'
-import { helper } from '@heyform-inc/utils'
 import clsx from 'clsx'
 import { FC, WheelEvent, useEffect, useMemo, useState } from 'react'
+
+import { questionNumber, removeHeading, replaceHTML, useTranslation } from '../utils'
+import { htmlUtils } from '@heyform-inc/answer-utils'
+import { helper } from '@heyform-inc/utils'
 
 import { Layout } from '../components'
 import { useStore } from '../store'
 import type { IComponentProps, IFormField } from '../typings'
-import { questionNumber, removeHeading, replaceHTML, useTranslation } from '../utils'
 import { useWheelScroll } from './hook'
 
 export interface BlockProps extends IComponentProps {

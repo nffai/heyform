@@ -1,14 +1,8 @@
 import { HiddenField, Variable } from '@heyform-inc/shared-types-enums'
-import { helper } from '@heyform-inc/utils'
+import debounce from 'lodash/debounce'
 import type { CSSProperties, ClipboardEvent, FC, KeyboardEvent, RefObject } from 'react'
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import debounce from 'lodash/debounce'
 
-import { FormFieldType } from '@/types'
-import { cn } from '@/utils'
-
-import { FloatingToolbar } from './FloatingToolbar'
-import { MentionMenu } from './MentionMenu'
 import type { RichTextTriggerSelection } from './utils'
 import {
   getStyleFromRect,
@@ -17,6 +11,13 @@ import {
   insertClipboardHTML,
   replaceTriggerText
 } from './utils'
+import { cn } from '@/utils'
+import { helper } from '@heyform-inc/utils'
+
+import { FormFieldType } from '@/types'
+
+import { FloatingToolbar } from './FloatingToolbar'
+import { MentionMenu } from './MentionMenu'
 
 interface RichTextProps extends Omit<ComponentProps, 'onChange'> {
   innerRef: RefObject<HTMLDivElement>
@@ -134,7 +135,6 @@ export const RichText: FC<RichTextProps> = ({
       return
     }
 
-    // Save pressed key
     setInputKey(event.key)
   }
 
@@ -202,7 +202,6 @@ export const RichText: FC<RichTextProps> = ({
   const handleMentionSelectCallback = useCallback(handleMentionSelect, [keyword, triggerSelection])
   const hideToolbarCallback = useCallback(hideToolbar, [])
 
-  // Setup initial html
   useEffect(() => {
     if (innerRef.current && helper.isValid(value)) {
       innerRef.current.innerHTML = value!
@@ -214,7 +213,6 @@ export const RichText: FC<RichTextProps> = ({
       <div
         ref={innerRef}
         className={cn('rich-text', className)}
-        // @ts-ignore
         placeholder={placeholder}
         contentEditable={true}
         suppressContentEditableWarning={true}

@@ -14,10 +14,6 @@ export interface FormReportResponse {
   properties?: Property
   chooses?: Choose[]
 
-  /**
-   * Discard
-   * Render all there 3 fields from form fields
-   */
   kind?: FieldKindEnum
   title?: string
   description?: string

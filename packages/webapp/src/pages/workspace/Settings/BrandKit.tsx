@@ -14,7 +14,7 @@ export default function WorkspaceBrandKit() {
         <label className="text-base/7 font-medium sm:text-sm/5">
           {t('settings.branding.brandKitHeadline')}
         </label>
-        <p data-slot="text" className="text-base/5 text-secondary sm:text-sm/5">
+        <p data-slot="text" className="text-secondary text-base/5 sm:text-sm/5">
           {t('settings.branding.brandKitSubHeadline')}
         </p>
       </div>

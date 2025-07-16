@@ -509,9 +509,6 @@
       "HeyForm アカウント情報を取得する"
     ]
   },
-  "onboarding": {
-    "title": "オンボーディング"
-  },
   "workspace": {
     "notExist": "このワークスペースは存在しません。",
     "backHome": "HeyForm に戻る",
@@ -552,12 +549,6 @@
       "headline": "<span1>{{owner}}</span1> のワークスペース：<span2>{{name}}</span2> に招待されました",
       "subHeadline": "今すぐワークスペースに参加してコラボレーションを始めましょう！",
       "join": "参加する"
-    },
-    "trial": {
-      "title": "7日間の無料トライアルを開始する",
-      "subHeadline": "契約不要、コントロールパネルでクリック一つでダウングレードやキャンセルが可能。",
-      "startTrial": "トライアルを開始",
-      "continueWithFree": "無料プランを続ける"
     }
   },
   "dashboard": {
@@ -624,110 +615,6 @@
       "sentSuccessMessage": "招待されたメンバーにはHeyFormにサインアップするためのメールが送信されました"
     }
   },
-  "billing": {
-    "title": "請求書",
-    "planName": "{{name}} プラン",
-    "year": "年",
-    "month": "月",
-    "cycles": ["永久", "毎月", "毎年"],
-    "save16": "16% 節約",
-    "keepFreePlan": "無料プランを続ける",
-    "plans": {
-      "headline": "プラン",
-      "subHeadline": "<strong>{{workspaceName}}</strong> ワークスペースは現在 {{planName}} プランを使用しています。",
-      "view": "プランを見る"
-    },
-    "subscription": {
-      "headline": "現在のプラン",
-      "subHeadline": "ワークスペースは現在 {{planName}} プランを使用しています。",
-      "manage": "サブスクリプションを管理する",
-      "renewsOn": "更新日：{{date}}。",
-      "neverExpires": "無期限。",
-      "canceled": "{{canceledAt}} にキャンセルされ、{{endAt}} まで有効です。"
-    },
-    "invoices": {
-      "headline": "請求書",
-      "subHeadline": "<button>Stripe カスタマーポータル</button> にアクセスして請求書をご覧ください。"
-    },
-    "upgrade": {
-      "title": "プランをアップグレードする",
-      "headline": "プランをアップグレード",
-      "subHeadline": "現在のプランの制限に達したか、高度な機能を使用しようとしています。アップグレードしてこの機能を解除してください。",
-      "removeBranding": "HeyForm のブランド表示を削除するには、プレミアム版にアップグレードしてください",
-      "customDomain": "カスタムドメインを設定するには、プレミアム版にアップグレードしてください",
-      "translations": "フォームの質問を翻訳するには、プレミアム版にアップグレードしてください",
-      "customCSS": "カスタム CSS を設定するには、プレミアム版にアップグレードしてください",
-      "report": "フォームの報告を見るためにはベーシックプランへアップグレードしてください",
-      "customize": "フォームをカスタマイズするためにはベーシックプランへアップグレードしてください",
-      "exportData": "CSV データを書き出すためにはベーシックプランへアップグレードしてください",
-      "theme": "フォームテーマを設定するためにはベーシックプランへアップグレードしてください",
-      "metadata": "リンク設定を行うにはベーシックプランにアップグレードしてください",
-      "confirm": " アップグレード",
-      "remaining_one": "残り{{count}}日",
-      "remaining_other": "残り{{count}}日",
-      "trialing": "試用中",
-      "trialTip_zero": "{{name}}トライアルは今日で終了します",
-      "trialTip_one": "{{name}}トライアルは{{count}}日で終了します",
-      "trialTip_other": "{{name}}トライアルは{{count}}日で終了します",
-      "hiddenFields": "隠しフィールドを追加するにはベーシックプランにアップグレードしてください",
-      "brandKit": "ブランドキットを設定するにはプレミアムにアップグレードしてください",
-      "redirect": "リダイレクトを設定するにはBasicにアップグレード",
-      "upgradeTip": "無料プランは2025年5月1日に終了します。プレミアムプランまたはセルフホスティングソリューションへの移行をご検討ください。"
-    },
-    "payment": {
-      "headline": "プランをアップグレード",
-      "couponCode": {
-        "label": "クーポンコード",
-        "require": "クーポンコードは必須です"
-      },
-      "apply": "適用する",
-      "subtotal": "小計",
-      "discount": "割引",
-      "total": "合計",
-      "confirm": "今すぐアップグレード"
-    },
-    "downgrade": {
-      "headline": "プランをダウングレード",
-      "subHeadline": "一度ダウングレードを確認すると、ワークスペース：<strong>{{workspaceName}}</strong> は <strong>{{planName}}</strong> プランの機能にアクセスできなくなります。",
-      "confirm": "ダウングレードを確認"
-    },
-    "features": {
-      "basic": [
-        "無制限のフォーム",
-        "月に5,000回の応答",
-        "10GBのワークスペースストレージ",
-        "フォームレポート",
-        "カスタムメタデータ",
-        "非表示フィールド",
-        "テーマカスタマイズ",
-        "完了後リダイレクト",
-        "データをダウンロード"
-      ],
-      "premium": [
-        "BASICプランのすべての機能",
-        "月に20,000回の応答",
-        "20GBのワークスペースストレージ",
-        "最大3名までメンバーを招待可能",
-        "カスタムドメイン名",
-        "カスタムCSS",
-        "HeyFormブランドを削除",
-        "優先サポート"
-      ],
-      "business": [
-        "PREMIUMプランのすべての機能",
-        "月に150,000回の応答",
-        "50GB ワークスペースストレージ",
-        "最大10名のメンバーを招待可能",
-        "手数料無料で支払い",
-        "ファイルアップロードにサイズ制限なし"
-      ]
-    },
-    "success": {
-      "title": "支払いが成功しました",
-      "description": "お支払いありがとうございます。ご注文は処理中です。",
-      "button": "ダッシュボードに戻る"
-    }
-  },
   "settings": {
     "title": "ワークスペース設定",
     "branding": {
@@ -751,25 +638,6 @@
         "input": "あなたの回答をここに記入してください",
         "next": "次へ"
       }
-    },
-    "customDomain": {
-      "headline": "カスタムドメイン",
-      "subHeadline": "カスタムドメインを使用すると、自分の非HeyFormドメインでフォームにアクセスできます。 <a>詳細はこちら <icon /></a>",
-      "placeholder": "例：yourcustomdomain.com",
-      "invalid": "無効なドメイン",
-      "tip1": "カスタムドメインを使用すると、自分の非HeyFormドメインでフォームにアクセスできます（例：yourcustomdomain.com）。HeyFormはすべてのトップレベルドメインをカスタムドメインとしてサポートしています。<a>詳細はこちら <icon /></a>",
-      "tip2": "以下のDNSレコードをあなたのドメインプロバイダーのDNS設定に追加してください。このツールであなたのドメインDNSレコードを確認できます：<a>DNSクエリ <icon /></a>",
-      "type": "タイプ",
-      "name": "名前",
-      "cname": "CNAME",
-      "aname": "A",
-      "content": "内容",
-      "ttl": "TTL",
-      "ttlAuto": "自動 / デフォルト",
-      "dnsOnly": "DNS のみ",
-      "proxyStatus": "プロキシステータス",
-      "proxyTip": "Cloudflare などのドメインプロバイダーの場合、プロキシ機能を無効にすることをお勧めします。",
-      "dnsError": "DNS レコードを検証できませんでした。既に設定している場合は、後でもう一度お試しください。"
     },
     "exportData": {
       "title": "データのエクスポート",

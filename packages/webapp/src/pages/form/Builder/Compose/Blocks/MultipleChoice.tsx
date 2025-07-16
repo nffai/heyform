@@ -6,7 +6,6 @@ import {
   preventDefault
 } from '@heyform-inc/form-renderer'
 import { Choice, ChoiceBadgeEnum } from '@heyform-inc/shared-types-enums'
-import { clone, excludeObject, helper, nanoid } from '@heyform-inc/utils'
 import { IconX } from '@tabler/icons-react'
 import { clsx } from 'clsx'
 import { FC, KeyboardEvent, Ref, useCallback, useMemo, useRef, useState } from 'react'
@@ -14,6 +13,7 @@ import { useTranslation } from 'react-i18next'
 import { ReactSortable } from 'react-sortablejs'
 
 import { cn, nextTick } from '@/utils'
+import { clone, excludeObject, helper, nanoid } from '@heyform-inc/utils'
 
 import { useStoreContext } from '../../store'
 import type { BlockProps } from './Block'
@@ -108,7 +108,6 @@ const MultipleChoiceItem: FC<MultipleChoiceItemProps> = ({
                 ref={ref}
                 value={choice.label}
                 placeholder={isFocused ? t('form.builder.compose.choicePlaceholder') : undefined}
-                autoFocus
                 onBlur={handleBlur}
                 onFocus={handleFocus}
                 onChange={handleChange}

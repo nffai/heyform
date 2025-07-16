@@ -1,12 +1,13 @@
 import { Column, FieldKindEnum } from '@heyform-inc/shared-types-enums'
-import { helper } from '@heyform-inc/utils'
 import { useBoolean } from 'ahooks'
 import { FC, useCallback, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Pagination, useToast } from '@/components'
 import { SubmissionService } from '@/services'
 import { timeFromNow, useParam } from '@/utils'
+import { helper } from '@heyform-inc/utils'
+
+import { Pagination, useToast } from '@/components'
 
 interface SubmissionItemProps {
   answers: AnyMap[]
@@ -38,7 +39,7 @@ const InputTableItem: FC<InputTableItemProps> = ({ columns, answers: rawAnswers 
           {columns.map(c => (
             <th
               key={c.id}
-              className="heyform-report-border border-b py-2 text-sm/6 font-medium text-secondary"
+              className="heyform-report-border text-secondary border-b py-2 text-sm/6 font-medium"
             >
               {c.label}
             </th>

@@ -1,10 +1,11 @@
 import { Button } from '@heyform-inc/form-renderer'
 import type { Choice } from '@heyform-inc/shared-types-enums'
-import { clone, nanoid } from '@heyform-inc/utils'
 import { IconChevronRight, IconX } from '@tabler/icons-react'
 import type { FC } from 'react'
 import { startTransition, useCallback, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+
+import { clone, nanoid } from '@heyform-inc/utils'
 
 import { useStoreContext } from '../../store'
 import { FakeSubmit } from '../FakeSubmit'
@@ -146,7 +147,9 @@ export const InputTable: FC<BlockProps> = ({ field, locale, ...restProps }) => {
           <tbody>
             {Array.from({ length: 5 }).map((_, i) => (
               <tr key={i} className="heyform-input-table-row">
-                {field.properties?.tableColumns?.map(column => <td key={column.id}></td>)}
+                {field.properties?.tableColumns?.map(column => (
+                  <td key={column.id}></td>
+                ))}
               </tr>
             ))}
           </tbody>

@@ -114,7 +114,7 @@ export default function FormSettingsAccess() {
 
               <Form.Item className="[&_[data-slot=content]]:pt-1.5" name="expirationTimeZone">
                 <Select.Native
-                  className="-mt-2 cursor-pointer appearance-none border-none bg-none px-0 py-2.5 text-secondary hover:text-primary focus:text-primary focus:outline-none focus:ring-0 sm:mt-0 sm:px-0"
+                  className="text-secondary hover:text-primary focus:text-primary -mt-2 cursor-pointer appearance-none border-none bg-none px-0 py-2.5 focus:outline-none focus:ring-0 sm:mt-0 sm:px-0"
                   options={timezoneItems}
                 />
               </Form.Item>

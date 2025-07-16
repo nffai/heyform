@@ -1,6 +1,7 @@
-import { helper, toURLQuery } from '@heyform-inc/utils'
 import { type ClassValue, clsx } from 'clsx'
 import { twMerge } from 'tailwind-merge'
+
+import { helper, toURLQuery } from '@heyform-inc/utils'
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
@@ -84,7 +85,6 @@ export function nextTick(callback: () => void, ms = 1_000) {
   setTimeout(callback, ms / 60)
 }
 
-// Download JSON file
 export function downloadJson(data: any, filename: string) {
   const json = JSON.stringify(data, null, 2)
   const blob = new Blob([json], { type: 'application/json' })
@@ -96,7 +96,6 @@ export function downloadJson(data: any, filename: string) {
   document.body.appendChild(a)
   a.click()
 
-  // Cleanup
   setTimeout(() => {
     document.body.removeChild(a)
     URL.revokeObjectURL(url)

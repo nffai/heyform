@@ -1,9 +1,10 @@
 import { useTranslation } from 'react-i18next'
 
-import { Async, Button, Repeat } from '@/components'
 import { WorkspaceService } from '@/services'
-import { useAppStore, useWorkspaceStore } from '@/store'
 import { useParam } from '@/utils'
+
+import { Async, Button, Repeat } from '@/components'
+import { useAppStore, useWorkspaceStore } from '@/store'
 
 import InvitationModal from './InvitationModal'
 import MemberItem from './MemberItem'
@@ -34,16 +35,16 @@ export default function WorkspaceMembers() {
           <table className="min-w-full text-left text-sm/6">
             <thead className="text-secondary">
               <tr>
-                <th className="border-b border-b-accent-light px-4 py-2 font-medium sm:first:pl-1 sm:last:pr-1">
+                <th className="border-b-accent-light border-b px-4 py-2 font-medium sm:first:pl-1 sm:last:pr-1">
                   {t('members.name')}
                 </th>
-                <th className="border-b border-b-accent-light px-4 py-2 font-medium sm:first:pl-1 sm:last:pr-1">
+                <th className="border-b-accent-light border-b px-4 py-2 font-medium sm:first:pl-1 sm:last:pr-1">
                   {t('members.role')}
                 </th>
-                <th className="border-b border-b-accent-light px-4 py-2 font-medium sm:first:pl-1 sm:last:pr-1">
+                <th className="border-b-accent-light border-b px-4 py-2 font-medium sm:first:pl-1 sm:last:pr-1">
                   {t('members.lastSeen')}
                 </th>
-                <th className="border-b border-b-accent-light px-4 py-2 font-medium sm:first:pl-1 sm:last:pr-1"></th>
+                <th className="border-b-accent-light border-b px-4 py-2 font-medium sm:first:pl-1 sm:last:pr-1"></th>
               </tr>
             </thead>
 

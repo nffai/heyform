@@ -29,7 +29,7 @@ const ProjectMembers = () => {
 
   return (
     <>
-      <div className="divide-y divide-accent-light">
+      <div className="divide-accent-light divide-y">
         {joined.map(m => (
           <ProjectJoinedMemberItem key={m.id} member={m} />
         ))}
@@ -39,7 +39,7 @@ const ProjectMembers = () => {
         <div className="mt-4 opacity-70 transition-colors duration-150 hover:opacity-100">
           <Divider>{t('project.members.unjoinedMembers')}</Divider>
 
-          <div className="divide-y divide-accent-light">
+          <div className="divide-accent-light divide-y">
             {remaining.map(m => (
               <ProjectRemainingMemberItem key={m.id} member={m} />
             ))}

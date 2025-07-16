@@ -11,9 +11,7 @@ export class FormIntegrationsResolver {
 
   @Query(returns => [FormIntegrationType])
   @FormGuard()
-  async formIntegrations(
-    @Args('input') input: FormDetailInput
-  ): Promise<IntegrationModel[]> {
+  async formIntegrations(@Args('input') input: FormDetailInput): Promise<IntegrationModel[]> {
     return this.integrationService.findAllInForm(input.formId)
   }
 }

@@ -1,12 +1,13 @@
-import { helper, toDuration, toFixed } from '@heyform-inc/utils'
 import { IconTrendingDown, IconTrendingUp } from '@tabler/icons-react'
 import { useRequest } from 'ahooks'
 import { FC, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Select, Skeleton } from '@/components'
 import { FormService } from '@/services'
 import { useParam } from '@/utils'
+import { helper, toDuration, toFixed } from '@heyform-inc/utils'
+
+import { Select, Skeleton } from '@/components'
 
 interface TrendIndicatorProps {
   change: number | null

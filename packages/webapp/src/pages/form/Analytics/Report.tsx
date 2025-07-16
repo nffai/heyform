@@ -1,18 +1,18 @@
-import { flattenFields, htmlUtils } from '@heyform-inc/answer-utils'
 import {
   CHOICES_FIELD_KINDS,
   FieldKindEnum,
   QUESTION_FIELD_KINDS
 } from '@heyform-inc/shared-types-enums'
-import { helper, pickValidValues } from '@heyform-inc/utils'
-import { useRequest } from 'ahooks'
 import { FC, useCallback, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Async, Button, Repeat } from '@/components'
 import { FormService } from '@/services'
-import { useAppStore, useFormStore } from '@/store'
 import { useParam } from '@/utils'
+import { flattenFields, htmlUtils } from '@heyform-inc/answer-utils'
+import { helper, pickValidValues } from '@heyform-inc/utils'
+
+import { Async, Repeat } from '@/components'
+import { useFormStore } from '@/store'
 
 import FormReportItem from './ReportItem'
 
@@ -128,44 +128,10 @@ export const ReportList: FC<ReportListProps> = ({ isHideFieldEnabled }) => {
 export default function FormAnalyticsReport() {
   const { t } = useTranslation()
 
-  const { openModal } = useAppStore()
-  const { form, updateForm } = useFormStore()
-
-  const { loading, run } = useRequest(
-    async () => {
-      if (!form?.id) {
-        return
-      }
-
-      if (helper.isEmpty(form.customReport)) {
-        const result = await FormService.createCustomReport(form!.id)
-
-        updateForm({
-          customReport: {
-            id: result,
-            hiddenFields: [],
-            theme: {},
-            enablePublicAccess: true
-          }
-        })
-      }
-
-      openModal('CustomReportModal')
-    },
-    {
-      refreshDeps: [form?.customReport, form?.id],
-      manual: true
-    }
-  )
-
   return (
     <>
       <div className="mt-14 flex items-center justify-between">
         <h2 className="text-base/6 font-semibold">{t('form.analytics.report.headline')}</h2>
-
-        <Button size="md" loading={loading} onClick={run}>
-          {t('form.customReport.title')}
-        </Button>
       </div>
 
       <div className="heyform-report">

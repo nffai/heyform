@@ -1,9 +1,10 @@
-import { nanoid } from '@heyform-inc/utils'
 import { Action, Close, Description, Provider, Root, Title, Viewport } from '@radix-ui/react-toast'
 import { IconX } from '@tabler/icons-react'
 import { ReactNode, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import { create } from 'zustand'
+
+import { nanoid } from '@heyform-inc/utils'
 import { immer } from 'zustand/middleware/immer'
 
 import { Button } from './Button'
@@ -82,15 +83,15 @@ export const Toaster = () => {
       {toasts.map(row => (
         <Root
           key={row.id}
-          className="relative w-full rounded-lg bg-foreground px-3 py-2 opacity-100 shadow-lg ring-1 ring-accent data-[swipe=cancel]:translate-x-0 data-[swipe=end]:translate-x-[var(--radix-toast-swipe-end-x)] data-[swipe=move]:translate-x-[var(--radix-toast-swipe-move-x)] data-[swipe=move]:transition-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[swipe=end]:animate-out data-[state=closed]:fade-out-80 data-[state=closed]:slide-out-to-bottom data-[state=open]:slide-in-from-top-full data-[state=open]:sm:slide-in-from-bottom-full"
+          className="bg-foreground ring-accent data-[state=open]:animate-in data-[state=closed]:animate-out data-[swipe=end]:animate-out data-[state=closed]:fade-out-80 data-[state=closed]:slide-out-to-bottom data-[state=open]:slide-in-from-top-full data-[state=open]:sm:slide-in-from-bottom-full relative w-full rounded-lg px-3 py-2 opacity-100 shadow-lg ring-1 data-[swipe=cancel]:translate-x-0 data-[swipe=end]:translate-x-[var(--radix-toast-swipe-end-x)] data-[swipe=move]:translate-x-[var(--radix-toast-swipe-move-x)] data-[swipe=move]:transition-none"
           duration={row.duration}
           onOpenChange={open => !open && remove(row.id)}
         >
           <Title className="text-sm/6 font-semibold">{row.title}</Title>
-          <Description className="text-sm text-secondary">{row.message}</Description>
+          <Description className="text-secondary text-sm">{row.message}</Description>
           <Close asChild>
             <Button.Link
-              className="absolute right-1 top-1.5 text-secondary hover:text-primary"
+              className="text-secondary hover:text-primary absolute right-1 top-1.5"
               size="sm"
               iconOnly
               onClick={() => remove(row.id)}

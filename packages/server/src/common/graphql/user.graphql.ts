@@ -1,7 +1,8 @@
-import { LowerCase } from '@heyforms/nestjs'
+import { IsEmail, IsOptional, Length, Matches } from 'class-validator'
+
 import { UserLangEnum } from '@model'
 import { Field, InputType, ObjectType } from '@nestjs/graphql'
-import { IsEmail, IsOptional, Length, Matches } from 'class-validator'
+import { LowerCase } from '@utils'
 
 @InputType()
 export class CdnTokenInput {
@@ -25,19 +26,10 @@ export class UpdateUserInput {
   @Field({ nullable: true })
   @IsOptional()
   restoreGravatar?: boolean
-
-  @Field({ nullable: true })
-  @IsOptional()
-  isOnboardRequired?: boolean
 }
 
 @InputType()
 export class ChangeEmailCodeInput {
-  // @Discard at 3 Mar 2022
-  // 修改邮箱地址不需要输入密码
-  // @Field()
-  // password: string
-
   @Field(type => LowerCase)
   @IsEmail(undefined, {
     message: 'Invalid email address'
@@ -63,28 +55,13 @@ export class UpdateUserPasswordInput {
   currentPassword: string
 
   @Field()
-  @Matches(
-    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[!#$%&()*+\-,.\/\\:<=>?@\[\]^_{|}~0-9a-zA-Z]{8,}$/,
-    {
-      message: 'Invalid password'
-    }
-  )
+  @Matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[!#$%&()*+\-,./\\:<=>?@[\]^_{|}~0-9a-zA-Z]{8,}$/, {
+    message: 'Invalid password'
+  })
   @Length(8, 100, {
     message: 'Invalid password'
   })
   newPassword: string
-}
-
-@ObjectType()
-export class CdnTokenType {
-  @Field()
-  token: string
-
-  @Field()
-  urlPrefix: string
-
-  @Field()
-  key: string
 }
 
 @ObjectType()
@@ -106,9 +83,6 @@ export class UserDetailType {
 
   @Field()
   isEmailVerified: boolean
-
-  @Field()
-  isOnboardRequired: boolean
 
   @Field()
   isSocialAccount: boolean

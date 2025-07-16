@@ -1,12 +1,14 @@
 import { FC, useMemo, useReducer } from 'react'
 
+import { initFields } from './utils'
+import { FormService } from '@/services'
+import { useParam } from '@/utils'
+
 import { Async } from '@/components'
 import { WorkspaceGuard } from '@/layouts'
-import { FormService } from '@/services'
 import { useFormStore } from '@/store'
 import '@/styles/builder.scss'
 import { FormType } from '@/types'
-import { useParam } from '@/utils'
 
 import AIChat from './AIChat'
 import BuilderCompose from './Compose'
@@ -21,14 +23,13 @@ import PreviewModal from './PreviewModal'
 import BuilderRightSidebar from './RightSidebar'
 import VariableModal from './VariableModal'
 import { IState, StoreContext, storeReducer } from './store'
-import { initFields } from './utils'
 
 interface IBuilderProps {
   form: FormType
 }
 
 const Skeleton = () => (
-  <div className="flex h-screen flex-col bg-background ">
+  <div className="bg-background flex h-screen flex-col">
     <div className="h-14"></div>
     <main className="flex h-[calc(100vh-3.5rem)] flex-1 gap-2 px-2 pb-2"></main>
   </div>
@@ -50,7 +51,7 @@ const Builder: FC<IBuilderProps> = ({ form }) => {
 
   return (
     <StoreContext.Provider value={store}>
-      <div className="flex h-screen flex-col bg-background">
+      <div className="bg-background flex h-screen flex-col">
         <BuilderNavBar />
 
         <main className="flex h-[calc(100vh-3.5rem)] flex-1 sm:gap-2 sm:px-2 sm:pb-2">

@@ -1,4 +1,3 @@
-import { helper } from '@heyform-inc/utils'
 import {
   IconBolt,
   IconChevronLeft,
@@ -15,23 +14,16 @@ import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
-import {
-  Button,
-  Loader,
-  OnboardingBadge,
-  Tooltip,
-  useOnboardingStorage,
-  usePrompt,
-  useToast
-} from '@/components'
-import { ADD_QUESTION2_STORAGE_NAME, PUBLISH_FORM_STORAGE_NAME } from '@/consts'
+import { getFilteredFields } from './utils'
 import { FormService } from '@/services'
-import { useAppStore, useFormStore, useWorkspaceStore } from '@/store'
 import { useParam, useRouter } from '@/utils'
+import { helper } from '@heyform-inc/utils'
+
+import { Button, Loader, Tooltip, usePrompt, useToast } from '@/components'
+import { useAppStore, useFormStore, useWorkspaceStore } from '@/store'
 
 import WorkspaceAccount from '../../../layouts/Workspace/WorkspaceAccount'
 import { useStoreContext } from './store'
-import { getFilteredFields } from './utils'
 
 export default function BuilderNavBar() {
   const { t } = useTranslation()
@@ -39,7 +31,6 @@ export default function BuilderNavBar() {
   const router = useRouter()
   const toast = useToast()
   const prompt = usePrompt()
-  const { setItem } = useOnboardingStorage()
 
   const { workspaceId, projectId, formId } = useParam()
   const { openModal } = useAppStore()
@@ -89,7 +80,6 @@ export default function BuilderNavBar() {
   }
 
   function handlePublish() {
-    setItem(PUBLISH_FORM_STORAGE_NAME, true)
     run()
   }
 
@@ -119,16 +109,10 @@ export default function BuilderNavBar() {
     })
   }
 
-  useEffect(() => {
-    if (form?.canPublish) {
-      setItem(ADD_QUESTION2_STORAGE_NAME, true)
-    }
-  }, [])
-
   return (
     <div className="flex h-14 items-center justify-between px-2">
       <nav aria-label="breadcrumb" className="flex">
-        <ol className="flex flex-wrap items-center gap-1.5 break-words text-sm text-secondary">
+        <ol className="text-secondary flex flex-wrap items-center gap-1.5 break-words text-sm">
           {window.heyform.device.mobile ? (
             <li className="text-primary">
               <Link
@@ -146,7 +130,7 @@ export default function BuilderNavBar() {
             <>
               <li>
                 <Link
-                  className="transition-colors hover:text-primary"
+                  className="hover:text-primary transition-colors"
                   to={`/workspace/${workspaceId}/`}
                 >
                   {workspace?.name}
@@ -159,7 +143,7 @@ export default function BuilderNavBar() {
 
               <li>
                 <Link
-                  className="transition-colors hover:text-primary"
+                  className="hover:text-primary transition-colors"
                   to={`/workspace/${workspaceId}/project/${projectId}/`}
                 >
                   {project?.name}
@@ -261,18 +245,10 @@ export default function BuilderNavBar() {
         >
           <IconSend2 className="h-5 w-5" />
           {t('components.publish')}
-
-          {form?.canPublish && (
-            <OnboardingBadge
-              className="-right-1 -top-1"
-              name={PUBLISH_FORM_STORAGE_NAME}
-              precondition={ADD_QUESTION2_STORAGE_NAME}
-            />
-          )}
         </Button>
 
         <div className="hidden items-center gap-4 sm:flex">
-          <div className="h-6 w-px bg-accent-light"></div>
+          <div className="bg-accent-light h-6 w-px"></div>
 
           <WorkspaceAccount
             className="!p-0 hover:!bg-transparent hover:!outline-none [&_[data-slot=avatar]]:h-9 [&_[data-slot=avatar]]:w-9"

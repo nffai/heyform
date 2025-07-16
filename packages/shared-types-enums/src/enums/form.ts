@@ -71,7 +71,7 @@ export enum FieldKindEnum {
   VARIABLE = 'variable',
   HIDDEN_CHECKBOX = 'hidden_checkbox',
 
-	// HeySheet custom columns
+  // HeySheet custom columns
   CUSTOM_TEXT = 'custom_text',
   CUSTOM_SINGLE = 'custom_single',
   CUSTOM_MULTIPLE = 'custom_multiple',

@@ -11,11 +11,6 @@ export class DeleteFormResolver {
     private readonly submissionService: SubmissionService
   ) {}
 
-  /**
-   * Delete form
-   *
-   * @param input
-   */
   @Mutation(returns => Boolean)
   @FormGuard()
   async deleteForm(@Args('input') input: FormDetailInput): Promise<boolean> {

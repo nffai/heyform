@@ -1,8 +1,9 @@
 import { FieldKindEnum, Variable } from '@heyform-inc/shared-types-enums'
-import { helper } from '@heyform-inc/utils'
 import { IconArrowUpRight, IconDots, IconPlus } from '@tabler/icons-react'
 import { FC, startTransition } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
+
+import { helper } from '@heyform-inc/utils'
 
 import { Button, Dropdown, Tooltip } from '@/components'
 import { VARIABLE_KIND_CONFIGS } from '@/consts'
@@ -62,7 +63,7 @@ const VariableItem: FC<{ variable: Variable }> = ({ variable }) => {
           />
           <span className="text-sm/6 font-medium">{variable.name}</span>
         </div>
-        <div className="text-xs/6 text-secondary">
+        <div className="text-secondary text-xs/6">
           {t('form.builder.logic.variable.defaultValue')}: {variable.value}
         </div>
       </div>
@@ -80,7 +81,7 @@ const VariableItem: FC<{ variable: Variable }> = ({ variable }) => {
       >
         <Button.Link size="sm" iconOnly>
           <Tooltip label={t('form.builder.logic.hiddenFields.menuTip')}>
-            <IconDots className="h-5 w-5 text-secondary" />
+            <IconDots className="text-secondary h-5 w-5" />
           </Tooltip>
         </Button.Link>
       </Dropdown>
@@ -130,7 +131,7 @@ export const Variables: FC = () => {
           ))}
         </ul>
       ) : (
-        <p className="text-sm text-secondary">
+        <p className="text-secondary text-sm">
           <Trans
             t={t}
             i18nKey="form.builder.logic.variable.emptyState"
@@ -138,7 +139,7 @@ export const Variables: FC = () => {
               a: (
                 <a
                   key="a"
-                  className="underline underline-offset-4 hover:text-primary"
+                  className="hover:text-primary underline underline-offset-4"
                   href="https://docs.heyform.net/features/variable"
                   target="_blank"
                   rel="noopener noreferrer"

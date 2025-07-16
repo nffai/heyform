@@ -2,9 +2,10 @@ import { FormRenderer } from '@heyform-inc/form-renderer'
 import { FC, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { cn } from '@/utils'
+
 import { Modal, Tabs } from '@/components'
 import { useFormStore, useModal } from '@/store'
-import { cn } from '@/utils'
 
 interface PreviewComponentProps {
   onClose: () => void
@@ -53,7 +54,7 @@ const PreviewComponent: FC<PreviewComponentProps> = () => {
         />
       </div>
 
-      <div className="h-[calc(100vh-4rem)] bg-foreground lg:rounded-lg lg:shadow-sm lg:ring-1 lg:ring-primary/5">
+      <div className="bg-foreground lg:ring-primary/5 h-[calc(100vh-4rem)] lg:rounded-lg lg:shadow-sm lg:ring-1">
         <div className={cn('form-preview relative h-full w-full', `form-preview-${platform}`)}>
           <FormRenderer
             form={form}

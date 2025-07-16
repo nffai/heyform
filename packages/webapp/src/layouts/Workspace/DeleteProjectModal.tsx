@@ -2,10 +2,11 @@ import { useBoolean, useRequest } from 'ahooks'
 import { useEffect } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
 
-import { Form, Input, Modal, useToast } from '@/components'
 import { ProjectService } from '@/services'
-import { useModal, useUserStore, useWorkspaceStore } from '@/store'
 import { useParam, useRouter } from '@/utils'
+
+import { Form, Input, Modal, useToast } from '@/components'
+import { useModal, useUserStore, useWorkspaceStore } from '@/store'
 
 export default function DeleteProjectModal() {
   const { t } = useTranslation()
@@ -62,7 +63,7 @@ export default function DeleteProjectModal() {
       open={isOpen}
       title={t('project.delete.headline')}
       description={
-        <div className="space-y-2.5 text-sm text-secondary">
+        <div className="text-secondary space-y-2.5 text-sm">
           <p>
             <Trans
               t={t}

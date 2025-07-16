@@ -1,4 +1,3 @@
-import { helper, toBool } from '@heyform-inc/utils'
 import * as Popover from '@radix-ui/react-popover'
 import {
   Content,
@@ -29,6 +28,7 @@ import {
 import { useTranslation } from 'react-i18next'
 
 import { cn } from '@/utils'
+import { helper, toBool } from '@heyform-inc/utils'
 
 import { Button } from './Button'
 import { Loader } from './Loader'
@@ -40,7 +40,6 @@ export interface SelectOption {
 }
 
 interface NativeSelectProps extends Omit<ComponentProps, 'onChange'> {
-  // Radix-ui can only return string value
   type?: 'string' | 'number' | 'boolean'
   value?: any
   options: SelectOption[]
@@ -136,7 +135,7 @@ const NativeSelect: FC<NativeSelectProps> = ({
   return (
     <select
       className={cn(
-        'inline-flex appearance-none items-center gap-x-4 rounded-lg border bg-transparent px-3.5 py-2 text-base/[1.4rem] placeholder:text-secondary focus:outline-none sm:px-3 sm:py-1.5 sm:text-sm/[1.4rem] [&_[data-slot=value]]:flex [&_[data-slot=value]]:flex-1 [&_[data-slot=value]]:items-center [&_[data-slot=value]]:gap-x-2.5 [&_[data-slot=value]]:pl-1 [&_[data-slot=value]]:sm:gap-x-2',
+        'placeholder:text-secondary inline-flex appearance-none items-center gap-x-4 rounded-lg border bg-transparent px-3.5 py-2 text-base/[1.4rem] focus:outline-none sm:px-3 sm:py-1.5 sm:text-sm/[1.4rem] [&_[data-slot=value]]:flex [&_[data-slot=value]]:flex-1 [&_[data-slot=value]]:items-center [&_[data-slot=value]]:gap-x-2.5 [&_[data-slot=value]]:pl-1 [&_[data-slot=value]]:sm:gap-x-2',
         hasError ? 'border-error' : 'border-input',
         className
       )}
@@ -224,7 +223,7 @@ const SelectComponent: FC<SelectProps> = ({
     <Root value={value} disabled={loading || disabled} onValueChange={handleChange}>
       <Trigger
         className={cn(
-          'inline-flex max-h-[22rem] appearance-none items-center gap-x-4 rounded-lg border bg-transparent px-3.5 py-2 text-base/[1.4rem] focus:outline-none disabled:cursor-not-allowed disabled:bg-secondary-light sm:max-h-[20rem] sm:px-3 sm:py-1.5 sm:text-sm/[1.4rem] [&_[data-slot=placeholder]]:flex [&_[data-slot=placeholder]]:flex-1 [&_[data-slot=placeholder]]:items-center [&_[data-slot=placeholder]]:gap-x-2.5 [&_[data-slot=placeholder]]:truncate [&_[data-slot=placeholder]]:pl-1 [&_[data-slot=placeholder]]:text-secondary [&_[data-slot=value]]:flex [&_[data-slot=value]]:flex-1 [&_[data-slot=value]]:items-center [&_[data-slot=value]]:gap-x-2.5 [&_[data-slot=value]]:truncate [&_[data-slot=value]]:pl-1 [&_[data-slot=value]]:sm:gap-x-2',
+          'disabled:bg-secondary-light [&_[data-slot=placeholder]]:text-secondary inline-flex max-h-[22rem] appearance-none items-center gap-x-4 rounded-lg border bg-transparent px-3.5 py-2 text-base/[1.4rem] focus:outline-none disabled:cursor-not-allowed sm:max-h-[20rem] sm:px-3 sm:py-1.5 sm:text-sm/[1.4rem] [&_[data-slot=placeholder]]:flex [&_[data-slot=placeholder]]:flex-1 [&_[data-slot=placeholder]]:items-center [&_[data-slot=placeholder]]:gap-x-2.5 [&_[data-slot=placeholder]]:truncate [&_[data-slot=placeholder]]:pl-1 [&_[data-slot=value]]:flex [&_[data-slot=value]]:flex-1 [&_[data-slot=value]]:items-center [&_[data-slot=value]]:gap-x-2.5 [&_[data-slot=value]]:truncate [&_[data-slot=value]]:pl-1 [&_[data-slot=value]]:sm:gap-x-2',
           hasError ? 'border-error' : 'border-input',
           className
         )}
@@ -236,7 +235,7 @@ const SelectComponent: FC<SelectProps> = ({
         />
         {allowClear && helper.isValid(value) && (
           <Button.Link
-            className="-mr-4 text-secondary hover:text-primary"
+            className="text-secondary hover:text-primary -mr-4"
             size="sm"
             iconOnly
             onPointerDown={handleClear}
@@ -248,7 +247,7 @@ const SelectComponent: FC<SelectProps> = ({
           {loading ? (
             <Loader className="h-[1.125rem] w-[1.125rem] animate-spin" />
           ) : (
-            <IconChevronDown className="h-[1.125rem] w-[1.125rem] text-secondary" />
+            <IconChevronDown className="text-secondary h-[1.125rem] w-[1.125rem]" />
           )}
         </Icon>
       </Trigger>
@@ -261,7 +260,7 @@ const SelectComponent: FC<SelectProps> = ({
           align="end"
           {...contentProps}
           className={cn(
-            'isolate z-10 max-h-[18.5rem] rounded-xl bg-foreground p-1 shadow-lg outline outline-1 outline-transparent ring-1 ring-accent-light focus:outline-none',
+            'bg-foreground ring-accent-light isolate z-10 max-h-[18.5rem] rounded-xl p-1 shadow-lg outline outline-1 outline-transparent ring-1 focus:outline-none',
             contentProps?.className,
             {
               [`w-[var(--radix-select-trigger-width)]`]: contentProps?.position === 'popper'
@@ -277,7 +276,7 @@ const SelectComponent: FC<SelectProps> = ({
                 key={row.value}
                 value={row.value}
                 disabled={row.disabled}
-                className="grid cursor-pointer grid-cols-[theme(spacing.5),1fr] items-center gap-x-2.5 rounded-lg py-2.5 pl-2 pr-3.5 text-base/6 text-primary outline-none disabled:opacity-60 data-[disabled]:pointer-events-none data-[highlighted]:bg-accent-light data-[disabled]:opacity-50 sm:grid-cols-[theme(spacing.4),1fr] sm:py-1.5 sm:pl-1.5 sm:pr-3 sm:text-sm/6 [&_[data-slot=item]]:col-start-2 [&_[data-slot=item]]:flex [&_[data-slot=item]]:items-center [&_[data-slot=item]]:gap-x-2.5 [&_[data-slot=item]]:sm:gap-x-2"
+                className="text-primary data-[highlighted]:bg-accent-light grid cursor-pointer grid-cols-[theme(spacing.5),1fr] items-center gap-x-2.5 rounded-lg py-2.5 pl-2 pr-3.5 text-base/6 outline-none disabled:opacity-60 data-[disabled]:pointer-events-none data-[disabled]:opacity-50 sm:grid-cols-[theme(spacing.4),1fr] sm:py-1.5 sm:pl-1.5 sm:pr-3 sm:text-sm/6 [&_[data-slot=item]]:col-start-2 [&_[data-slot=item]]:flex [&_[data-slot=item]]:items-center [&_[data-slot=item]]:gap-x-2.5 [&_[data-slot=item]]:sm:gap-x-2"
               >
                 <ItemIndicator>
                   <IconCheck className="h-4 w-4" />
@@ -364,7 +363,7 @@ const MultiSelect: FC<MultiSelectProps> = ({
       <Popover.Trigger disabled={disabled} asChild>
         <div
           className={cn(
-            'inline-flex min-w-36 cursor-pointer appearance-none items-center gap-x-4 rounded-lg border bg-transparent px-2.5 py-1.5 text-base/[1.4rem] placeholder:text-secondary focus:outline-none disabled:pointer-events-none disabled:opacity-50 sm:px-2 sm:py-1 sm:text-sm/[1.4rem] [&_[data-slot=value]]:flex [&_[data-slot=value]]:flex-1 [&_[data-slot=value]]:items-center [&_[data-slot=value]]:gap-x-2.5 [&_[data-slot=value]]:pl-1 [&_[data-slot=value]]:sm:gap-x-2',
+            'placeholder:text-secondary inline-flex min-w-36 cursor-pointer appearance-none items-center gap-x-4 rounded-lg border bg-transparent px-2.5 py-1.5 text-base/[1.4rem] focus:outline-none disabled:pointer-events-none disabled:opacity-50 sm:px-2 sm:py-1 sm:text-sm/[1.4rem] [&_[data-slot=value]]:flex [&_[data-slot=value]]:flex-1 [&_[data-slot=value]]:items-center [&_[data-slot=value]]:gap-x-2.5 [&_[data-slot=value]]:pl-1 [&_[data-slot=value]]:sm:gap-x-2',
             hasError ? 'border-error' : 'border-input',
             className
           )}
@@ -374,12 +373,12 @@ const MultiSelect: FC<MultiSelectProps> = ({
             <div className="-ml-1 flex flex-wrap gap-2" data-slot="value">
               {selected.map(row => (
                 <div
-                  className="flex items-center gap-x-1 rounded-lg bg-accent-light px-2.5 py-0.5 data-[size=sm]:h-[1.625rem] data-[size=sm]:sm:h-[1.625rem]"
+                  className="bg-accent-light flex items-center gap-x-1 rounded-lg px-2.5 py-0.5 data-[size=sm]:h-[1.625rem] data-[size=sm]:sm:h-[1.625rem]"
                   key={row.value}
                 >
                   {row.label}
                   <button
-                    className="-mr-0.5 text-secondary hover:text-primary"
+                    className="text-secondary hover:text-primary -mr-0.5"
                     onClick={e => handleRemove(e, row.value)}
                   >
                     <IconX className="h-4 w-4" />
@@ -388,7 +387,7 @@ const MultiSelect: FC<MultiSelectProps> = ({
               ))}
             </div>
           ) : (
-            <div className="text-sm/6 text-secondary" data-slot="value">
+            <div className="text-secondary text-sm/6" data-slot="value">
               {placeholder}
             </div>
           )}
@@ -397,7 +396,7 @@ const MultiSelect: FC<MultiSelectProps> = ({
             {loading ? (
               <Loader className="h-[1.125rem] w-[1.125rem] animate-spin" />
             ) : (
-              <IconChevronDown className="h-[1.125rem] w-[1.125rem] text-secondary" />
+              <IconChevronDown className="text-secondary h-[1.125rem] w-[1.125rem]" />
             )}
           </div>
         </div>
@@ -410,7 +409,7 @@ const MultiSelect: FC<MultiSelectProps> = ({
           align="start"
           {...contentProps}
           className={cn(
-            'isolate z-10 max-h-[22rem] origin-top-left rounded-xl bg-foreground p-1 shadow-lg outline outline-1 outline-transparent ring-1 ring-accent-light focus:outline-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-90 data-[state=open]:zoom-in-90 sm:max-h-[20rem]',
+            'bg-foreground ring-accent-light data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-90 data-[state=open]:zoom-in-90 isolate z-10 max-h-[22rem] origin-top-left rounded-xl p-1 shadow-lg outline outline-1 outline-transparent ring-1 focus:outline-none sm:max-h-[20rem]',
             contentProps?.className
           )}
           data-slot="content"
@@ -422,7 +421,7 @@ const MultiSelect: FC<MultiSelectProps> = ({
                 <Command.Item
                   key={row.value}
                   value={row.value}
-                  className="grid cursor-pointer grid-cols-[theme(spacing.5),1fr] items-center gap-x-2.5 rounded-lg py-2.5 pl-2 pr-3.5 text-base/6 text-primary outline-none aria-selected:bg-accent-light sm:grid-cols-[theme(spacing.4),1fr] sm:py-1.5 sm:pl-1.5 sm:pr-3 sm:text-sm/6 [&_[data-slot=item]]:col-start-2 [&_[data-slot=item]]:flex [&_[data-slot=item]]:items-center [&_[data-slot=item]]:gap-x-2.5 [&_[data-slot=item]]:sm:gap-x-2"
+                  className="text-primary aria-selected:bg-accent-light grid cursor-pointer grid-cols-[theme(spacing.5),1fr] items-center gap-x-2.5 rounded-lg py-2.5 pl-2 pr-3.5 text-base/6 outline-none sm:grid-cols-[theme(spacing.4),1fr] sm:py-1.5 sm:pl-1.5 sm:pr-3 sm:text-sm/6 [&_[data-slot=item]]:col-start-2 [&_[data-slot=item]]:flex [&_[data-slot=item]]:items-center [&_[data-slot=item]]:gap-x-2.5 [&_[data-slot=item]]:sm:gap-x-2"
                   onSelect={handleSelect}
                 >
                   {value.includes(row.value) && <IconCheck className="h-4 w-4" />}

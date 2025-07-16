@@ -1,25 +1,18 @@
-import {
-  COOKIE_DOMAIN,
-  COOKIE_MAX_AGE,
-  NODE_ENV,
-  SESSION_MAX_AGE
-} from '@environments'
-import { ms } from '@heyform-inc/utils'
 import { CookieOptions } from 'express'
 
-const production = NODE_ENV === 'production'
+import { COOKIE_DOMAIN, COOKIE_MAX_AGE, NODE_ENV, SESSION_MAX_AGE } from '@environments'
+import { ms } from '@heyform-inc/utils'
 
 const commonOptions = {
   domain: COOKIE_DOMAIN,
   sameSite: 'lax',
   signed: false,
-  secure: production
+  secure: NODE_ENV === 'production'
 }
 
 export const COOKIE_SESSION_NAME = 'HEYFORM_SESSION'
 export const COOKIE_LOGIN_IN_NAME = 'HEYFORM_LOGGED_IN'
-export const COOKIE_USERID_NAME = 'HEYFORM_USER_ID'
-export const COOKIE_UTM_SOURCE_NAME = 'HEYFORM_UTM_SOURCE'
+export const COOKIE_DEVICE_ID_NAME = 'HEYFORM_DEVICE_ID'
 
 export function CookieOptionsFactory(options?: CookieOptions): CookieOptions {
   return {

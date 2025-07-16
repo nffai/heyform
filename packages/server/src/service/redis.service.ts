@@ -1,7 +1,8 @@
-import { hs } from '@heyform-inc/utils'
 import { ConflictException, Injectable } from '@nestjs/common'
 import { InjectRedis } from '@svtslv/nestjs-ioredis'
 import { Redis } from 'ioredis'
+
+import { hs } from '@heyform-inc/utils'
 
 interface BaseOptions {
   key: string
@@ -54,9 +55,7 @@ export class RedisService {
     if (count >= limit) {
       const timeLeft = await this.redis.ttl(key)
 
-      throw new ConflictException(
-        `Too many requests. Please try again in ${timeLeft} seconds.`
-      )
+      throw new ConflictException(`Too many requests. Please try again in ${timeLeft} seconds.`)
     }
 
     await this.incr(key)
@@ -66,23 +65,14 @@ export class RedisService {
     return this.redis.set(key, value, 'ex', hs(duration))
   }
 
-  public hset({
-    key,
-    field,
-    value,
-    duration
-  }: HsetOptions): Promise<[Error | null, any][]> {
+  public hset({ key, field, value, duration }: HsetOptions): Promise<[Error | null, any][]> {
     return this.multi([
       ['hset', key, field, value],
       ['expire', key, hs(duration)]
     ])
   }
 
-  public hsetObject({
-    key,
-    value: obj,
-    duration
-  }: SetOptions): Promise<[Error | null, any][]> {
+  public hsetObject({ key, value: obj, duration }: SetOptions): Promise<[Error | null, any][]> {
     return this.multi([
       ...Object.keys(obj).map(field => ['hset', key, field, obj[field]]),
       ['expire', key, hs(duration)]

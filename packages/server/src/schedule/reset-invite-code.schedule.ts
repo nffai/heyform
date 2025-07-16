@@ -1,19 +1,14 @@
-/**
- * Created by jiangwei on 2020/10/26.
- * Copyright (c) 2020 Heyooo, Inc. all rights reserved
- */
-import { timestamp } from '@heyform-inc/utils'
 import { Process, Processor } from '@nestjs/bull'
-import { FailedTaskService, TeamService } from '@service'
+
+import { timestamp } from '@heyform-inc/utils'
+import { TeamService } from '@service'
+
 import { BaseQueue } from '../queue/base.queue'
 
 @Processor('ResetInviteCodeSchedule')
 export class ResetInviteCodeSchedule extends BaseQueue {
-  constructor(
-    failedTaskService: FailedTaskService,
-    private readonly teamService: TeamService
-  ) {
-    super(failedTaskService)
+  constructor(private readonly teamService: TeamService) {
+    super()
   }
 
   @Process()

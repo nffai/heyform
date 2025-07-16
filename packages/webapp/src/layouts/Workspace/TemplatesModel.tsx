@@ -1,17 +1,18 @@
 import { FormRenderer, insertWebFont } from '@heyform-inc/form-renderer'
-import { slugify } from '@heyform-inc/utils'
 import { IconChevronLeft, IconUpload } from '@tabler/icons-react'
 import { useRequest } from 'ahooks'
 import { FC, useEffect, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Async, Button, Image, Loader, Tabs, useToast } from '@/components'
-import { TEMPLATE_CATEGORIES } from '@/consts'
 import { insertThemeStyle } from '@/pages/form/Builder/utils'
 import { FormService } from '@/services'
+import { cn, scrollIntoViewIfNeeded, useParam, useRouter } from '@/utils'
+import { slugify } from '@heyform-inc/utils'
+
+import { Async, Button, Image, Loader, Tabs, useToast } from '@/components'
+import { TEMPLATE_CATEGORIES } from '@/consts'
 import { useAppStore } from '@/store'
 import { TemplateGroupType, TemplateType } from '@/types'
-import { cn, scrollIntoViewIfNeeded, useParam, useRouter } from '@/utils'
 
 export interface TemplatesModelProps {
   onBack: () => void
@@ -47,7 +48,6 @@ const TemplatePreview: FC<TemplatePreviewProps> = ({ template: rawTemplate, onBa
 
   const { loading, run } = useRequest(
     async () => {
-      // eslint-disable-next-line react-hooks/rules-of-hooks
       const formId = await FormService.useTemplate({
         projectId,
         templateId: rawTemplate.id,
@@ -182,7 +182,7 @@ export default function TemplatesModel({ onBack }: TemplatesModelProps) {
     reader.onload = e => {
       try {
         const json = e.target?.result as string
-        // Validate JSON format before sending
+
         JSON.parse(json)
         importForm(json)
       } catch (error) {
@@ -240,7 +240,7 @@ export default function TemplatesModel({ onBack }: TemplatesModelProps) {
           </button>
         </div>
 
-        <div className="flex flex-wrap items-center gap-x-2 gap-y-2 border-b border-accent-light">
+        <div className="border-accent-light flex flex-wrap items-center gap-x-2 gap-y-2 border-b">
           {templateGroups.map(row => (
             <Button.Ghost key={row.id} size="sm" onClick={() => handleScrollIntoView(row.id)}>
               {row.category}
@@ -277,12 +277,12 @@ export default function TemplatesModel({ onBack }: TemplatesModelProps) {
         <div className="[&>div:first-of-type]:pt-0">
           {templateGroups.map(row => (
             <div key={row.id} id={row.id} className="pt-10">
-              <h3 className="text-balance text-sm/6 font-semibold text-primary">{row.category}</h3>
+              <h3 className="text-primary text-balance text-sm/6 font-semibold">{row.category}</h3>
               <ul className="min-w-[1500px]:bg-red mt-2 grid grid-cols-5 gap-5">
                 {row.templates.map(template => (
                   <li
                     key={template.id}
-                    className="cursor-pointer rounded-lg border border-input"
+                    className="border-input cursor-pointer rounded-lg border"
                     onClick={() => setTemplate(template)}
                   >
                     <Image

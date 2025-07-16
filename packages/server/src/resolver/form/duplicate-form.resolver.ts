@@ -10,9 +10,6 @@ import { FormService } from '@service'
 export class DuplicateFormResolver {
   constructor(private readonly formService: FormService) {}
 
-  /**
-   * Create form
-   */
   @Mutation(returns => String)
   @FormGuard()
   async duplicateForm(
@@ -20,9 +17,6 @@ export class DuplicateFormResolver {
     @Form() form: FormModel,
     @Args('input') input: DuplicateFormInput
   ): Promise<string> {
-    // Discard at Dec 20, 2021 (v2021.12.3)
-    // await this.formService.checkQuota(team.id, team.plan.formLimit)
-
     const fields = [
       'variables',
       'logics',

@@ -78,11 +78,7 @@ export const WORKSPACES_GQL = gql`
       inviteCode
       inviteCodeExpireAt
       removeBranding
-      trialEndAt
       createdAt
-      aiKey
-      aiEndpoint
-      aiModel
       projects {
         id
         teamId
@@ -98,44 +94,17 @@ export const WORKSPACES_GQL = gql`
         logo
         theme
       }
-      plan {
-        id
-        name
-        memberLimit
-        formLimit
-        contactLimit
-        questionLimit
-        submissionLimit
-        storageLimit
-        apiAccessLimit
-        multiLanguage
-        customDomain
-        whitelabelBranding
-        grade
-      }
-      subscription {
-        id
-        planId
-        billingCycle
-        startAt
-        endAt
-        isCanceled
-        canceledAt
-        trialing
-        status
-      }
     }
   }
 `
 
-export const WORKSPACE_SUBSCRIPTION_GQL = gql`
-  query teamSubscription($input: TeamDetailInput!) {
-    teamSubscription(input: $input) {
+export const WORKSPACE_OVERVIEW_GQL = gql`
+  query teamOverview($input: TeamDetailInput!) {
+    teamOverview(input: $input) {
       memberCount
-      contactCount
       formCount
-      storageQuota
       submissionQuota
+      storageQuota
     }
   }
 `
@@ -297,129 +266,6 @@ export const SEARCH_WORKSPACE_GQL = gql`
   }
 `
 
-export const PLANS_GQL = gql`
-  query plans {
-    plans {
-      id
-      name
-      memberLimit
-      storageLimit
-      apiAccessLimit
-      autoResponse
-      customDomain
-      customThankYouPage
-      whitelabelBranding
-      multiLanguage
-      fileExport
-      grade
-      prices {
-        type
-        price
-        billingCycle
-      }
-    }
-  }
-`
-
-export const WORKSPACE_CDN_TOKEN_GQL = gql`
-  query teamCdnToken($input: TeamCdnTokenInput!) {
-    teamCdnToken(input: $input) {
-      token
-      urlPrefix
-      key
-    }
-  }
-`
-
-export const INVOICES_GQL = gql`
-  query invoices($input: TeamDetailInput!) {
-    invoices(input: $input) {
-      id
-      note
-      pdfUrl
-      total
-      paidAt
-      status
-    }
-  }
-`
-
-export const ORDERS_GQL = gql`
-  query orders($input: TeamDetailInput!) {
-    orders(input: $input) {
-      id
-      planId
-      planName
-      billingCycle
-      kind
-      seatCount
-      seatsAmount
-      amount
-      discount
-      total
-      paymentMethod
-      paidAt
-      note
-      status
-    }
-  }
-`
-
-export const APPLY_COUPON_GQL = gql`
-  query applyCoupon($input: ApplyCouponInput!) {
-    applyCoupon(input: $input) {
-      id
-      amountOff
-      percentOff
-    }
-  }
-`
-
-export const PAYMENT_GQL = gql`
-  mutation payment($input: PaymentInput!) {
-    payment(input: $input) {
-      sessionUrl
-      note
-    }
-  }
-`
-
-export const CANCEL_SUBSCRIPTION_GQL = gql`
-  mutation cancelSubscription($input: TeamDetailInput!) {
-    cancelSubscription(input: $input)
-  }
-`
-
-export const ADD_ADDITIONAL_SEAT_GQL = gql`
-  mutation additionalSeat($input: AdditionalSeatInput!) {
-    additionalSeat(input: $input) {
-      note
-    }
-  }
-`
-
-export const FREE_TRIAL_GQL = gql`
-  mutation freeTrial($input: FreeTrialInput!) {
-    freeTrial(input: $input)
-  }
-`
-
-export const ORDER_PREVIEW_GQL = gql`
-  query orderPreview($input: OrderPreviewInput!) {
-    orderPreview(input: $input) {
-      planId
-      planName
-      billingCycle
-      kind
-      seatCount
-      seatsAmount
-      amount
-      discount
-      total
-    }
-  }
-`
-
 export const STRIPE_AUTHORIZE_URL_GQL = gql`
   query stripeAuthorizeUrl($input: FormDetailInput!) {
     stripeAuthorizeUrl(input: $input)
@@ -438,12 +284,6 @@ export const CONNECT_STRIPE_GQL = gql`
 export const REVOKE_STRIPE_ACCOUNT_GQL = gql`
   mutation revokeStripeAccount($input: FormDetailInput!) {
     revokeStripeAccount(input: $input)
-  }
-`
-
-export const CUSTOMER_PORTAL_GQL = gql`
-  mutation stripeCustomerPortal($input: TeamDetailInput!) {
-    stripeCustomerPortal(input: $input)
   }
 `
 
@@ -905,7 +745,7 @@ export const FORM_INTEGRATIONS_GQL = gql`
     formIntegrations(input: $input) {
       formId
       appId
-      attributes
+      config
       status
     }
   }
@@ -964,34 +804,17 @@ export const APPS_GQL = gql`
   query apps {
     apps {
       id
-      internalType
-      uniqueId
-      category
       name
       description
-      avatar
-      homepage
-      helpLinkUrl
+      icon
+      settings {
+        type
+        name
+        label
+        placeholder
+        required
+      }
     }
-  }
-`
-
-export const APP_DETAIL_GQL = gql`
-  query appDetail($input: AppDetailInput!) {
-    appDetail(input: $input) {
-      id
-      name
-      description
-      avatar
-      homepage
-      status
-    }
-  }
-`
-
-export const APP_AUTHORIZE_URL_GQL = gql`
-  query appAuthorizeUrl($input: AppAuthorizeUrlInput!) {
-    appAuthorizeUrl(input: $input)
   }
 `
 
@@ -1078,7 +901,6 @@ export const USER_DETAILS_GQL = gql`
       isSocialAccount
       isDeletionScheduled
       deletionScheduledAt
-      isOnboardRequired
     }
   }
 `
@@ -1554,18 +1376,6 @@ export const UNSPLASH_SEARCH_GQL = gql`
 export const UNSPLASH_TRACK_DOWNLOAD_GQL = gql`
   mutation unsplashTrackDownload($input: UnsplashTrackDownloadInput!) {
     unsplashTrackDownload(input: $input)
-  }
-`
-
-export const EXPORT_FORM_TO_JSON_GQL = gql`
-  query exportFormToJSON($input: ExportFormToJSONInput!) {
-    exportFormToJSON(input: $input)
-  }
-`
-
-export const IMPORT_FORM_FROM_JSON_GQL = gql`
-  mutation importFormFromJSON($input: ImportFormFromJSONInput!) {
-    importFormFromJSON(input: $input)
   }
 `
 

@@ -1,6 +1,7 @@
-import { helper, nanoid } from '@heyform-inc/utils'
 import cookies from 'js-cookie'
 import store from 'store2'
+
+import { helper, nanoid } from '@heyform-inc/utils'
 
 import { COOKIE_OPTIONS, DEVICEID_COOKIE_NAME, LOGGED_COOKIE_NAME } from '@/consts'
 
@@ -24,14 +25,12 @@ export function getAuthState() {
 }
 
 export function clearAuthState() {
-  // Clear local storage
   Object.keys(localStorage).forEach(key => {
     if (key !== DEVICEID_COOKIE_NAME) {
       store.remove(key)
     }
   })
 
-  // Clear logged in cookie
   clearCookie(LOGGED_COOKIE_NAME)
 }
 

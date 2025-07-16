@@ -1,9 +1,10 @@
 import { useMemo } from 'react'
 
-import { Async, Avatar, Repeat, Tooltip } from '@/components'
 import { WorkspaceService } from '@/services'
-import { useWorkspaceStore } from '@/store'
 import { useParam } from '@/utils'
+
+import { Async, Avatar, Repeat, Tooltip } from '@/components'
+import { useWorkspaceStore } from '@/store'
 
 export default function ProjectMembers() {
   const { workspaceId } = useParam()
@@ -27,7 +28,7 @@ export default function ProjectMembers() {
           refreshDeps={[workspaceId]}
           loader={
             <Repeat count={6}>
-              <div className="skeleton h-9 w-9 rounded-full ring-2 ring-foreground"></div>
+              <div className="skeleton ring-foreground h-9 w-9 rounded-full ring-2"></div>
             </Repeat>
           }
         >
@@ -35,7 +36,7 @@ export default function ProjectMembers() {
             <Tooltip key={m.id} label={m.name}>
               <div>
                 <Avatar
-                  className="h-9 w-9 rounded-full ring-2 ring-foreground"
+                  className="ring-foreground h-9 w-9 rounded-full ring-2"
                   src={m.avatar}
                   fallback={m.name}
                   resize={{ width: 100, height: 100 }}

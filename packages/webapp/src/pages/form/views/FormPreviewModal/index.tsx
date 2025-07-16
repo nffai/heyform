@@ -6,14 +6,12 @@ import type { FC } from 'react'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Button, Modal, Select, Spin, notification, useLockBodyScroll } from '@/components'
-import { STRIPE_PUBLISHABLE_KEY } from '@/consts'
-import { Renderer, loadScript } from '@/pages/form/views/FormComponents'
-// import { type IFormModel } from '@/pages/form/views/FormComponents/typings'
-import { useAppStore, useFormStore } from '@/store'
 import { insertThemeStyle } from '@/utils'
 
-import { insertWebFont } from '../FormComponents/theme'
+import { Button, Modal, Select } from '@/components'
+import { STRIPE_PUBLISHABLE_KEY } from '@/consts'
+import { useAppStore, useFormStore } from '@/store'
+
 import './index.scss'
 
 export const FormPreviewModal: FC = observer(() => {

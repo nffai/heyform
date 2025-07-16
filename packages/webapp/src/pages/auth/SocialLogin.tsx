@@ -1,10 +1,11 @@
 import { FC } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { getDeviceId, useRouter } from '@/utils'
+
 import IconApple from '@/assets/apple.svg?react'
 import IconGoogle from '@/assets/google.svg?react'
 import { Button, Divider } from '@/components'
-import { getDeviceId, useRouter } from '@/utils'
 
 interface SocialLoginProps {
   isSignUp?: boolean

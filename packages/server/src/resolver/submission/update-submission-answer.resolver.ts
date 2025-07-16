@@ -1,7 +1,8 @@
-import { Auth, FormGuard } from '@decorator'
-import { UpdateSubmissionAnswerInput } from '@graphql'
 import { Answer } from '@heyform-inc/shared-types-enums'
 import { BadRequestException } from '@nestjs/common'
+
+import { Auth, FormGuard } from '@decorator'
+import { UpdateSubmissionAnswerInput } from '@graphql'
 import { Args, Mutation, Resolver } from '@nestjs/graphql'
 import { SubmissionService } from '@service'
 
@@ -15,29 +16,18 @@ export class UpdateSubmissionAnswerResolver {
   async updateSubmissionAnswer(
     @Args('input') input: UpdateSubmissionAnswerInput
   ): Promise<boolean> {
-    const submission = await this.submissionService.findByFormId(
-      input.formId,
-      input.submissionId
-    )
+    const submission = await this.submissionService.findByFormId(input.formId, input.submissionId)
 
     if (!submission) {
       throw new BadRequestException('The submission dose not exist.')
     }
 
-    const existsAnswer = submission.answers.find(
-      row => row.id === input.answer.id
-    )
+    const existsAnswer = submission.answers.find(row => row.id === input.answer.id)
 
     if (existsAnswer) {
-      return this.submissionService.updateAnswer(
-        input.submissionId,
-        input.answer as Answer
-      )
+      return this.submissionService.updateAnswer(input.submissionId, input.answer as Answer)
     } else {
-      return this.submissionService.createAnswer(
-        input.submissionId,
-        input.answer as Answer
-      )
+      return this.submissionService.createAnswer(input.submissionId, input.answer as Answer)
     }
   }
 }

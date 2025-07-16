@@ -2,10 +2,11 @@ import { useBoolean, useRequest } from 'ahooks'
 import { useEffect } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
 
-import { Form, Input, Modal, useToast } from '@/components'
 import { UserService } from '@/services'
-import { useModal, useUserStore } from '@/store'
 import { clearAuthState } from '@/utils'
+
+import { Form, Input, Modal, useToast } from '@/components'
+import { useModal, useUserStore } from '@/store'
 
 export default function UserDeletionModal() {
   const { t } = useTranslation()
@@ -40,7 +41,6 @@ export default function UserDeletionModal() {
   async function fetch(values: any) {
     await UserService.verifyDeletionCode(values.code)
 
-    // Clear the auth state and logout the user
     setTimeout(() => {
       clearAuthState()
       window.location.href = '/logout'

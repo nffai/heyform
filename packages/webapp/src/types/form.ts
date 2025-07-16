@@ -2,18 +2,22 @@ import { FormField, FormModel, Property } from '@heyform-inc/shared-types-enums'
 
 import { APP_STATUS_ENUM } from '@/consts'
 
+export interface AppSettingType {
+  type: string
+  name: string
+  label: string
+  description?: string
+  placeholder?: string
+  required: boolean
+}
+
 export interface AppType {
   id: string
-  internalType: number
-  uniqueId: string
-  category: string
   name: string
   description?: string
-  avatar?: string
-  homepage?: string
-  helpLinkUrl?: string
-  attributes?: AnyMap
-  status: APP_STATUS_ENUM
+  icon?: string
+  settings?: AppSettingType[]
+  status?: APP_STATUS_ENUM
 }
 
 export interface IntegratedAppType extends AppType {
@@ -23,7 +27,7 @@ export interface IntegratedAppType extends AppType {
 
 export interface IntegrationType {
   appId: string
-  attributes?: AnyMap
+  config?: AnyMap
   status: number
 }
 

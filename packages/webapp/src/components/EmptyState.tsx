@@ -28,7 +28,7 @@ export const EmptyState: FC<EmptyStateProps> = ({
       </h3>
 
       {subHeadline && (
-        <p className="mt-1 text-sm text-secondary" data-slot="subheadline">
+        <p className="text-secondary mt-1 text-sm" data-slot="subheadline">
           {subHeadline}
         </p>
       )}

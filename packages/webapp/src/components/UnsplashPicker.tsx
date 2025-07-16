@@ -45,7 +45,7 @@ const UnsplashItem: FC<UnsplashItemProps> = ({ image, onChange }) => {
           alt=""
         />
         <a
-          className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-gray-800 px-2 py-1.5 text-xs text-foreground underline opacity-0 transition-opacity duration-100 ease-in-out group-hover:opacity-100"
+          className="text-foreground absolute inset-x-0 bottom-0 bg-gradient-to-t from-gray-800 px-2 py-1.5 text-xs underline opacity-0 transition-opacity duration-100 ease-in-out group-hover:opacity-100"
           href={image.authorUrl}
           target="_blank"
           rel="noreferrer"
@@ -75,7 +75,7 @@ export const UnsplashPicker: FC<UnsplashPickerProps> = ({ onChange, ...restProps
       <Input
         className="[&_[data-slot=input]]:pl-10"
         placeholder={t('components.imagePicker.unsplash.search')}
-        leading={<IconSearch className="h-5 w-5 text-secondary" />}
+        leading={<IconSearch className="text-secondary h-5 w-5" />}
         onEnter={setKeyword}
       />
       <Async

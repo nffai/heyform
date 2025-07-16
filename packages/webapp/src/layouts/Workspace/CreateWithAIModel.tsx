@@ -2,10 +2,11 @@ import { IconChevronLeft } from '@tabler/icons-react'
 import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import IconAI from '@/assets/ai.svg?react'
-import { Button, Form, Input } from '@/components'
 import { FormService } from '@/services'
 import { useParam, useRouter } from '@/utils'
+
+import IconAI from '@/assets/ai.svg?react'
+import { Button, Form, Input } from '@/components'
 
 import { TemplatesModelProps } from './TemplatesModel'
 

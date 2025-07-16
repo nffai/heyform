@@ -2,10 +2,11 @@ import { useBoolean, useRequest } from 'ahooks'
 import { useEffect } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
 
-import { Form, Input, Modal, useToast } from '@/components'
 import { WorkspaceService } from '@/services'
-import { useModal, useUserStore, useWorkspaceStore } from '@/store'
 import { useRouter } from '@/utils'
+
+import { Form, Input, Modal, useToast } from '@/components'
+import { useModal, useUserStore, useWorkspaceStore } from '@/store'
 
 export default function WorkspaceDeletionModal() {
   const { t } = useTranslation()
@@ -59,7 +60,7 @@ export default function WorkspaceDeletionModal() {
       open={isOpen}
       title={t('settings.deletion.headline')}
       description={
-        <div className="space-y-2.5 text-sm text-secondary">
+        <div className="text-secondary space-y-2.5 text-sm">
           <p>
             <Trans
               t={t}

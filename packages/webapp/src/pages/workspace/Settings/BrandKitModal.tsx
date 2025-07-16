@@ -4,17 +4,18 @@ import {
   SYSTEM_FONTS,
   insertWebFont
 } from '@heyform-inc/form-renderer'
-import { helper, pickObject } from '@heyform-inc/utils'
 import { IconChevronRight } from '@tabler/icons-react'
 import { useRequest } from 'ahooks'
 import { useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Button, ColorPicker, Form, ImageFormPicker, Modal, Select } from '@/components'
 import { insertThemeStyle } from '@/pages/form/Builder/utils'
 import { WorkspaceService } from '@/services'
-import { useAppStore, useModal, useWorkspaceStore } from '@/store'
 import { useParam } from '@/utils'
+import { helper, pickObject } from '@heyform-inc/utils'
+
+import { Button, ColorPicker, Form, ImageFormPicker, Modal, Select } from '@/components'
+import { useAppStore, useModal, useWorkspaceStore } from '@/store'
 
 import { BackgroundImage } from '../../form/Builder/RightSidebar/Design/Customize'
 import ImageBrightness from '../../form/Builder/RightSidebar/Question/ImageBrightness'
@@ -118,13 +119,13 @@ const ModalComponent = () => {
 
   return (
     <div className="flex h-full">
-      <div className="scrollbar h-full w-full border-r border-accent-light bg-foreground px-4 py-6 sm:w-80">
+      <div className="scrollbar border-accent-light bg-foreground h-full w-full border-r px-4 py-6 sm:w-80">
         <Form initialValues={brandKit} onValuesChange={handleValuesChange} onFinish={run}>
           <div className="flex items-center justify-between">
             <h2 className="text-base/6 font-semibold">{t('settings.branding.brandKitHeadline')}</h2>
 
             <Button.Link
-              className="hidden !p-0 text-secondary hover:bg-transparent hover:text-primary sm:flex"
+              className="text-secondary hover:text-primary hidden !p-0 hover:bg-transparent sm:flex"
               size="sm"
               onClick={() => closeModal('BrandKitModal')}
             >
@@ -238,7 +239,7 @@ const ModalComponent = () => {
                 </Form.Item>
               </div>
 
-              <div className="mt-2 border-t border-accent-light pt-2">
+              <div className="border-accent-light mt-2 border-t pt-2">
                 <Form.Item
                   name="backgroundImage"
                   className="[&_[data-slot=content]]:flex-none [&_[data-slot=control]]:flex [&_[data-slot=control]]:items-center [&_[data-slot=control]]:justify-between"
@@ -249,7 +250,7 @@ const ModalComponent = () => {
               </div>
 
               {helper.isValid(values?.backgroundImage) && (
-                <div className="mt-2 border-t border-accent-light pt-2">
+                <div className="border-accent-light mt-2 border-t pt-2">
                   <Form.Item name="backgroundBrightness">
                     <ImageBrightness imageURL={values?.backgroundImage} />
                   </Form.Item>

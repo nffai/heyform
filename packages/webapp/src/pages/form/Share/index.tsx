@@ -9,10 +9,11 @@ import {
 import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { getDecoratedURL, useParam } from '@/utils'
+
 import { Button, Tooltip } from '@/components'
 import { FORM_EMBED_OPTIONS } from '@/consts'
 import { useAppStore, useFormStore, useWorkspaceStore } from '@/store'
-import { getDecoratedURL, useParam } from '@/utils'
 
 import EmbedModal from './EmbedModal'
 import LinkSettings from './LinkSettings'
@@ -73,7 +74,7 @@ export default function FormShare() {
     <>
       <div className="mt-10 space-y-10">
         {form?.canPublish && (
-          <div className="flex items-center justify-center gap-x-2 rounded-lg border border-accent-light bg-red-50 py-2">
+          <div className="border-accent-light flex items-center justify-center gap-x-2 rounded-lg border bg-red-50 py-2">
             <IconExclamationCircle className="h-5 w-5 text-red-700" />
             <span className="text-sm/6 font-medium text-red-700">
               {t('form.share.unpublishedTip')}
@@ -85,7 +86,7 @@ export default function FormShare() {
           <h2 className="text-base/6 font-semibold">{t('form.share.link.headline')}</h2>
           <div className="mt-4">
             <div className="flex flex-col gap-2 text-sm/6 sm:flex-row sm:items-center">
-              <div className="flex items-center gap-x-4 rounded-lg border border-input">
+              <div className="border-input flex items-center gap-x-4 rounded-lg border">
                 <div className="h-10 flex-1 truncate pl-4 leading-10">{shareLink}</div>
                 <Button.Copy className="rounded-l-none" text={shareLink} />
               </div>
@@ -139,7 +140,7 @@ export default function FormShare() {
 
         <section id="embed">
           <h2 className="text-base/6 font-semibold">{t('form.share.embed.headline')}</h2>
-          <p className="text-sm/6 text-secondary">{t('form.share.embed.subHeadline')}</p>
+          <p className="text-secondary text-sm/6">{t('form.share.embed.subHeadline')}</p>
 
           <div className="mt-4 flex gap-4 sm:gap-8">
             {FORM_EMBED_OPTIONS.map(row => (
@@ -147,10 +148,10 @@ export default function FormShare() {
                 key={row.value}
                 type="button"
                 tabIndex={-1}
-                className="w-32 text-sm/6 text-secondary hover:text-primary"
+                className="text-secondary hover:text-primary w-32 text-sm/6"
                 onClick={() => handleOpenEmbed(row.value)}
               >
-                <div className="rounded-md border border-input">
+                <div className="border-input rounded-md border">
                   <row.icon className="w-full rounded-md" />
                 </div>
                 <div className="mt-1.5 text-center">{t(row.label)}</div>

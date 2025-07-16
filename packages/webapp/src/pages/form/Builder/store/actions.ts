@@ -1,4 +1,3 @@
-import { htmlUtils } from '@heyform-inc/answer-utils'
 import {
   FieldKindEnum,
   HiddenField,
@@ -6,12 +5,14 @@ import {
   QUESTION_FIELD_KINDS,
   type Variable
 } from '@heyform-inc/shared-types-enums'
-import { clone, helper, nanoid } from '@heyform-inc/utils'
-
-import { FormService } from '@/services'
-import { FormFieldType } from '@/types'
 
 import { getValidLogics, serializeFields } from '../utils'
+import { FormService } from '@/services'
+import { htmlUtils } from '@heyform-inc/answer-utils'
+import { clone, helper, nanoid } from '@heyform-inc/utils'
+
+import { FormFieldType } from '@/types'
+
 import {
   AddFieldAction,
   DeleteFieldAction,
@@ -45,7 +46,6 @@ function addFieldToGroup(field: FormFieldType, groupLike?: FormFieldType, curren
     const nestedFields = groupLike.properties?.fields || []
     const index = fieldIndex(groupLike.properties?.fields, currentId)
 
-    // Insert new field
     nestedFields.splice(index + 1, 0, field)
 
     groupLike.properties = {
@@ -154,10 +154,8 @@ export function addField(
     }
   }
 
-  // Reset fields
   const newState = setFields(state, { fields })
 
-  // Select new field
   return selectField(newState, {
     id: field.id,
     parentId
@@ -181,7 +179,6 @@ export function duplicateField(
     return state
   }
 
-  // Clone field to void change original field
   field = clone(field)
 
   if (field.kind === FieldKindEnum.GROUP) {
@@ -220,11 +217,9 @@ export function updateNestFields(
     }
   }
 
-  // Reset fields
   const newState = setFields(state, { fields })
   newState.logics = getValidLogics(newState.fields, newState.logics)
 
-  // Select new field
   return selectField(newState, {
     id: state.currentId,
     parentId: id
@@ -263,7 +258,6 @@ export function updateField(state: IState, { id, updates }: UpdateFieldAction['p
   }
 
   if (currentField) {
-    // Update the field text which belongs to QUESTION_FIELD_KINDS
     if (!helper.isNil(updates.title) && QUESTION_FIELD_KINDS.includes(currentField.kind)) {
       const idx = state.questions.findIndex(q => q.id === id)
 
@@ -282,7 +276,6 @@ export function updateField(state: IState, { id, updates }: UpdateFieldAction['p
         const regex = new RegExp(`<span[^>]+data-mention="${id}"([^>]+)?>[^<]+<\\/span>`, 'gi')
         const mention = `<span class="mention" contenteditable="false" data-mention="${id}">@${title}</span>`
 
-        // Update all mention text
         fields = fields.map(f => {
           if (f.title) {
             f.title = (f.title as string).replace(regex, mention)
@@ -302,10 +295,8 @@ export function updateField(state: IState, { id, updates }: UpdateFieldAction['p
     }
   }
 
-  // Reset fields
   const newState = setFields(state, { fields })
 
-  // Select new field
   return selectField(newState, {
     id,
     parentId
@@ -337,10 +328,8 @@ export function deleteField(state: IState, { id, parentId }: DeleteFieldAction['
     }
   }
 
-  // Reset fields
   const newState = setFields(state, { fields })
 
-  // Select new field
   return selectField(newState, {
     id: currentId,
     parentId

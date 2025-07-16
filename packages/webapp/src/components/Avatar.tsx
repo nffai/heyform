@@ -34,14 +34,14 @@ export const Avatar: FC<AvatarProps> = ({
   return (
     <div
       className={cn(
-        'relative h-10 w-10 select-none after:pointer-events-none after:absolute after:inset-0 after:rounded-full after:border after:border-input',
+        'after:border-input relative h-10 w-10 select-none after:pointer-events-none after:absolute after:inset-0 after:rounded-full after:border',
         className
       )}
       {...restProps}
     >
       {!isLoaded && (
         <span
-          className="flex h-full w-full items-center justify-center rounded-full bg-accent text-primary dark:text-zinc-950"
+          className="bg-accent text-primary flex h-full w-full items-center justify-center rounded-full dark:text-zinc-950"
           data-slot="fallback"
         >
           {getFirstLetters(fallback)}

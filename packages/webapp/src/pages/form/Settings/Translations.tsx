@@ -15,10 +15,10 @@ export default function FormSettingsTranslations() {
         value: l.value,
         label: (
           <div>
-            <div className="text-sm/[1.4rem] font-medium text-primary" data-slot="label">
+            <div className="text-primary text-sm/[1.4rem] font-medium" data-slot="label">
               {t(l.label)}
             </div>
-            <div className="text-xs text-secondary" data-slot="translated">
+            <div className="text-secondary text-xs" data-slot="translated">
               {t(l.translated)}
             </div>
           </div>
@@ -66,7 +66,7 @@ export default function FormSettingsTranslations() {
               components={{
                 a: (
                   <a
-                    className="underline underline-offset-4 hover:text-primary"
+                    className="hover:text-primary underline underline-offset-4"
                     href="https://openai.com/chatgpt"
                     target="_blank"
                     rel="noopener noreferrer"
@@ -75,10 +75,9 @@ export default function FormSettingsTranslations() {
               }}
             />
           }
-          isInline
         >
           <Select.Multi
-            className="[&_[data-slot=label]]:hidden [&_[data-slot=translated]]:text-sm/[1.4rem] [&_[data-slot=translated]]:font-medium [&_[data-slot=translated]]:text-primary"
+            className="[&_[data-slot=translated]]:text-primary [&_[data-slot=label]]:hidden [&_[data-slot=translated]]:text-sm/[1.4rem] [&_[data-slot=translated]]:font-medium"
             options={restOptions}
             contentProps={{
               align: 'end'

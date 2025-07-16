@@ -1,7 +1,8 @@
+import { BadRequestException } from '@nestjs/common'
+
 import { Auth, Team, TeamGuard, User } from '@decorator'
 import { TeamDetailInput } from '@graphql'
 import { TeamModel, UserModel } from '@model'
-import { BadRequestException } from '@nestjs/common'
 import { Args, Mutation, Resolver } from '@nestjs/graphql'
 import { ProjectService, TeamService } from '@service'
 
@@ -20,11 +21,8 @@ export class LeaveTeamResolver {
     @Team() team: TeamModel,
     @Args('input') input: TeamDetailInput
   ): Promise<boolean> {
-    // Team owner can't leave the team
     if (team.isOwner) {
-      throw new BadRequestException(
-        'This operation is not allowed in the workspace'
-      )
+      throw new BadRequestException('This operation is not allowed in the workspace')
     }
 
     await this.teamService.deleteMember(input.teamId, user.id)

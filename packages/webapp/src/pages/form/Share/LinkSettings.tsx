@@ -1,16 +1,17 @@
-import { flattenFields } from '@heyform-inc/answer-utils'
 import { UNSELECTABLE_FIELD_KINDS } from '@heyform-inc/shared-types-enums'
-import { helper } from '@heyform-inc/utils'
 import { IconTrash, IconUpload } from '@tabler/icons-react'
 import { useRequest } from 'ahooks'
 import { useMemo, useRef } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
 
+import { FormService } from '@/services'
+import { useParam } from '@/utils'
+import { flattenFields } from '@heyform-inc/answer-utils'
+import { helper } from '@heyform-inc/utils'
+
 import OgIcon from '@/assets/og.svg?react'
 import { Button, Image, ImagePicker, ImagePickerRef, Input, Tooltip } from '@/components'
-import { FormService } from '@/services'
 import { useFormStore } from '@/store'
-import { useParam } from '@/utils'
 
 export default function LinkSettings() {
   const { t } = useTranslation()
@@ -65,7 +66,7 @@ export default function LinkSettings() {
       <div className="flex items-center gap-4">
         <h2 className="text-base/6 font-semibold">{t('form.share.settings.headline')}</h2>
       </div>
-      <p className="text-sm/6 text-secondary">{t('form.share.settings.subHeadline')}</p>
+      <p className="text-secondary text-sm/6">{t('form.share.settings.subHeadline')}</p>
 
       <div className="mt-4 flex flex-col gap-4 sm:w-4/5 sm:flex-row sm:gap-10">
         <div className="w-full space-y-4 sm:w-96">
@@ -82,7 +83,6 @@ export default function LinkSettings() {
               id="meta-title"
               maxLength={70}
               value={title}
-              // onFocus={}
               onChange={value => run('metaTitle', value)}
             />
           </div>
@@ -101,7 +101,6 @@ export default function LinkSettings() {
               rows={6}
               maxLength={156}
               value={form?.settings?.metaDescription}
-              // onFocus={}
               onChange={value => run('metaDescription', value)}
             />
           </div>
@@ -111,7 +110,7 @@ export default function LinkSettings() {
           <div className="text-base/6 font-medium sm:text-sm/6">
             {t('form.share.settings.preview.headline')}
           </div>
-          <div className="text-sm text-secondary">
+          <div className="text-secondary text-sm">
             <Trans
               key="meta-preview"
               t={t}
@@ -126,14 +125,14 @@ export default function LinkSettings() {
                 ),
                 button: (
                   <Button.Link
-                    className="!h-auto !p-0 !text-sm text-primary underline"
+                    className="text-primary !h-auto !p-0 !text-sm underline"
                     onClick={handleUpload}
                   />
                 )
               }}
             />
 
-            <div className="mt-4 select-none rounded-lg border border-input">
+            <div className="border-input mt-4 select-none rounded-lg border">
               {helper.isValid(form?.settings?.metaOGImageUrl) ? (
                 <div className="group relative h-full w-full">
                   <Image
@@ -142,7 +141,7 @@ export default function LinkSettings() {
                   />
 
                   <div className="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-100 group-hover:opacity-100">
-                    <div className="flex items-center gap-1 rounded-lg bg-foreground px-1.5 py-1">
+                    <div className="bg-foreground flex items-center gap-1 rounded-lg px-1.5 py-1">
                       <Tooltip label={t('components.change')}>
                         <Button.Link size="sm" iconOnly onClick={handleUpload}>
                           <IconUpload className="h-5 w-5" />

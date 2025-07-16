@@ -1,6 +1,6 @@
 import { Auth, User } from '@decorator'
 import { UpdateUserInput } from '@graphql'
-import { helper, timestamp } from '@heyform-inc/utils'
+import { helper } from '@heyform-inc/utils'
 import { UserModel } from '@model'
 import { Args, Mutation, Resolver } from '@nestjs/graphql'
 import { UserService } from '@service'
@@ -23,10 +23,6 @@ export class UpdateUserResolver {
 
     if (helper.isValid(input.avatar)) {
       updates.avatar = input.avatar
-    }
-
-    if (input.isOnboardRequired === false) {
-      updates.onboardedAt = timestamp()
     }
 
     if (helper.isValid(updates)) {

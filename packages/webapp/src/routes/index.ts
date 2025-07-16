@@ -1,12 +1,8 @@
-// import { FormRenderer } from '@heyform-inc/form-renderer'
-// import { lazy } from 'react'
 import {
   AuthLayout,
   BaseLayout,
   FormLayout,
-  LoginGuard,
-  ProjectLayout, // PublicLayout,
-  TemplateLayout,
+  ProjectLayout,
   WorkspaceGuard,
   WorkspaceLayout
 } from '@/layouts'
@@ -19,26 +15,19 @@ import VerifyEmail from '@/pages/auth/VerifyEmail'
 import FormAnalytics from '@/pages/form/Analytics'
 import FormBuilder from '@/pages/form/Builder'
 import FormIntegrations from '@/pages/form/Integrations'
+import FormRender from '@/pages/form/Render'
 import FormSettings from '@/pages/form/Settings'
 import FormShare from '@/pages/form/Share'
 import FormSubmissions from '@/pages/form/Submissions'
-import FormPage from '@/pages/form/src/pages/[formId]/f/[id]'
 import ProjectForms from '@/pages/project/Forms'
 import ProjectTrash from '@/pages/project/Trash'
-import Onboarding from '@/pages/user/Onboarding'
-import Template from '@/pages/user/Template'
 import CreateWorkspace from '@/pages/workspace/Create'
 import WorkspaceDashboard from '@/pages/workspace/Dashboard'
 import WorkspaceInvitation from '@/pages/workspace/Invitation'
 import WorkspaceMembers from '@/pages/workspace/Members'
 import WorkspaceSettings from '@/pages/workspace/Settings'
 
-// import FormRender from '@/pages/form/Render'
-
-// const FormRender = lazy(() => import('@/pages/form/Render'))
-
 const routes = [
-  // Auth
   {
     path: '/login',
     component: Login,
@@ -89,20 +78,6 @@ const routes = [
       loginRequired: true
     }
   },
-
-  /* Onboarding */
-  {
-    path: '/onboarding',
-    layout: LoginGuard,
-    component: Onboarding,
-    options: {
-      loginRequired: true,
-      isOnboardingPage: true,
-      title: 'onboarding.title'
-    }
-  },
-
-  /* Home */
   {
     path: '/',
     layout: WorkspaceGuard,
@@ -112,8 +87,6 @@ const routes = [
       isHomePage: true
     }
   },
-
-  // Workspace
   {
     path: '/workspace/create',
     layout: BaseLayout,
@@ -157,8 +130,6 @@ const routes = [
       title: 'form.settings.title'
     }
   },
-
-  // Project
   {
     path: '/workspace/:workspaceId/project/:projectId',
     layout: ProjectLayout,
@@ -177,8 +148,6 @@ const routes = [
       title: 'project.trash.title'
     }
   },
-
-  // Form
   {
     path: '/workspace/:workspaceId/project/:projectId/form/:formId/analytics',
     layout: FormLayout,
@@ -196,7 +165,6 @@ const routes = [
       loginRequired: true,
       className: '[&_[data-slot=layout-inner]]:max-w-full',
       title: 'form.submissions.title'
-      // className: '[&_[data-slot=sidebar]]:-translate-x-full [&_[data-slot=main]]:lg:pl-2'
     }
   },
   {
@@ -227,8 +195,6 @@ const routes = [
       className: '[&_[data-slot=layout-container]]:!pb-0'
     }
   },
-
-  // Builder
   {
     path: '/workspace/:workspaceId/project/:projectId/form/:formId/create',
     component: FormBuilder,
@@ -237,29 +203,12 @@ const routes = [
       title: 'form.builder.title'
     }
   },
-
-  // Render Form
   {
     path: '/form/:formId',
-    // layout: PublicLayout,
-    // component: FormRenderer,
-    // component: FormRender,
-    component: FormPage,
+    component: FormRender,
     options: {
       loginRequired: false,
       title: 'form.render.title'
-      // redirectIfLogged: false
-    }
-  },
-
-  // Template
-  {
-    path: '/template/:templateId',
-    layout: TemplateLayout,
-    component: Template,
-    options: {
-      loginRequired: true,
-      title: 'template.use.title'
     }
   }
 ]

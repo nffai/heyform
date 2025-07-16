@@ -2,8 +2,9 @@ import { LayoutProps } from '@heyooo-inc/react-router'
 import { useAsyncEffect } from 'ahooks'
 import { FC, useState } from 'react'
 
-import { LoginGuard } from '@/layouts'
 import { WorkspaceService } from '@/services'
+
+import { LoginGuard } from '@/layouts'
 import { useWorkspaceStore } from '@/store'
 
 import CreateProjectModal from '../Workspace/CreateProjectModal'

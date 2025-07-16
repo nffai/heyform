@@ -1,3 +1,5 @@
+import { apollo } from '@/utils'
+
 import {
   ADD_PROJECT_MEMBER_GQL,
   CREATE_PROJECT_GQL,
@@ -8,7 +10,6 @@ import {
   LEAVE_PROJECT_GQL,
   RENAME_PROJECT_GQL
 } from '@/consts'
-import { apollo } from '@/utils'
 
 export class ProjectService {
   static async create(teamId: string, name: string, memberIds?: string[]) {

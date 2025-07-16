@@ -1,7 +1,8 @@
 import { FieldKindEnum, LogicCondition } from '@heyform-inc/shared-types-enums'
-import { helper } from '@heyform-inc/utils'
 import { type FC, useCallback, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+
+import { helper } from '@heyform-inc/utils'
 
 import { Input, Select } from '@/components'
 import {

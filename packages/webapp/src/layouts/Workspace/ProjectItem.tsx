@@ -2,11 +2,12 @@ import { IconDots, IconTag, IconTrash } from '@tabler/icons-react'
 import { useTranslation } from 'react-i18next'
 import { NavLink } from 'react-router-dom'
 
-import { Button, Dropdown, Tooltip, usePrompt } from '@/components'
 import { ProjectService } from '@/services'
+import { cn, useParam } from '@/utils'
+
+import { Button, Dropdown, Tooltip, usePrompt } from '@/components'
 import { useAppStore, useWorkspaceStore } from '@/store'
 import { ProjectType } from '@/types'
-import { cn, useParam } from '@/utils'
 
 interface ProjectItemProps {
   project: ProjectType
@@ -73,9 +74,9 @@ export default function ProjectItem({ project }: ProjectItemProps) {
     <NavLink
       className={({ isActive }) =>
         cn(
-          'group flex w-full items-center justify-between gap-3 rounded-lg px-3 py-2.5 text-left text-sm font-medium hover:bg-accent-light has-[[data-state=open]]:bg-accent-light sm:px-2 sm:py-1.5 lg:py-2',
+          'hover:bg-accent-light has-[[data-state=open]]:bg-accent-light group flex w-full items-center justify-between gap-3 rounded-lg px-3 py-2.5 text-left text-sm font-medium sm:px-2 sm:py-1.5 lg:py-2',
           {
-            'relative before:absolute before:inset-y-2 before:-left-4 before:w-0.5 before:rounded-full before:bg-primary':
+            'before:bg-primary relative before:absolute before:inset-y-2 before:-left-4 before:w-0.5 before:rounded-full':
               isActive
           }
         )
@@ -95,12 +96,12 @@ export default function ProjectItem({ project }: ProjectItemProps) {
         onClick={handleClick}
       >
         <Button.Link
-          className="!h-5 !w-5 rounded opacity-0 group-hover:opacity-100 data-[state=open]:bg-accent-light data-[state=open]:opacity-100"
+          className="data-[state=open]:bg-accent-light !h-5 !w-5 rounded opacity-0 group-hover:opacity-100 data-[state=open]:opacity-100"
           size="sm"
           iconOnly
         >
           <Tooltip label={t('project.menuTip')}>
-            <IconDots className="h-4 w-4 text-secondary" />
+            <IconDots className="text-secondary h-4 w-4" />
           </Tooltip>
         </Button.Link>
       </Dropdown>

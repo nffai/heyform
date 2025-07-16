@@ -1,12 +1,13 @@
-import { nanoid } from '@heyform-inc/utils'
 import { FC, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
+
+import { cn } from '@/utils'
+import { nanoid } from '@heyform-inc/utils'
 
 import IconLogo from '@/assets/logo.svg?react'
 import { Avatar, Loader } from '@/components'
 import { useUserStore } from '@/store'
 import { ChatMessageType } from '@/types'
-import { cn } from '@/utils'
 
 import { useChatStore } from './ChatStore'
 
@@ -14,14 +15,14 @@ const MessageLoader = () => {
   return (
     <div className="mb-6">
       <div className="flex items-center gap-1.5">
-        <div className="relative h-5 w-5 rounded-full p-0.5 after:pointer-events-none after:absolute after:inset-0 after:rounded-full after:border after:border-input">
+        <div className="after:border-input relative h-5 w-5 rounded-full p-0.5 after:pointer-events-none after:absolute after:inset-0 after:rounded-full after:border">
           <IconLogo className="h-4 w-4" />
         </div>
         <span className="text-sm/6 font-semibold">HeyForm</span>
       </div>
 
       <div className="mt-2 flex">
-        <div className="inline-flex h-[2.25rem] items-center rounded-lg bg-accent px-3 py-2 text-sm text-primary">
+        <div className="bg-accent text-primary inline-flex h-[2.25rem] items-center rounded-lg px-3 py-2 text-sm">
           <Loader.ThreeDot />
         </div>
       </div>
@@ -42,7 +43,7 @@ const MessageItem: FC<ChatMessageType> = ({ content, isUser }) => {
         {isUser ? (
           <Avatar className="h-5 w-5" src={user?.avatar} fallback={user?.name} />
         ) : (
-          <div className="relative h-5 w-5 rounded-full p-0.5 after:pointer-events-none after:absolute after:inset-0 after:rounded-full after:border after:border-input">
+          <div className="after:border-input relative h-5 w-5 rounded-full p-0.5 after:pointer-events-none after:absolute after:inset-0 after:rounded-full after:border">
             <IconLogo className="h-4 w-4" />
           </div>
         )}
@@ -54,7 +55,7 @@ const MessageItem: FC<ChatMessageType> = ({ content, isUser }) => {
           'justify-end': isUser
         })}
       >
-        <div className="inline-block max-w-[20rem] whitespace-pre-line break-words rounded-lg bg-accent px-3 py-2 text-sm text-primary">
+        <div className="bg-accent text-primary inline-block max-w-[20rem] whitespace-pre-line break-words rounded-lg px-3 py-2 text-sm">
           {content}
         </div>
       </div>

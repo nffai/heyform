@@ -5,7 +5,7 @@
 	<meta content="width=device-width, initial-scale=1" name="viewport" />
 	<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
 	<meta name="robots" content="noindex">
-	<title>Connect with Stripe</title>
+	<title>Connect to Stripe - HeyForm</title>
 </head>
 <body>
 <script>
@@ -14,7 +14,7 @@
 	if (window.opener && window.opener.origin === origin) {
 		var data = {
 			source: 'heyform-connect-stripe',
-			payload: {{{json rendererData}}}
+			payload: {{{json payload}}}
 		};
 		window.opener.postMessage(data, origin);
 	}

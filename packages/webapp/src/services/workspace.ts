@@ -1,3 +1,5 @@
+import { apollo } from '@/utils'
+
 import {
   ADD_CUSTOM_DOMAIN_GQL,
   CREATE_BRAND_KIT_GQL,
@@ -16,13 +18,11 @@ import {
   UPDATE_BRAND_KIT_GQL,
   UPDATE_WORKSPACE_GQL,
   WORKSPACES_GQL,
-  WORKSPACE_CDN_TOKEN_GQL,
   WORKSPACE_MEMBERS_GQL,
-  WORKSPACE_RECENT_FORMS_GQL,
-  WORKSPACE_SUBSCRIPTION_GQL
+  WORKSPACE_OVERVIEW_GQL,
+  WORKSPACE_RECENT_FORMS_GQL
 } from '@/consts'
 import { BrandKitType } from '@/types'
-import { apollo } from '@/utils'
 
 export class WorkspaceService {
   static async create(input: { name: string; avatar?: string; projectName: string }) {
@@ -89,9 +89,9 @@ export class WorkspaceService {
     })
   }
 
-  static async subscription(teamId: string) {
+  static async overview(teamId: string) {
     return apollo.query({
-      query: WORKSPACE_SUBSCRIPTION_GQL,
+      query: WORKSPACE_OVERVIEW_GQL,
       variables: {
         input: {
           teamId
@@ -169,20 +169,6 @@ export class WorkspaceService {
           inviteCode
         }
       }
-    })
-  }
-
-  static async cdnToken(teamId: string, filename: string, mime: string) {
-    return apollo.query({
-      query: WORKSPACE_CDN_TOKEN_GQL,
-      variables: {
-        input: {
-          teamId,
-          filename,
-          mime
-        }
-      },
-      fetchPolicy: 'network-only'
     })
   }
 

@@ -26,18 +26,16 @@ export class TeamMembersResolver {
       return []
     }
 
-    const users = await this.userService.findAll(
-      members.map(member => member.memberId)
-    )
+    const users = await this.userService.findAll(members.map(member => member.memberId))
 
     return users.map(user => {
       const member = members.find(member => member.memberId === user.id)
 
-      // @ts-ignore
+      //@ts-ignore
       user.role = member.role
-      // @ts-ignore
+      //@ts-ignore
       user.lastSeenAt = member.lastSeenAt
-      // @ts-ignore
+      //@ts-ignore
       user.isOwner = user.id === team.ownerId
 
       return user

@@ -1,44 +1,24 @@
-import { GraphqlService, MongoService, RedisService } from '@config'
-import { LowerCaseScalar } from '@heyforms/nestjs'
-import {
-  FormBodyMiddleware,
-  JsonBodyMiddleware,
-  RawBodyMiddleware
-} from '@middleware'
-import {
-  HttpException,
-  HttpModule,
-  MiddlewareConsumer,
-  Module,
-  NestModule,
-  RequestMethod
-} from '@nestjs/common'
-import { APP_INTERCEPTOR } from '@nestjs/core'
-import { GraphQLModule } from '@nestjs/graphql'
+import { HttpModule, MiddlewareConsumer, Module, NestModule, RequestMethod } from '@nestjs/common'
 import { MongooseModule } from '@nestjs/mongoose'
-import { ScheduleModule } from '@nestjs/schedule'
-import { RedisModule } from '@svtslv/nestjs-ioredis'
-import { RavenInterceptor, RavenModule } from 'nest-raven'
 import { ThrottlerModule } from '@nestjs/throttler'
-import { hs } from '@heyform-inc/utils'
-// @ts-ignore
-import { SSEMiddleware } from 'nestjs-sse'
+import { RedisModule } from '@svtslv/nestjs-ioredis'
+
 import * as Controllers from './controller'
 import { ModelModule } from './model/module'
-import { QueueModules, QueueProviders } from './queue'
 import * as Resolvers from './resolver'
 import { ScheduleModules, ScheduleProviders } from './schedule'
 import * as Services from './service'
-import { ApiModule } from './api/api.module'
+import { GraphqlService, MongoService, RedisService } from '@config'
+import { hs } from '@heyform-inc/utils'
+import { FormBodyMiddleware, JsonBodyMiddleware, RawBodyMiddleware } from '@middleware'
+import { GraphQLModule } from '@nestjs/graphql'
+import { ScheduleModule } from '@nestjs/schedule'
+import { LowerCaseScalar } from '@utils'
+
+import { QueueModules, QueueProviders } from './queue'
 
 @Module({
-  imports: [
-    ...QueueModules,
-    ...ScheduleModules,
-    HttpModule,
-    ScheduleModule.forRoot(),
-    ModelModule
-  ],
+  imports: [...QueueModules, ...ScheduleModules, HttpModule, ScheduleModule.forRoot(), ModelModule],
   providers: [
     ...Object.values(QueueProviders),
     ...Object.values(ScheduleProviders),
@@ -54,8 +34,7 @@ class ServiceModule {}
       ttl: hs('1m'),
       limit: 1000
     }),
-    ServiceModule,
-    ApiModule
+    ServiceModule
   ],
   controllers: [...Object.values(Controllers)],
   providers: [...Object.values(Resolvers), LowerCaseScalar]
@@ -64,7 +43,6 @@ class ResolverModule {}
 
 @Module({
   imports: [
-    RavenModule,
     RedisModule.forRootAsync({
       useClass: RedisService
     }),
@@ -77,30 +55,11 @@ class ResolverModule {}
     ServiceModule,
     ResolverModule
   ],
-  providers: [
-    {
-      provide: APP_INTERCEPTOR,
-      useValue: new RavenInterceptor({
-        filters: [
-          // Filter exceptions of type HttpException. Ignore those that
-          // have status code of less than 500
-          {
-            type: HttpException,
-            filter: (exception: HttpException) => 500 > exception.getStatus()
-          }
-        ]
-      })
-    }
-  ]
+  providers: []
 })
 export class AppModule implements NestModule {
   public configure(consumer: MiddlewareConsumer): void {
     consumer
-      .apply(SSEMiddleware)
-      .forRoutes({
-        path: '/api/chat',
-        method: RequestMethod.POST
-      })
       .apply(RawBodyMiddleware)
       .forRoutes({
         path: '/payment/*',

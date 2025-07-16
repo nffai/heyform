@@ -1,6 +1,7 @@
-import { htmlUtils } from '@heyform-inc/answer-utils'
 import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
+
+import { htmlUtils } from '@heyform-inc/answer-utils'
 
 import { Button, Form, Modal } from '@/components'
 import { useAppStore, useModal } from '@/store'
@@ -51,7 +52,7 @@ const LogicComponent = () => {
 
   return (
     <div className="flex h-[70vh] flex-col">
-      <div className="border-b border-accent-light p-4">
+      <div className="border-accent-light border-b p-4">
         <h2 className="text-lg font-medium text-slate-900">
           {t('form.builder.logic.rule.headline')}
         </h2>

@@ -1,9 +1,10 @@
 import { Trans, useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
-import { Form, Input } from '@/components'
 import { AuthService } from '@/services'
 import { useRouter } from '@/utils'
+
+import { Form, Input } from '@/components'
 
 import SocialLogin from './SocialLogin'
 
@@ -14,14 +15,13 @@ const Login = () => {
   async function fetch(values: any) {
     await AuthService.login(values)
     router.replace('/')
-    // router.push('/')
   }
 
   return (
     <div className="mx-auto grid w-[21.875rem] gap-6 py-12 lg:py-0">
       <div className="grid gap-2 text-center">
         <h1 className="text-3xl font-bold">{t('login.headline')}</h1>
-        <p className="text-sm text-secondary">
+        <p className="text-secondary text-sm">
           <Trans
             t={t}
             i18nKey="login.subHeadline"
@@ -29,7 +29,7 @@ const Login = () => {
               a: (
                 <Link
                   key="sign-up"
-                  className="underline underline-offset-4 hover:text-primary"
+                  className="hover:text-primary underline underline-offset-4"
                   to="/sign-up"
                 />
               )

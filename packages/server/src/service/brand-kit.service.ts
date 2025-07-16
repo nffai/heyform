@@ -1,7 +1,8 @@
 import { Injectable } from '@nestjs/common'
 import { InjectModel } from '@nestjs/mongoose'
-import { BrandKitModel } from '@model'
 import { Model } from 'mongoose'
+
+import { BrandKitModel } from '@model'
 
 @Injectable()
 export class BrandKitService {
@@ -29,10 +30,7 @@ export class BrandKitService {
     return result.id
   }
 
-  public async update(
-    teamId: string,
-    updates: Record<string, any>
-  ): Promise<boolean> {
+  public async update(teamId: string, updates: Record<string, any>): Promise<boolean> {
     const result = await this.brandKitModel.updateOne(
       {
         teamId

@@ -1,7 +1,5 @@
-import { applyLogicToFields, validateFields } from '@heyform-inc/answer-utils'
 import type { FormField } from '@heyform-inc/shared-types-enums'
 import { FieldKindEnum, NumberPrice } from '@heyform-inc/shared-types-enums'
-import { clone, helper } from '@heyform-inc/utils'
 import { IconChevronRight } from '@tabler/icons-react'
 import Big from 'big.js'
 import clsx from 'clsx'
@@ -9,8 +7,6 @@ import type { FormProps as RCFormProps } from 'rc-field-form'
 import RCForm, { Field, useForm } from 'rc-field-form'
 import { FC, ReactNode, useEffect, useMemo, useState } from 'react'
 
-import { Submit } from '../components'
-import { removeStorage, useStore } from '../store'
 import {
   getNavigateFieldId,
   sendMessageToParent,
@@ -19,6 +15,11 @@ import {
   useTranslation,
   validateLogicField
 } from '../utils'
+import { applyLogicToFields, validateFields } from '@heyform-inc/answer-utils'
+import { clone, helper } from '@heyform-inc/utils'
+
+import { Submit } from '../components'
+import { removeStorage, useStore } from '../store'
 
 interface FormProps extends RCFormProps {
   field: FormField

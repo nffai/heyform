@@ -1,9 +1,10 @@
-import { helper } from '@heyform-inc/utils'
 import { useLocalStorageState } from 'ahooks'
 import { FC, useCallback, useMemo } from 'react'
 
-import { ONBOARDING_STORAGE_KEY } from '@/consts'
 import { cn } from '@/utils'
+import { helper } from '@heyform-inc/utils'
+
+import { ONBOARDING_STORAGE_KEY } from '@/consts'
 
 interface DotBadgeProps extends ComponentProps {
   name: string
@@ -17,8 +18,8 @@ export function useOnboardingStorage() {
   })
 
   const setItem = useCallback(
-    (name: string, value: any) => {
-      setState((s: any) => ({ ...s, [name]: value }))
+    (name: string, value: Any) => {
+      setState((s: Any) => ({ ...s, [name]: value }))
     },
     [setState]
   )

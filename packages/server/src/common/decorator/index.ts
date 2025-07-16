@@ -1,5 +1,4 @@
 export * from './auth.decorator'
-export * from './client.decorator'
 export * from './graphql.decorator'
 export * from './team.decorator'
 export * from './form.decorator'

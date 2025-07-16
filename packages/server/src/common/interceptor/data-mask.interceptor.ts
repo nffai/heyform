@@ -1,19 +1,11 @@
-import { DATA_MASK_OPTIONS } from '@decorator'
-import { helper } from '@heyform-inc/utils'
-import {
-  CallHandler,
-  ExecutionContext,
-  Inject,
-  Injectable,
-  NestInterceptor
-} from '@nestjs/common'
+import { CallHandler, ExecutionContext, Inject, Injectable, NestInterceptor } from '@nestjs/common'
 import { ClassTransformOptions, plainToClass } from 'class-transformer'
 import { Observable } from 'rxjs'
-import { map } from 'rxjs/operators' // NOTE (external)
+import { map } from 'rxjs/operators'
 
-// NOTE (external)
-// We need to deduplicate them here due to the circular dependency
-// between core and common packages
+import { DATA_MASK_OPTIONS } from '@decorator'
+import { helper } from '@heyform-inc/utils'
+
 const REFLECTOR = 'Reflector'
 
 export type TypeFunc = (returns?: void) => any
@@ -56,18 +48,14 @@ export class DataMaskInterceptor implements NestInterceptor {
       )
   }
 
-  private getContextOptions(
-    context: ExecutionContext
-  ): ResponseDataMaskOptions | undefined {
+  private getContextOptions(context: ExecutionContext): ResponseDataMaskOptions | undefined {
     return (
       this.reflectSerializeMetadata(context.getHandler()) ||
       this.reflectSerializeMetadata(context.getClass())
     )
   }
 
-  private reflectSerializeMetadata(
-    obj: object | Function
-  ): ResponseDataMaskOptions | undefined {
+  private reflectSerializeMetadata(obj: object | Function): ResponseDataMaskOptions | undefined {
     return this.reflector.get(DATA_MASK_OPTIONS, obj)
   }
 }

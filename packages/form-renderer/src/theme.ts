@@ -1,4 +1,5 @@
 import type { FormTheme } from '@heyform-inc/shared-types-enums'
+
 import { alpha, helper, hexToRgb, isDarkColor } from '@heyform-inc/utils'
 
 export const SYSTEM_FONTS =

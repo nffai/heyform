@@ -13,10 +13,10 @@ export default function LanguageSwitcher() {
         value: l.value,
         label: (
           <div>
-            <div className="text-sm/[1.4rem] font-medium text-primary" data-slot="label">
+            <div className="text-primary text-sm/[1.4rem] font-medium" data-slot="label">
               {t(l.label)}
             </div>
-            <div className="text-xs text-secondary" data-slot="translated">
+            <div className="text-secondary text-xs" data-slot="translated">
               {t(l.translated)}
             </div>
           </div>

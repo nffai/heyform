@@ -1,13 +1,14 @@
 import { FormStatusEnum } from '@heyform-inc/shared-types-enums'
-import { helper } from '@heyform-inc/utils'
 import { IconArrowUpRight } from '@tabler/icons-react'
 import { useState } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
 
-import { Async, EmptyState, Repeat } from '@/components'
 import { FormService } from '@/services'
-import { FormType } from '@/types'
 import { useParam } from '@/utils'
+import { helper } from '@heyform-inc/utils'
+
+import { Async, EmptyState, Repeat } from '@/components'
+import { FormType } from '@/types'
 
 import FormItem from '../Forms/FormItem'
 
@@ -30,14 +31,14 @@ export default function ProjectTrash() {
 
   return (
     <>
-      <p className="my-4 text-sm text-secondary">
+      <p className="text-secondary my-4 text-sm">
         <Trans
           t={t}
           i18nKey="project.trash.tip"
           components={{
             a: (
               <a
-                className="underline underline-offset-4 hover:text-primary"
+                className="hover:text-primary underline underline-offset-4"
                 href="https://docs.heyform.net/quickstart/how-to-retrieve-forms-from-trash"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -52,14 +53,14 @@ export default function ProjectTrash() {
         fetch={fetch}
         refreshDeps={[projectId]}
         loader={
-          <div className="divide-y divide-accent-light [&_:first-of-type]:border-t-0">
+          <div className="divide-accent-light divide-y [&_:first-of-type]:border-t-0">
             <Repeat count={3}>
               <FormItem.Skeleton />
             </Repeat>
           </div>
         }
         emptyRender={() => (
-          <div className="flex flex-1 items-center justify-center rounded-lg border border-dashed border-accent-light py-36 shadow-sm">
+          <div className="border-accent-light flex flex-1 items-center justify-center rounded-lg border border-dashed py-36 shadow-sm">
             <EmptyState
               headline={t('project.trash.headline')}
               subHeadline={t('project.trash.subHeadline')}
@@ -67,7 +68,7 @@ export default function ProjectTrash() {
           </div>
         )}
       >
-        <div className="divide-y divide-accent-light [&_:first-of-type]:border-t-0">
+        <div className="divide-accent-light divide-y [&_:first-of-type]:border-t-0">
           {forms.map(f => (
             <FormItem key={f.id} form={f} isInTrash onChange={handleChange} />
           ))}

@@ -6,10 +6,10 @@ export const Divider: FC<ComponentProps> = ({ className, children, ...restProps 
   return (
     <div className={cn('relative', className)} {...restProps}>
       <div className="absolute inset-0 flex items-center">
-        <span className="w-full border-t border-input"></span>
+        <span className="border-input w-full border-t"></span>
       </div>
       <div className="relative flex justify-center text-xs uppercase" data-slot="content">
-        <span className="bg-foreground px-2 text-secondary" data-slot="text">
+        <span className="bg-foreground text-secondary px-2" data-slot="text">
           {children}
         </span>
       </div>

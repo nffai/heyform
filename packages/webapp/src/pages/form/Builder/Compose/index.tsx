@@ -3,15 +3,15 @@ import { FieldKindEnum } from '@heyform-inc/shared-types-enums'
 import { FC, useCallback, useEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { useOnboardingStorage, useToast } from '@/components'
-import { ADD_QUESTION2_STORAGE_NAME } from '@/consts'
-import { FormService } from '@/services'
-import { useFormStore } from '@/store'
-import { cn, useParam } from '@/utils'
-
-import { useStoreContext } from '../store'
 import { getFilteredFields, insertThemeStyle } from '../utils'
 import { Queue } from '../utils/queue'
+import { FormService } from '@/services'
+import { cn, useParam } from '@/utils'
+
+import { useToast } from '@/components'
+import { useFormStore } from '@/store'
+
+import { useStoreContext } from '../store'
 import {
   Address,
   Country,
@@ -184,7 +184,6 @@ export default function BuilderCompose() {
   const toast = useToast()
   const { state, dispatch } = useStoreContext()
   const { form, themeSettings, updateForm } = useFormStore()
-  const { setItem } = useOnboardingStorage()
 
   const queue = useRef(new Queue()).current
 
@@ -205,7 +204,6 @@ export default function BuilderCompose() {
         message: err.message
       })
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [formId, state.fields, form?.version])
 
   queue.on(event => {
@@ -237,20 +235,16 @@ export default function BuilderCompose() {
     insertThemeStyle(themeSettings?.theme)
   }, [themeSettings?.theme])
 
-  // Auto save
   useEffect(() => {
     if (state.version > 0) {
-      setItem(ADD_QUESTION2_STORAGE_NAME, true)
       queue.add()
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.version])
 
   useEffect(() => {
     return () => {
       queue.clear()
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (

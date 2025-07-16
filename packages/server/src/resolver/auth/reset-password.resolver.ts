@@ -1,12 +1,13 @@
+import { BadRequestException, UseGuards } from '@nestjs/common'
+
 import { BCRYPT_SALT } from '@environments'
 import { ResetPasswordInput } from '@graphql'
 import { DeviceIdGuard } from '@guard'
-import { GqlLang, passwordHash } from '@heyforms/nestjs'
 import { helper } from '@heyform-inc/utils'
 import { UserLangEnum } from '@model'
-import { BadRequestException, UseGuards } from '@nestjs/common'
 import { Args, Mutation, Resolver } from '@nestjs/graphql'
 import { AuthService, MailService, UserService } from '@service'
+import { GqlLang, passwordHash } from '@utils'
 
 @Resolver()
 @UseGuards(DeviceIdGuard)
@@ -28,7 +29,6 @@ export class ResetPasswordResolver {
       throw new BadRequestException('The email address does not exist')
     }
 
-    // // Check if reset password attempts is exceeded
     const key = `limit:reset_password:${user.id}`
 
     await this.authService.attemptsCheck(key, async () => {

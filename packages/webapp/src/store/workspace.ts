@@ -1,17 +1,17 @@
-import { helper } from '@heyform-inc/utils'
 import { create } from 'zustand'
 import computed from 'zustand-computed'
+
+import { helper } from '@heyform-inc/utils'
 import { createJSONStorage, persist } from 'zustand/middleware'
 import { immer } from 'zustand/middleware/immer'
 
 import { WEBSITE_URL, WORKSPACE_STORAGE_KEY } from '@/consts'
-import { FormType, MemberType, PlanType, ProjectType, WorkspaceType } from '@/types'
+import { FormType, MemberType, ProjectType, WorkspaceType } from '@/types'
 
 type WorkspaceStoreType = {
   workspaces: WorkspaceType[]
   _memberMap: AnyMap<string, MemberType[]>
   _formMap: AnyMap<string, FormType[]>
-  plans: PlanType[]
 
   currentWorkspaceId?: string
   currentProjectId?: string
@@ -35,7 +35,6 @@ type WorkspaceStoreType = {
   deleteForm: (projectId: string, formId: string) => void
   setMembers: (workspaceId: string, members: MemberType[]) => void
   removeMember: (workspaceId: string, memberId: string) => void
-  setPlans: (plans: PlanType[]) => void
 }
 
 interface ComputedStoreType {
@@ -81,7 +80,6 @@ export const useWorkspaceStore = create<WorkspaceStoreType>()(
         workspaces: [],
         _memberMap: {},
         _formMap: {},
-        plans: [],
         currentWorkspaceId: undefined,
         currentProjectId: undefined,
         currentFormId: undefined,
@@ -247,12 +245,6 @@ export const useWorkspaceStore = create<WorkspaceStoreType>()(
             if (helper.isValidArray(members)) {
               state._memberMap[workspaceId] = members.filter(m => m.id !== memberId)
             }
-          })
-        },
-
-        setPlans: plans => {
-          set(state => {
-            state.plans = plans
           })
         }
       })),

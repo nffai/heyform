@@ -20,6 +20,4 @@ export class FormAnalyticModel extends Document {
   totalVisits: number
 }
 
-export const FormAnalyticSchema = SchemaFactory.createForClass(
-  FormAnalyticModel
-)
+export const FormAnalyticSchema = SchemaFactory.createForClass(FormAnalyticModel)

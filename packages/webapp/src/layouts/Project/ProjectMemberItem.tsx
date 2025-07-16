@@ -2,11 +2,12 @@ import { useRequest } from 'ahooks'
 import { FC, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Avatar, Button, useToast } from '@/components'
 import { ProjectService } from '@/services'
+import { useParam, useRouter } from '@/utils'
+
+import { Avatar, Button, useToast } from '@/components'
 import { useWorkspaceStore } from '@/store'
 import { MemberType } from '@/types'
-import { useParam, useRouter } from '@/utils'
 
 interface ProjectMemberItemProps {
   member: MemberType
@@ -29,12 +30,12 @@ export const ProjectMemberItem: FC<ProjectMemberItemProps & DOMProps> = ({ membe
             <div className="font-medium">
               <span>{member.name}</span>
               {member.isYou && (
-                <span className="ml-1 text-xs font-medium text-secondary">
+                <span className="text-secondary ml-1 text-xs font-medium">
                   ({t('members.you')})
                 </span>
               )}
               {member.isOwner && (
-                <span className="ml-1 text-xs font-medium text-secondary">
+                <span className="text-secondary ml-1 text-xs font-medium">
                   ({t('members.owner')})
                 </span>
               )}

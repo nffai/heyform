@@ -1,4 +1,3 @@
-import { helper } from '@heyform-inc/utils'
 import { Content, Description, Overlay, Portal, Root, Title } from '@radix-ui/react-dialog'
 import { VisuallyHidden } from '@radix-ui/react-visually-hidden'
 import {
@@ -15,10 +14,12 @@ import { FC, ForwardRefExoticComponent } from 'react'
 import { useTranslation } from 'react-i18next'
 import { NavLink } from 'react-router-dom'
 
+import { cn, useParam } from '@/utils'
+import { helper } from '@heyform-inc/utils'
+
 import { Button, Tooltip } from '@/components'
 import { HELP_CENTER_URL, TEMPLATES_URL } from '@/consts'
 import { useAppStore, useModal, useWorkspaceStore } from '@/store'
-import { cn, useParam } from '@/utils'
 
 import ChangelogButton from './ChangelogButton'
 import ProjectItem from './ProjectItem'
@@ -35,7 +36,7 @@ const RESOURCE_LINKS = [
   {
     icon: IconLocation,
     title: 'workspace.sidebar.gettingStarted',
-    href: `${HELP_CENTER_URL}/quickstart`
+    href: `${HELP_CENTER_URL}/quickstart/create-a-form`
   },
   {
     icon: IconHelp,
@@ -54,9 +55,9 @@ const Link: FC<LinkProps> = ({ to, icon: Icon, label }) => {
     <NavLink
       className={({ isActive }) =>
         cn(
-          'group flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left text-sm font-medium hover:bg-primary/5 sm:px-2 sm:py-1.5 lg:py-2',
+          'hover:bg-primary/5 group flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left text-sm font-medium sm:px-2 sm:py-1.5 lg:py-2',
           {
-            'relative before:absolute before:inset-y-2 before:-left-4 before:w-0.5 before:rounded-full before:bg-primary [&_[data-slot=icon]]:stroke-primary':
+            'before:bg-primary [&_[data-slot=icon]]:stroke-primary relative before:absolute before:inset-y-2 before:-left-4 before:w-0.5 before:rounded-full':
               isActive
           }
         )
@@ -64,7 +65,7 @@ const Link: FC<LinkProps> = ({ to, icon: Icon, label }) => {
       to={to}
       end
     >
-      <Icon className="h-5 w-5 stroke-secondary group-hover:stroke-primary" data-slot="icon" />
+      <Icon className="stroke-secondary group-hover:stroke-primary h-5 w-5" data-slot="icon" />
       <span className="truncate">{label}</span>
     </NavLink>
   )
@@ -78,8 +79,8 @@ const WorkspaceSidebarComponent = () => {
   const { workspace } = useWorkspaceStore()
 
   return (
-    <div className="flex h-full flex-col max-lg:rounded-lg max-lg:bg-foreground">
-      <div className="border-b border-accent-light p-4">
+    <div className="max-lg:bg-foreground flex h-full flex-col max-lg:rounded-lg">
+      <div className="border-accent-light border-b p-4">
         <WorkspaceSwitcher />
       </div>
 
@@ -90,11 +91,11 @@ const WorkspaceSidebarComponent = () => {
 
           {/* Search */}
           <button
-            className="group flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left text-sm font-medium hover:bg-primary/5 sm:px-2 sm:py-1.5 lg:py-2"
+            className="hover:bg-primary/5 group flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left text-sm font-medium sm:px-2 sm:py-1.5 lg:py-2"
             onClick={() => openModal('SearchModal')}
           >
             <IconSearch
-              className="h-5 w-5 stroke-secondary group-hover:stroke-primary"
+              className="stroke-secondary group-hover:stroke-primary h-5 w-5"
               data-slot="icon"
             />
             <span className="truncate">{t('workspace.sidebar.search')}</span>
@@ -120,12 +121,12 @@ const WorkspaceSidebarComponent = () => {
         </nav>
 
         <div className="group/projects mt-8 flex flex-col gap-0.5">
-          <div className="mb-1 flex items-center justify-between px-2 text-xs/6 font-medium text-secondary">
+          <div className="text-secondary mb-1 flex items-center justify-between px-2 text-xs/6 font-medium">
             <h3>{t('workspace.sidebar.projects')}</h3>
             <Tooltip label={t('project.creation.title')}>
               <Button.Link
                 className={cn(
-                  '-mr-1 !h-6 !w-6 rounded text-secondary opacity-0 group-hover/projects:opacity-100',
+                  'text-secondary -mr-1 !h-6 !w-6 rounded opacity-0 group-hover/projects:opacity-100',
                   {
                     'opacity-100': helper.isEmpty(workspace?.projects)
                   }
@@ -147,7 +148,7 @@ const WorkspaceSidebarComponent = () => {
             </nav>
           ) : (
             <div className="px-3 sm:px-2">
-              <div className="rounded-lg border border-dashed border-accent-light p-2 text-xs text-secondary shadow-sm">
+              <div className="border-accent-light text-secondary rounded-lg border border-dashed p-2 text-xs shadow-sm">
                 {t('workspace.sidebar.noProjects')}
               </div>
             </div>
@@ -163,9 +164,9 @@ const WorkspaceSidebarComponent = () => {
               href={row.href}
               target="_blank"
               rel="noreferrer"
-              className="flex w-full items-center gap-3 rounded-lg px-2.5 py-2.5 text-left text-sm font-medium hover:bg-accent-light sm:px-1.5 sm:py-1.5 lg:py-2"
+              className="hover:bg-accent-light flex w-full items-center gap-3 rounded-lg px-2.5 py-2.5 text-left text-sm font-medium sm:px-1.5 sm:py-1.5 lg:py-2"
             >
-              <row.icon className="h-5 w-5 stroke-secondary group-hover:stroke-primary" />
+              <row.icon className="stroke-secondary group-hover:stroke-primary h-5 w-5" />
               <span className="truncate">{t(row.title)}</span>
             </a>
           ))}
@@ -186,8 +187,8 @@ export const WorkspaceSidebarModal = () => {
   return (
     <Root open={isOpen} onOpenChange={onOpenChange}>
       <Portal>
-        <Overlay className="fixed inset-0 z-10 bg-black/60 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0" />
-        <Content className="fixed bottom-2 left-2 top-2 z-10 w-72 rounded-lg border border-accent-light bg-foreground shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:slide-out-to-left-0 data-[state=open]:slide-in-from-left-[80%]">
+        <Overlay className="data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 fixed inset-0 z-10 bg-black/60" />
+        <Content className="border-accent-light bg-foreground data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:slide-out-to-left-0 data-[state=open]:slide-in-from-left-[80%] fixed bottom-2 left-2 top-2 z-10 w-72 rounded-lg border shadow-lg duration-200">
           <Title>
             <VisuallyHidden />
           </Title>

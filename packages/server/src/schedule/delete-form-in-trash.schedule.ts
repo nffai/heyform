@@ -1,14 +1,13 @@
 import { Process, Processor } from '@nestjs/bull'
-import { FailedTaskService, FormService } from '@service'
+
+import { FormService } from '@service'
+
 import { BaseQueue } from '../queue/base.queue'
 
 @Processor('DeleteFormInTrashSchedule')
 export class DeleteFormInTrashSchedule extends BaseQueue {
-  constructor(
-    failedTaskService: FailedTaskService,
-    private readonly formService: FormService
-  ) {
-    super(failedTaskService)
+  constructor(private readonly formService: FormService) {
+    super()
   }
 
   @Process()

@@ -1,12 +1,13 @@
-import { helper } from '@heyform-inc/utils'
 import { IconCode } from '@tabler/icons-react'
 import { FC, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { useParam } from '@/utils'
+import { helper } from '@heyform-inc/utils'
+
 import { Button, ColorPicker, Input, Modal, Select, Switch } from '@/components'
 import { FORM_EMBED_OPTIONS } from '@/consts'
 import { useAppStore, useFormStore, useModal, useWorkspaceStore } from '@/store'
-import { useParam } from '@/utils'
 
 const SIZE_OPTIONS = [
   {
@@ -374,12 +375,12 @@ const EmbedComponent = () => {
 
   return (
     <div className="flex h-full">
-      <div className="scrollbar h-full w-full border-r border-accent-light px-4 py-6 sm:w-80">
+      <div className="scrollbar border-accent-light h-full w-full border-r px-4 py-6 sm:w-80">
         <div className="flex items-center justify-between">
           <h2 className="text-base/6 font-semibold">{t('form.share.embed.title')}</h2>
 
           <Button.Link
-            className="!p-0 text-secondary hover:bg-transparent hover:text-primary"
+            className="text-secondary hover:text-primary !p-0 hover:bg-transparent"
             size="sm"
             onClick={() => closeModal('EmbedModal')}
           >
@@ -412,7 +413,7 @@ const EmbedComponent = () => {
         </div>
       </div>
 
-      <div className="h-full flex-1 bg-background">
+      <div className="bg-background h-full flex-1">
         <div className="hidden h-full w-full lg:block">
           <iframe className="h-full w-full border-0" srcDoc={content} />
         </div>
@@ -436,7 +437,7 @@ function CodeModal() {
         }}
         onOpenChange={onOpenChange}
       >
-        <pre className="my-6 overflow-x-auto rounded bg-primary p-4 text-sm text-foreground">
+        <pre className="bg-primary text-foreground my-6 overflow-x-auto rounded p-4 text-sm">
           <code>{payload?.code}</code>
         </pre>
 

@@ -1,4 +1,3 @@
-import { EventStreamContentType, fetchEventSource } from '@fortaine/fetch-event-source'
 import {
   FormField,
   FormKindEnum,
@@ -10,12 +9,12 @@ import {
   Logic,
   Variable
 } from '@heyform-inc/shared-types-enums'
-import { parse } from 'best-effort-json-parser'
+
+import { apollo } from '@/utils'
 
 import {
   COMPLETE_SUBMISSION_GQL,
   CREATE_FIELDS_WITH_AI_GQL,
-  CREATE_FORM_CUSTOM_REPORT_GQL,
   CREATE_FORM_FIELD_GQL,
   CREATE_FORM_GQL,
   CREATE_FORM_LOGICS_WITH_AI_GQL,
@@ -24,14 +23,12 @@ import {
   DELETE_FORM_FIELD_GQL,
   DELETE_FORM_GQL,
   DUPLICATE_FORM_GQL,
-  EXPORT_FORM_TO_JSON_GQL,
   FORMS_GQL,
   FORM_ANALYTIC_GQL,
   FORM_DETAIL_GQL,
   FORM_INTEGRATIONS_GQL,
   FORM_REPORT_GQL,
   FORM_SUMMARY_GQL,
-  IMPORT_FORM_FROM_JSON_GQL,
   IMPORT_FORM_GQL,
   MOVE_FORM_TO_PROJECT_GQL,
   MOVE_FORM_TO_TRASH_GQL,
@@ -43,7 +40,6 @@ import {
   TEMPLATES_GQL,
   TEMPLATE_DETAILS_GQL,
   UPDATE_FORM_ARCHIVE_GQL,
-  UPDATE_FORM_CUSTOM_REPORT_GQL,
   UPDATE_FORM_FIELD_GQL,
   UPDATE_FORM_GQL,
   UPDATE_FORM_HIDDEN_FIELDS_GQL,
@@ -56,7 +52,6 @@ import {
   VERIFY_FORM_PASSWORD_GQL
 } from '@/consts'
 import { TemplateType } from '@/types'
-import { apollo, clearAuthState } from '@/utils'
 
 interface ChatOptions {
   onMessage: (data: AnyMap) => void
@@ -84,9 +79,9 @@ export class FormService {
     passwordToken?: string
     answers: Record<string, any>
     hiddenFields: HiddenFieldAnswer[]
-    // Google reCAPTCHA token
+
     recaptchaToken?: string
-    // GeeTest Captcha token
+
     geetestChallenge?: string
     geetestValidate?: string
     geetestSeccode?: string
@@ -470,130 +465,6 @@ export class FormService {
       mutation: USE_TEMPLATE_GQL,
       variables: {
         input
-      }
-    })
-  }
-
-  static async chat(
-    formId: string,
-    prompt: string,
-    language: string,
-    { onMessage, onError, onClose }: ChatOptions
-  ) {
-    const controller = new AbortController()
-    const requestTimeoutId = setTimeout(() => controller.abort(), 30_000)
-    let responseText = ''
-
-    await fetchEventSource('/api/chat', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        formId,
-        prompt,
-        language
-      }),
-      signal: controller.signal,
-      credentials: 'include',
-
-      async onopen(res) {
-        clearTimeout(requestTimeoutId)
-
-        if (res.status === 401) {
-          clearAuthState()
-          window.location.href = '/logout'
-          return
-        }
-
-        const contentType = res.headers.get('content-type')
-
-        if (!res.ok || res.status !== 200 || !contentType?.startsWith(EventStreamContentType)) {
-          const json = await res.clone().json()
-
-          controller.abort()
-          onError(json.message)
-        }
-      },
-
-      onmessage({ event, data }) {
-        responseText += data
-
-        if (event === 'error') {
-          return onError(data)
-        } else if (data.includes('[ERROR]')) {
-          return onError(data.replace('[ERROR]', '').trim())
-        }
-
-        try {
-          onMessage(parse(responseText))
-        } catch {}
-      },
-
-      onclose() {
-        controller.abort()
-
-        try {
-          onMessage(parse(responseText))
-        } catch {}
-
-        onClose()
-      },
-
-      onerror(err) {
-        onError(err.message)
-      },
-
-      openWhenHidden: true
-    })
-
-    return controller
-  }
-
-  static createCustomReport(formId: string) {
-    return apollo.mutate({
-      mutation: CREATE_FORM_CUSTOM_REPORT_GQL,
-      variables: {
-        input: {
-          formId
-        }
-      }
-    })
-  }
-
-  static updateCustomReport(input: {
-    formId: string
-    hiddenFields?: string[]
-    theme?: AnyMap
-    enablePublicAccess?: boolean
-  }) {
-    return apollo.mutate({
-      mutation: UPDATE_FORM_CUSTOM_REPORT_GQL,
-      variables: {
-        input
-      }
-    })
-  }
-
-  static async exportToJSON(formId: string) {
-    return await apollo.query({
-      query: EXPORT_FORM_TO_JSON_GQL,
-      variables: {
-        input: {
-          formId
-        }
-      }
-    })
-  }
-
-  static importFromJSON(projectId: string, formJson: string) {
-    return apollo.mutate({
-      mutation: IMPORT_FORM_FROM_JSON_GQL,
-      variables: {
-        input: {
-          projectId,
-          formJson
-        }
       }
     })
   }

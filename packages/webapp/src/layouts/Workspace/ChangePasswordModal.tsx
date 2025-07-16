@@ -1,10 +1,11 @@
-import { helper } from '@heyform-inc/utils'
 import { useBoolean } from 'ahooks'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Form, Input, Modal, PasswordStrength } from '@/components'
 import { UserService } from '@/services'
+import { helper } from '@heyform-inc/utils'
+
+import { Form, Input, Modal, PasswordStrength } from '@/components'
 import { useModal } from '@/store'
 
 export default function ChangePasswordModal() {
@@ -76,7 +77,7 @@ export default function ChangePasswordModal() {
             {
               required: true,
               pattern:
-                /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[!#$%&()*+\-,.\/\\:<=>?@\[\]^_{|}~0-9a-zA-Z]{8,}$/,
+                /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[!#$%&()*+\-,./\\:<=>?@[\]^_{|}~0-9a-zA-Z]{8,}$/,
               message: t('components.password.invalid')
             },
             {

@@ -1,12 +1,13 @@
-import { helper } from '@heyform-inc/utils'
 import { IconX } from '@tabler/icons-react'
 import { useForm as useRCForm } from 'rc-field-form'
 import { useTranslation } from 'react-i18next'
 
-import { Button, Form, Input, Modal, useToast } from '@/components'
 import { WorkspaceService } from '@/services'
-import { useModal } from '@/store'
 import { useFormState, useParam } from '@/utils'
+import { helper } from '@heyform-inc/utils'
+
+import { Button, Form, Input, Modal, useToast } from '@/components'
+import { useModal } from '@/store'
 
 export default function InvitationModal() {
   const { t } = useTranslation()
@@ -109,7 +110,7 @@ export default function InvitationModal() {
           )}
         </Form.List>
 
-        {error && !loading && <div className="!mt-1 text-sm/6 text-error">{error.message}</div>}
+        {error && !loading && <div className="text-error !mt-1 text-sm/6">{error.message}</div>}
       </Form>
     </Modal.Simple>
   )

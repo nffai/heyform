@@ -1,14 +1,11 @@
 import { SocialLoginTypeEnum } from '@heyform-inc/shared-types-enums'
-import { helper } from '@heyform-inc/utils'
-const { isValid } = helper
 import { Controller, Get, Param, Post, Query, Req, Res } from '@nestjs/common'
-import {
-  AuthService,
-  RedisService,
-  SocialLoginService,
-  UserService
-} from '@service'
+
+import { helper } from '@heyform-inc/utils'
+import { AuthService, RedisService, SocialLoginService } from '@service'
 import { Logger } from '@utils'
+
+const { isValid } = helper
 
 @Controller()
 export class SocialLoginController {
@@ -17,8 +14,7 @@ export class SocialLoginController {
   constructor(
     private readonly socialLoginService: SocialLoginService,
     private readonly authService: AuthService,
-    private readonly redisService: RedisService,
-    private readonly userService: UserService
+    private readonly redisService: RedisService
   ) {
     this.logger = new Logger(SocialLoginController.name)
   }
@@ -27,7 +23,7 @@ export class SocialLoginController {
    * Sign With Apple will post the code to back server,
    * this value cannot be obtained in front end.
    * We have to use back end server to deal with the problem here,
-   * and front end need to attach the deviceId to the authorized url.
+   * and front end need to attach the browserId to the authorized url.
    *
    * Example:
    * http://my.heyformhq.com/connect/google?state=DMbcJqLJ
@@ -40,7 +36,7 @@ export class SocialLoginController {
   ) {
     if (helper.isEmpty(query.state)) {
       return res.render('index', {
-        rendererData: {
+        payload: {
           error: `unable_connect_${kind}`.toUpperCase()
         }
       })
@@ -61,7 +57,7 @@ export class SocialLoginController {
 
     if (helper.isEmpty(authUrl)) {
       return res.render('index', {
-        rendererData: {
+        data: {
           error: `unable_connect_${kind}`.toUpperCase()
         }
       })
@@ -98,7 +94,6 @@ export class SocialLoginController {
   ) {
     try {
       const userId = await this.socialLoginService.authCallback(
-        req,
         kind,
         query.code || query.credential
       )
@@ -109,16 +104,13 @@ export class SocialLoginController {
         deviceId: query.state
       })
 
-      const user = await this.userService.findById(userId)
-      const baseUri = !user.isOnboardRequired ? '/' : '/onboarding'
+      const baseUri = '/'
 
       const key = `redirect_uri:${query.state}`
       let redirectUri = await this.redisService.get(key)
 
       if (isValid(redirectUri)) {
-        redirectUri = `${baseUri}?redirect_uri=${encodeURIComponent(
-          redirectUri
-        )}`
+        redirectUri = `${baseUri}?redirect_uri=${encodeURIComponent(redirectUri)}`
       } else {
         redirectUri = baseUri
       }
@@ -130,7 +122,7 @@ export class SocialLoginController {
       this.logger.error(err)
 
       res.render('index', {
-        rendererData: {
+        data: {
           error: `unable_connect_${kind}`.toUpperCase()
         }
       })

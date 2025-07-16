@@ -1,6 +1,5 @@
 import { FC } from 'react'
 
-import { PLAN_NAMES, PlanGradeEnum } from '@/consts'
 import { cn } from '@/utils'
 
 const BADGE_COLORS = {
@@ -28,7 +27,7 @@ interface BadgeProps extends ComponentProps {
   color?: keyof typeof BADGE_COLORS
 }
 
-const BadgeComponent: FC<BadgeProps> = ({ color = 'zinc', className, children }) => {
+export const Badge: FC<BadgeProps> = ({ color = 'zinc', className, children }) => {
   return (
     <span
       className={cn(
@@ -41,23 +40,3 @@ const BadgeComponent: FC<BadgeProps> = ({ color = 'zinc', className, children })
     </span>
   )
 }
-
-interface PlanBadgeProps {
-  grade: PlanGradeEnum
-}
-
-const PlanBadge: FC<PlanBadgeProps> = ({ grade }) => {
-  if (grade === PlanGradeEnum.FREE) {
-    return null
-  }
-
-  return (
-    <BadgeComponent className="rounded-md px-1.5 py-0.5 text-sm/5 sm:text-xs" color="blue">
-      {PLAN_NAMES[grade]}
-    </BadgeComponent>
-  )
-}
-
-export const Badge = Object.assign(BadgeComponent, {
-  Plan: PlanBadge
-})

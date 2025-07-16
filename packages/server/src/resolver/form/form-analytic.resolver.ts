@@ -1,14 +1,11 @@
+import { Promise } from 'mongoose'
+
 import { Auth, FormGuard } from '@decorator'
-import {
-  FormAnalyticInput,
-  FormAnalyticResult,
-  FormAnalyticType
-} from '@graphql'
+import { FormAnalyticInput, FormAnalyticResult, FormAnalyticType } from '@graphql'
 import { date, helper, parseJson } from '@heyform-inc/utils'
 import { FormAnalyticRangeEnum } from '@model'
 import { Args, Query, Resolver } from '@nestjs/graphql'
 import { FormAnalyticService, RedisService } from '@service'
-import { Promise } from 'mongoose'
 
 function getChanges(prev: number, next: number, isInteger = true) {
   const result: FormAnalyticResult = {
@@ -45,16 +42,9 @@ export class FormAnalyticResolver {
     private readonly redisService: RedisService
   ) {}
 
-  /**
-   * Details of the form
-   *
-   * @param input
-   */
   @Query(returns => FormAnalyticType)
   @FormGuard()
-  async formAnalytic(
-    @Args('input') input: FormAnalyticInput
-  ): Promise<FormAnalyticType> {
+  async formAnalytic(@Args('input') input: FormAnalyticInput): Promise<FormAnalyticType> {
     const key = `form:${input.formId}:analytic:${input.range}`
     const cache = await this.redisService.get(key)
 
@@ -112,10 +102,7 @@ export class FormAnalyticResolver {
 
     const result = {
       totalVisits: getChanges(prev.avgTotalVisits, next.avgTotalVisits),
-      submissionCount: getChanges(
-        prev.avgSubmissionCount,
-        next.avgSubmissionCount
-      ),
+      submissionCount: getChanges(prev.avgSubmissionCount, next.avgSubmissionCount),
       completeRate: {
         value: nextRate,
         change: prevRate ? nextRate - prevRate : undefined

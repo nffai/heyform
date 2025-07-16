@@ -8,16 +8,9 @@ import { SubmissionService } from '@service'
 export class DeleteSubmissionResolver {
   constructor(private readonly submissionService: SubmissionService) {}
 
-  /**
-   * Delete submissions
-   *
-   * @param input
-   */
   @Mutation(returns => Boolean)
   @FormGuard()
-  async deleteSubmissions(
-    @Args('input') input: DeleteSubmissionInput
-  ): Promise<boolean> {
+  async deleteSubmissions(@Args('input') input: DeleteSubmissionInput): Promise<boolean> {
     return this.submissionService.deleteByIds(input.formId, input.submissionIds)
   }
 }

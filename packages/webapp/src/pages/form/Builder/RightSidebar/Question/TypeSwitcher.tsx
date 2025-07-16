@@ -2,11 +2,12 @@ import { FieldKindEnum } from '@heyform-inc/shared-types-enums'
 import { useCallback, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { getPropertiesFromKind } from '../../utils'
+
 import { Select, useAlert } from '@/components'
 import { ALL_FIELD_CONFIGS, STANDARD_FIELD_CONFIGS } from '@/consts'
 
 import { useStoreContext } from '../../store'
-import { getPropertiesFromKind } from '../../utils'
 
 const DISABLED_KINDS = [FieldKindEnum.WELCOME, FieldKindEnum.THANK_YOU, FieldKindEnum.GROUP]
 const DISABLED_CONFIG = ALL_FIELD_CONFIGS.filter(row => DISABLED_KINDS.includes(row.kind))
@@ -63,7 +64,7 @@ export default function TypeSwitcher() {
   )
 
   return (
-    <div className="mb-4 border-b border-accent-light pb-4">
+    <div className="border-accent-light mb-4 border-b pb-4">
       <Select
         className="w-full"
         contentProps={{

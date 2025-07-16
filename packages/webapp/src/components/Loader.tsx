@@ -1,7 +1,8 @@
 import { FC, HTMLAttributes, SVGAttributes } from 'react'
 
-import Icon from '@/assets/loader.svg?react'
 import { cn } from '@/utils'
+
+import Icon from '@/assets/loader.svg?react'
 
 type ComponentProps<E = HTMLElement> = HTMLAttributes<E>
 

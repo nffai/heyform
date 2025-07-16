@@ -1,12 +1,13 @@
-import { helper } from '@heyform-inc/utils'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Async, EmptyState, Repeat } from '@/components'
 import { WorkspaceService } from '@/services'
+import { useParam, useRouter } from '@/utils'
+import { helper } from '@heyform-inc/utils'
+
+import { Async, EmptyState, Repeat } from '@/components'
 import { useAppStore, useWorkspaceStore } from '@/store'
 import { FormType } from '@/types'
-import { useParam, useRouter } from '@/utils'
 
 import FormItem from '../../project/Forms/FormItem'
 
@@ -44,14 +45,14 @@ export default function RecentForms() {
       fetch={fetch}
       refreshDeps={[workspaceId]}
       loader={
-        <div className="mt-4 divide-y divide-accent-light">
+        <div className="divide-accent-light mt-4 divide-y">
           <Repeat count={3}>
             <FormItem.Skeleton />
           </Repeat>
         </div>
       }
       emptyRender={() => (
-        <div className="mt-4 flex flex-1 items-center justify-center rounded-lg border border-dashed border-accent-light py-36 shadow-sm">
+        <div className="border-accent-light mt-4 flex flex-1 items-center justify-center rounded-lg border border-dashed py-36 shadow-sm">
           <EmptyState
             headline={t('dashboard.noForms')}
             subHeadline={t('dashboard.pickTemplate')}
@@ -61,7 +62,7 @@ export default function RecentForms() {
         </div>
       )}
     >
-      <div className="mt-4 divide-y divide-accent-light">
+      <div className="divide-accent-light mt-4 divide-y">
         {data.map(f => (
           <FormItem key={f.id} form={f} />
         ))}

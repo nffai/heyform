@@ -1,13 +1,14 @@
-import { htmlUtils } from '@heyform-inc/answer-utils'
 import { flattenFieldsWithGroups } from '@heyform-inc/form-renderer'
 import {
   Logic,
   QUESTION_FIELD_KINDS,
   UNSELECTABLE_FIELD_KINDS
 } from '@heyform-inc/shared-types-enums'
-import { helper } from '@heyform-inc/utils'
 import { useEffect, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
+
+import { htmlUtils } from '@heyform-inc/answer-utils'
+import { helper } from '@heyform-inc/utils'
 
 import { Button, Form, Modal } from '@/components'
 import { useAppStore, useModal } from '@/store'
@@ -83,18 +84,18 @@ function LogicBulkEditComponent() {
 
   return (
     <div className="flex h-[70vh] flex-col">
-      <div className="border-b border-accent-light p-4">
-        <h2 className="text-balance text-xl/6 font-semibold text-primary sm:text-lg/6">
+      <div className="border-accent-light border-b p-4">
+        <h2 className="text-primary text-balance text-xl/6 font-semibold sm:text-lg/6">
           {t('form.builder.logic.rule.bulkEdit.headline')}
         </h2>
-        <p className="mt-2 whitespace-pre-line text-base text-secondary sm:text-sm">
+        <p className="text-secondary mt-2 whitespace-pre-line text-base sm:text-sm">
           {t('form.builder.logic.rule.bulkEdit.subHeadline')}
         </p>
       </div>
 
       <div className="scrollbar h-[calc(70vh-10.35rem)] flex-1 space-y-4 p-4">
         <Form
-          className="space-y-6 divide-y divide-accent-light"
+          className="divide-accent-light space-y-6 divide-y"
           form={rcForm}
           onFinish={handleFinish}
         >
@@ -120,7 +121,7 @@ function LogicBulkEditComponent() {
         </Form>
       </div>
 
-      <div className="flex items-center justify-between border-t border-accent-light p-4">
+      <div className="border-accent-light flex items-center justify-between border-t p-4">
         <Button.Link size="md" className="text-error" onClick={handleRemoveAll}>
           {t('form.builder.logic.rule.removeAll')}
         </Button.Link>

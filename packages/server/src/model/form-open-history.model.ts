@@ -6,6 +6,4 @@ import { Document } from 'mongoose'
 })
 export class FormOpenHistoryModel extends Document {}
 
-export const FormOpenHistorySchema = SchemaFactory.createForClass(
-  FormOpenHistoryModel
-)
+export const FormOpenHistorySchema = SchemaFactory.createForClass(FormOpenHistoryModel)

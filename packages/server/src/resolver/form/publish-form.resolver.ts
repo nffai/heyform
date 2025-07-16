@@ -1,10 +1,11 @@
+import { BadRequestException, HttpStatus } from '@nestjs/common'
+
 import { Auth, FormGuard, Team, User } from '@decorator'
 import { UpdateFormSchemasInput } from '@graphql'
-import { Args, Mutation, Resolver } from '@nestjs/graphql'
-import { FormService, UserService } from '@service'
-import { BadRequestException, HttpStatus } from '@nestjs/common'
 import { helper, timestamp } from '@heyform-inc/utils'
 import { TeamModel, UserModel } from '@model'
+import { Args, Mutation, Resolver } from '@nestjs/graphql'
+import { FormService, UserService } from '@service'
 
 @Resolver()
 @Auth()
@@ -14,9 +15,6 @@ export class PublishFormResolver {
     private readonly userService: UserService
   ) {}
 
-  /**
-   * Publish form
-   */
   @Mutation(returns => Boolean)
   @FormGuard()
   async publishForm(

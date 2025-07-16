@@ -1,13 +1,14 @@
-import { helper } from '@heyform-inc/utils'
 import { useRequest } from 'ahooks'
 import { useCallback, useState } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
 
-import { Async, Avatar, Button, Loader } from '@/components'
 import { WorkspaceService } from '@/services'
+import { useParam, useRouter } from '@/utils'
+import { helper } from '@heyform-inc/utils'
+
+import { Async, Avatar, Button, Loader } from '@/components'
 import { useWorkspaceStore } from '@/store'
 import { WorkspaceType } from '@/types'
-import { useParam, useRouter } from '@/utils'
 
 export default function WorkspaceInvitation() {
   const { t } = useTranslation()
@@ -65,7 +66,7 @@ export default function WorkspaceInvitation() {
             }}
           />
         </h1>
-        <p className="mt-2 text-sm text-secondary">{t('workspace.invitation.subHeadline')}</p>
+        <p className="text-secondary mt-2 text-sm">{t('workspace.invitation.subHeadline')}</p>
 
         <div className="mt-8 space-y-3">
           <div className="flex items-center gap-3">
@@ -81,7 +82,7 @@ export default function WorkspaceInvitation() {
             </Button>
           </div>
 
-          {error && !loading && <div className="text-sm/6 text-error">{error.message}</div>}
+          {error && !loading && <div className="text-error text-sm/6">{error.message}</div>}
         </div>
       </div>
     </Async>

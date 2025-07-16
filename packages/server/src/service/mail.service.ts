@@ -2,11 +2,10 @@ import { InjectQueue } from '@nestjs/bull'
 import { Injectable } from '@nestjs/common'
 import { JobOptions, Queue } from 'bull'
 import { readFileSync, readdirSync } from 'fs'
-import { basename, join, extname } from 'path'
-
-import { helper } from '@heyform-inc/utils'
+import { basename, extname, join } from 'path'
 
 import { EMAIL_TEMPLATES_DIR, SMTP_FROM } from '@environments'
+import { helper } from '@heyform-inc/utils'
 
 interface JoinWorkspaceAlertOptions {
   teamName: string
@@ -51,7 +50,6 @@ interface UserSecurityAlertOptions {
   deviceModel: string
   ip: string
   loginAt: string
-  geoLocation: string
 }
 
 const HTML_EXT = '.html'
@@ -59,10 +57,7 @@ const TEMPLATE_META_REGEX = /^---([\s\S]*?)---[\n\s\S]\n/
 
 @Injectable()
 export class MailService {
-  private readonly emailTemplates: Record<
-    string,
-    { subject: string; html: string }
-  > = {}
+  private readonly emailTemplates: Record<string, { subject: string; html: string }> = {}
 
   constructor(@InjectQueue('MailQueue') private readonly mailQueue: Queue) {
     this.init()
@@ -102,10 +97,7 @@ export class MailService {
     await this.addQueue('project_deletion_alert', to, options)
   }
 
-  async projectDeletionRequest(
-    to: string,
-    options: ProjectDeletionRequestOptions
-  ) {
+  async projectDeletionRequest(to: string, options: ProjectDeletionRequestOptions) {
     await this.addQueue('project_deletion_request', to, options)
   }
 
@@ -116,10 +108,7 @@ export class MailService {
     })
   }
 
-  async submissionNotification(
-    to: string,
-    options: SubmissionNotificationOptions
-  ) {
+  async submissionNotification(to: string, options: SubmissionNotificationOptions) {
     await this.addQueue('submission_notification', to, options)
   }
 

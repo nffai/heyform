@@ -1,9 +1,10 @@
-import { LowerCaseDirective } from '@heyforms/nestjs'
-import { bytes, helper } from '@heyform-inc/utils'
 import { Injectable } from '@nestjs/common'
-import { GqlModuleOptions, GqlOptionsFactory } from '@nestjs/graphql'
 import { UserInputError } from 'apollo-server-express'
 import { ValidationError } from 'class-validator'
+
+import { helper } from '@heyform-inc/utils'
+import { GqlModuleOptions, GqlOptionsFactory } from '@nestjs/graphql'
+import { LowerCaseDirective } from '@utils'
 
 @Injectable()
 export class GraphqlService implements GqlOptionsFactory {
@@ -38,15 +39,11 @@ export class GraphqlService implements GqlOptionsFactory {
             code = response.error.replace(/\s+/g, '_').toUpperCase()
           }
 
-          // 自定义的数据校验错误信息
           if (helper.isValid(response.message)) {
-            message = helper.isArray(response.message)
-              ? response.message[0]
-              : response.message
+            message = helper.isArray(response.message) ? response.message[0] : response.message
           }
         }
 
-        // 删除重复错误信息
         delete e.extensions.exception.response
 
         return {
@@ -64,32 +61,7 @@ export class GraphqlService implements GqlOptionsFactory {
         credentials: true,
         origin: true
       },
-      uploads: {
-        maxFieldSize: bytes('1mb'),
-        maxFileSize: bytes('10mb'),
-        /**
-         * Graphql-upload count form fields as file,
-         * so we can't set this options to 1
-         *
-         * Example:
-         * Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
-         *
-         * ----WebKitFormBoundary7MA4YWxkTrZu0gW
-         * Content-Disposition: form-data; name="operations"
-         *
-         * {"query":"mutation uploadFile(...)","variables":{"input":{"file":null}}}
-         * ----WebKitFormBoundary7MA4YWxkTrZu0gW
-         * Content-Disposition: form-data; name="map"
-         *
-         * {"file": ["variables.input.file"]}
-         * ----WebKitFormBoundary7MA4YWxkTrZu0gW
-         * Content-Type: image/jpeg
-         *
-         * (data)
-         * ----WebKitFormBoundary7MA4YWxkTrZu0gW
-         */
-        maxFiles: 3
-      }
+      uploads: false
     }
   }
 }

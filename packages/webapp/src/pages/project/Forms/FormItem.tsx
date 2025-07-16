@@ -12,13 +12,14 @@ import { FC, MouseEvent, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
+import { FormService } from '@/services'
+import { timeFromNow, timeToNow, useRouter } from '@/utils'
+
 import IconLink from '@/assets/link.svg?react'
 import IconMoveTo from '@/assets/move-to.svg?react'
 import { Badge, Button, Dropdown, Tooltip, useAlert, usePrompt } from '@/components'
-import { FormService } from '@/services'
 import { useWorkspaceStore } from '@/store'
 import { FormType } from '@/types'
-import { timeFromNow, timeToNow, useRouter } from '@/utils'
 
 interface FormItemLinkProps extends ComponentProps {
   to: string
@@ -300,14 +301,14 @@ const FormItem: FC<FormItemProps> = ({ form, isInTrash, onChange }) => {
 
   return (
     <FormItemLink
-      className="group flex items-center justify-between gap-6 py-4 first-of-type:border-t first-of-type:border-accent-light last-of-type:border-b last-of-type:border-accent-light hover:bg-secondary-light has-[[data-state=open]]:bg-secondary-light"
+      className="first-of-type:border-accent-light last-of-type:border-accent-light hover:bg-secondary-light has-[[data-state=open]]:bg-secondary-light group flex items-center justify-between gap-6 py-4 first-of-type:border-t last-of-type:border-b"
       to={`/workspace/${form.teamId}/project/${form.projectId}/form/${form.id}/analytics`}
       isInTrash={isInTrash}
       isSuspended={form.suspended}
     >
       <div className="flex-1 pl-2">
         <div className="text-sm/6 font-medium">{form.name}</div>
-        <div className="text-sm/6 text-secondary">
+        <div className="text-secondary text-sm/6">
           {isInTrash
             ? t('form.metadata2', {
                 count: form.submissionCount,
@@ -322,7 +323,7 @@ const FormItem: FC<FormItemProps> = ({ form, isInTrash, onChange }) => {
 
       <div className="flex items-center gap-4">
         {!isInTrash && !form.suspended && (
-          <div className="flex _hidden items-center group-hover:block">
+          <div className="_hidden flex items-center group-hover:block">
             <Tooltip label={t('components.edit')}>
               <Button.Link size="sm" iconOnly onClick={handleEdit}>
                 <IconPencil className="h-5 w-5" />
@@ -331,7 +332,7 @@ const FormItem: FC<FormItemProps> = ({ form, isInTrash, onChange }) => {
 
             <Button.Copy
               size="sm"
-              className="order-last text-primary sm:order-first [&_svg]:h-[1.125rem] [&_svg]:w-[1.125rem]"
+              className="text-primary order-last sm:order-first [&_svg]:h-[1.125rem] [&_svg]:w-[1.125rem]"
               text={`${sharingURLPrefix}/form/${form.id}`}
               label={t('form.copyLinkToShare')}
               icon={<IconLink strokeWidth={2.2} />}
@@ -368,7 +369,7 @@ const FormItem: FC<FormItemProps> = ({ form, isInTrash, onChange }) => {
 
 const Skeleton = () => {
   return (
-    <div className="group flex items-center justify-between gap-6 py-4 first-of-type:border-t first-of-type:border-accent-light last-of-type:border-b last-of-type:border-accent-light">
+    <div className="first-of-type:border-accent-light last-of-type:border-accent-light group flex items-center justify-between gap-6 py-4 first-of-type:border-t last-of-type:border-b">
       <div className="flex-1">
         <div className="py-[0.3125rem]">
           <div className="skeleton h-3.5 w-24 rounded-sm"></div>

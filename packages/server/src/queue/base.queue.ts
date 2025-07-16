@@ -1,14 +1,9 @@
 import { OnQueueActive, OnQueueCompleted, OnQueueFailed } from '@nestjs/bull'
-import { FailedTaskService } from '@service'
-import { Logger } from '@utils'
 import { Job } from 'bull'
 
-export interface BaseQueueJob {
-  failedTaskId?: string
-  queueName: string
-}
+import { Logger } from '@utils'
 
-export interface IntegrationQueueJob extends BaseQueueJob {
+export interface IntegrationQueueJob {
   formId: string
   integrationId: string
   submissionId: string
@@ -17,7 +12,7 @@ export interface IntegrationQueueJob extends BaseQueueJob {
 export class BaseQueue {
   logger!: Logger
 
-  constructor(protected readonly failedTaskService: FailedTaskService) {
+  constructor() {
     this.logger = new Logger('Queue')
   }
 
@@ -38,18 +33,6 @@ export class BaseQueue {
     )
 
     if (job.attemptsMade >= job.opts.attempts) {
-      if (job.data.failedTaskId) {
-        await this.failedTaskService.discard(
-          job.data.failedTaskId,
-          job.failedReason
-        )
-      } else {
-        await this.failedTaskService.create({
-          data: job.data,
-          failedReason: job.failedReason
-        })
-      }
-
       await job.discard()
     }
   }

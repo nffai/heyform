@@ -1,4 +1,3 @@
-import { helper, toJSON } from '@heyform-inc/utils'
 import {
   IconArrowLeft,
   IconFolder,
@@ -13,11 +12,13 @@ import { Command } from 'cmdk'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { WorkspaceService } from '@/services'
+import { cn, useParam, useRouter } from '@/utils'
+import { helper, toJSON } from '@heyform-inc/utils'
+
 import { Button, Loader, Modal } from '@/components'
 import { HELP_CENTER_URL, TEMPLATES_URL } from '@/consts'
-import { WorkspaceService } from '@/services'
 import { useAppStore, useModal, useWorkspaceStore } from '@/store'
-import { cn, useParam, useRouter } from '@/utils'
 
 interface GroupType {
   type: 'action' | 'navigation' | 'form' | 'document'
@@ -53,17 +54,17 @@ const ProjectsPage = () => {
   if (helper.isValidArray(workspace?.projects)) {
     return (
       <Command.Group
-        className="select-none text-sm/6 text-secondary [&_[cmdk-group-heading]]:mb-0 [&_[cmdk-group-heading]]:px-4"
+        className="text-secondary select-none text-sm/6 [&_[cmdk-group-heading]]:mb-0 [&_[cmdk-group-heading]]:px-4"
         heading={t('dashboard.search.selectProject')}
       >
         {workspace!.projects.map(p => (
           <Command.Item
             key={p.id}
-            className="mx-2 cursor-pointer rounded-lg aria-selected:bg-accent"
+            className="aria-selected:bg-accent mx-2 cursor-pointer rounded-lg"
             value={p.id}
             onSelect={handleCreateForm}
           >
-            <div className="h-10 truncate px-2 leading-10 text-primary sm:h-9 sm:leading-9">
+            <div className="text-primary h-10 truncate px-2 leading-10 sm:h-9 sm:leading-9">
               {p.name}
             </div>
           </Command.Item>
@@ -74,11 +75,11 @@ const ProjectsPage = () => {
 
   return (
     <Command.Item
-      className="mx-2 cursor-pointer rounded-lg aria-selected:bg-accent"
+      className="aria-selected:bg-accent mx-2 cursor-pointer rounded-lg"
       onSelect={handleCreateProject}
     >
-      <div className="flex h-10 items-center gap-2 px-2 text-primary sm:h-9">
-        <IconPlus className="h-5 w-5 text-secondary" />
+      <div className="text-primary flex h-10 items-center gap-2 px-2 sm:h-9">
+        <IconPlus className="text-secondary h-5 w-5" />
         <span className="flex-1">{t('createProject')}</span>
       </div>
     </Command.Item>
@@ -233,18 +234,17 @@ const SearchModalComponent = () => {
 
   return (
     <Command shouldFilter={false}>
-      <div className="flex items-center gap-2 border-b border-input px-4 py-3">
+      <div className="border-input flex items-center gap-2 border-b px-4 py-3">
         {activePage === 'newForm' ? (
           <Button.Link className="-ml-1" size="sm" iconOnly onClick={() => setActivePage('home')}>
             <IconArrowLeft className="h-5 w-5" />
           </Button.Link>
         ) : (
           <>
-            <IconSearch className="h-5 w-5 text-secondary" />
+            <IconSearch className="text-secondary h-5 w-5" />
             <Command.Input
-              className="flex-1 border-none bg-transparent p-0 text-sm/6 text-primary outline-none focus:outline-none focus:ring-0"
+              className="text-primary flex-1 border-none bg-transparent p-0 text-sm/6 outline-none focus:outline-none focus:ring-0"
               placeholder={t('dashboard.search.placeholder')}
-              autoFocus
               onValueChange={handleQueryChange}
             />
             {loading && <Loader />}
@@ -271,22 +271,22 @@ const SearchModalComponent = () => {
             {filteredGroups.map(g => (
               <Command.Group
                 key={g.heading}
-                className="text-sm/6 text-secondary [&_[cmdk-group-heading]]:mb-0 [&_[cmdk-group-heading]]:px-4"
+                className="text-secondary text-sm/6 [&_[cmdk-group-heading]]:mb-0 [&_[cmdk-group-heading]]:px-4"
                 heading={g.heading}
               >
                 {g.items.map(row => (
                   <Command.Item
                     key={row.value}
-                    className="mx-2 cursor-pointer rounded-lg aria-selected:bg-accent-light"
+                    className="aria-selected:bg-accent-light mx-2 cursor-pointer rounded-lg"
                     value={JSON.stringify({ type: g.type, value: row.value })}
                     onSelect={handleSelect}
                   >
-                    <div className="flex h-10 items-center gap-2 px-2 text-primary sm:h-9">
-                      {row.icon && <row.icon className="h-5 w-5 text-secondary" />}
+                    <div className="text-primary flex h-10 items-center gap-2 px-2 sm:h-9">
+                      {row.icon && <row.icon className="text-secondary h-5 w-5" />}
                       <span className="flex-1 truncate">
                         {row.title}
                         {row.description && (
-                          <span className="pl-2 text-secondary">{row.description}</span>
+                          <span className="text-secondary pl-2">{row.description}</span>
                         )}
                       </span>
                     </div>
@@ -304,7 +304,6 @@ const SearchModalComponent = () => {
 export default function SearchModal() {
   const { isOpen, toggle, onOpenChange } = useModal('SearchModal')
 
-  // Toggle the menu when ⌘K is pressed
   useEffect(() => {
     const down = (e: KeyboardEvent) => {
       if (e.code === 'KeyK' && (e.metaKey || e.ctrlKey)) {

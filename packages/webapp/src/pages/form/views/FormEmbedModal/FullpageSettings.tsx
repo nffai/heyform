@@ -7,7 +7,7 @@ import { useStore } from '@/store'
 
 export const FullpageSettings: FC<IComponentProps> = observer(({ children }) => {
   const formStore = useStore('formStore')
-	const { t } = useTranslation()
+  const { t } = useTranslation()
 
   function handleChange(transparentBackground: boolean) {
     formStore.updateEmbedConfig({

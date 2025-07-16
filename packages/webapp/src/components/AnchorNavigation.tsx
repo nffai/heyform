@@ -1,8 +1,8 @@
-import { helper } from '@heyform-inc/utils'
 import throttle from 'lodash/throttle'
 import { FC, HTMLAttributes, useCallback, useEffect, useState } from 'react'
 
 import { cn } from '@/utils'
+import { helper } from '@heyform-inc/utils'
 
 type ComponentProps<E = HTMLElement> = HTMLAttributes<E>
 interface AnchorNavigationProps extends ComponentProps {
@@ -25,16 +25,16 @@ export const AnchorNavigation: FC<AnchorNavigationProps> = ({ className, menus }
     setHash(newHash)
   }
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   const handleScroll = useCallback(
     throttle(() => {
       let visibleElements: HTMLDivElement[] = []
       const elements = menus.map(m => document.getElementById(m.value) as HTMLDivElement)
 
       elements.forEach(el => {
-        const rect = el.getBoundingClientRect()
+        const rect = el?.getBoundingClientRect()
 
         if (
+          rect &&
           rect.bottom >= 0 &&
           rect.bottom <= (window.innerHeight || document.documentElement.clientHeight)
         ) {
@@ -64,7 +64,6 @@ export const AnchorNavigation: FC<AnchorNavigationProps> = ({ className, menus }
       window.removeEventListener('hashchange', handleHashChange)
       window.addEventListener('scroll', handleScroll)
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (
@@ -77,7 +76,7 @@ export const AnchorNavigation: FC<AnchorNavigationProps> = ({ className, menus }
       {menus.map(m => (
         <a
           key={m.value}
-          className="inline-flex h-8 items-center justify-start whitespace-nowrap rounded-md px-3 py-2 text-sm font-medium data-[state=active]:bg-accent-light data-[state=inactive]:hover:bg-accent-light"
+          className="data-[state=active]:bg-accent-light data-[state=inactive]:hover:bg-accent-light inline-flex h-8 items-center justify-start whitespace-nowrap rounded-md px-3 py-2 text-sm font-medium"
           href={`#${m.value}`}
           data-state={hash === m.value ? 'active' : 'inactive'}
         >

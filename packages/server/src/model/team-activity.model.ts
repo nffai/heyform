@@ -38,6 +38,4 @@ export class TeamActivityModel extends Document {
   attributes?: Record<string, any>
 }
 
-export const TeamActivitySchema = SchemaFactory.createForClass(
-  TeamActivityModel
-)
+export const TeamActivitySchema = SchemaFactory.createForClass(TeamActivityModel)

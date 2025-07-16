@@ -1,10 +1,11 @@
+import { BadRequestException, UseGuards } from '@nestjs/common'
+import { Throttle } from '@nestjs/throttler'
+
 import { SendResetPasswordEmailInput } from '@graphql'
 import { DeviceIdGuard, GqlThrottlerGuard } from '@guard'
 import { helper, hs } from '@heyform-inc/utils'
-import { BadRequestException, UseGuards } from '@nestjs/common'
 import { Args, Mutation, Resolver } from '@nestjs/graphql'
 import { AuthService, MailService, UserService } from '@service'
-import { Throttle } from '@nestjs/throttler'
 
 @Resolver()
 @UseGuards(DeviceIdGuard)
@@ -27,7 +28,6 @@ export class SendResetPasswordEmailResolver {
       throw new BadRequestException('The email address does not exist')
     }
 
-    // Add a code of reset password to cache
     const key = `reset_password:${user.id}`
     const code = await this.authService.getVerificationCode(key)
 

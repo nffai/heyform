@@ -1,13 +1,14 @@
 import { Controller, Get, Query, Res } from '@nestjs/common'
-import { ImageResizingDto } from '@dto'
-import got from 'got'
-import { Readable } from 'stream'
-import { md5 } from '@heyforms/nestjs'
-import { mime, qs } from '@heyform-inc/utils'
-import { BUNNY_CACHE_DIR } from '@environments'
 import { createReadStream, promises } from 'fs'
+import got from 'got'
 import { resolve } from 'path'
 import * as sharp from 'sharp'
+import { Readable } from 'stream'
+
+import { ImageResizingDto } from '@dto'
+import { UPLOAD_DIR } from '@environments'
+import { qs } from '@heyform-inc/utils'
+import { md5 } from '@utils'
 
 @Controller()
 export class ImageController {
@@ -18,14 +19,7 @@ export class ImageController {
     const isFileExists = await this._isFileExists(filePath)
 
     if (isFileExists) {
-      const headers = JSON.parse(
-        (await promises.readFile(headersPath)).toString()
-      )
-
-      // Override the content type if the format is provided
-      if (input.format) {
-        headers['Content-Type'] = mime(input.format)
-      }
+      const headers = JSON.parse((await promises.readFile(headersPath)).toString())
 
       res.set(headers)
       return createReadStream(filePath).pipe(res)
@@ -44,7 +38,7 @@ export class ImageController {
     }
 
     const headers = {
-      'Content-Type': mime(input.format || 'webp'),
+      'Content-Type': result.headers['content-type'],
       'Content-Length': fileBuffer.length,
       'Cache-Control': 'public, max-age=315360000, must-revalidate'
     }
@@ -71,8 +65,7 @@ export class ImageController {
 
   private async _getPath(input: ImageResizingDto) {
     const hash = md5(qs.stringify(input))
-    const cacheDir = BUNNY_CACHE_DIR || './cache/bunny'
-    const dir = resolve(cacheDir, hash.slice(0, 2), hash.slice(2, 4))
+    const dir = resolve(UPLOAD_DIR, hash.slice(0, 2), hash.slice(2, 4))
 
     await promises.mkdir(dir, {
       recursive: true

@@ -1,4 +1,3 @@
-import { applyLogicToFields } from '@heyform-inc/answer-utils'
 import {
   ActionEnum,
   FieldKindEnum,
@@ -6,11 +5,14 @@ import {
   OTHER_FIELD_KINDS,
   QUESTION_FIELD_KINDS
 } from '@heyform-inc/shared-types-enums'
-import { helper, nanoid } from '@heyform-inc/utils'
 import * as Tooltip from '@radix-ui/react-tooltip'
 import clsx from 'clsx'
 import type { FC } from 'react'
 import { useEffect, useMemo, useReducer, useState } from 'react'
+
+import { flattenFieldsWithGroups, parseFields, progressPercentage } from './utils'
+import { applyLogicToFields } from '@heyform-inc/answer-utils'
+import { helper, nanoid } from '@heyform-inc/utils'
 
 import { ClosedMessage } from './blocks/ClosedMessage'
 import { SuspendedMessage } from './blocks/SuspendedMessage'
@@ -18,7 +20,6 @@ import type { IState, IStripe } from './store'
 import { StoreContext, StoreReducer, getStorage } from './store'
 import { getTheme } from './theme'
 import type { IFormModel } from './typings'
-import { flattenFieldsWithGroups, parseFields, progressPercentage } from './utils'
 import { Blocks } from './views/Blocks'
 import { Sidebar } from './views/Sidebar'
 
@@ -151,7 +152,6 @@ export const FormRenderer: FC<FormRendererProps> = ({
     return <ClosedMessage form={form} />
   }
 
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   useEffect(() => {
     if (allowPayment) {
       const paymentField = memoState.fields.find(f => f.kind === FieldKindEnum.PAYMENT)

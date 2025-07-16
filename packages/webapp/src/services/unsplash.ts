@@ -1,5 +1,6 @@
-import { UNSPLASH_SEARCH_GQL, UNSPLASH_TRACK_DOWNLOAD_GQL } from '@/consts'
 import { apollo } from '@/utils'
+
+import { UNSPLASH_SEARCH_GQL, UNSPLASH_TRACK_DOWNLOAD_GQL } from '@/consts'
 
 export class UnsplashService {
   static async search(keyword?: string) {

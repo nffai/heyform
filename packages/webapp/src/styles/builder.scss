@@ -1,7 +1,7 @@
 @import '@heyform-inc/form-renderer/style.css';
 
-// ----------------------------------------------------------------------------
-// Left sidebar
+
+
 .builder-sidebar {
   .question-group {
     @apply rounded-lg border border-accent-light p-1;
@@ -49,8 +49,8 @@
   @apply h-full flex-1 bg-foreground lg:rounded-lg lg:shadow-sm lg:ring-1 lg:ring-primary/5;
 }
 
-// ----------------------------------------------------------------------------
-// Compose
+
+
 .compose {
   @extend .react-flow;
 
@@ -77,8 +77,8 @@
 }
 
 .compose {
-  // ----------------------------------------------------------------------------
-  // Layout
+  
+  
   .heyform-layout {
     @apply pointer-events-none absolute rounded-lg;
     z-index: 2;
@@ -174,8 +174,8 @@
     }
   }
 
-  // ----------------------------------------------------------------------------
-  // Radio
+  
+  
   .heyform-radio {
     @apply mb-2 h-10;
   }
@@ -246,8 +246,8 @@
     background-color: var(--heyform-answer-opacity-10-color);
   }
 
-  // ----------------------------------------------------------------------------
-  // Select
+  
+  
   .heyform-select {
     @apply w-full;
   }
@@ -284,8 +284,8 @@
     }
   }
 
-  // ----------------------------------------------------------------------------
-  // Block
+  
+  
   .heyform-block-container {
     @apply scrollbar absolute inset-0 inset-0 z-10 px-20;
 
@@ -369,8 +369,8 @@
     color: var(--heyform-label-color);
   }
 
-  // ----------------------------------------------------------------------------
-  // Submit
+  
+  
   .heyform-submit-container {
     @apply mt-8 flex items-center justify-start transition-opacity duration-500;
   }
@@ -386,8 +386,8 @@
     }
   }
 
-  // ----------------------------------------------------------------------------
-  // Welcome
+  
+  
   .heyform-empty-state {
     .heyform-block-title {
       @apply mb-4 text-3xl;
@@ -431,8 +431,8 @@
     }
   }
 
-  // ----------------------------------------------------------------------------
-  // Short text
+  
+  
   .heyform-input,
   .heyform-textarea {
     @apply w-full border-none bg-transparent p-0 pb-2 text-2xl shadow-none outline-none transition;
@@ -449,8 +449,8 @@
     }
   }
 
-  // ----------------------------------------------------------------------------
-  // Long text
+  
+  
   .heyform-textarea {
     @apply h-10 resize-none overflow-hidden;
   }
@@ -460,8 +460,8 @@
     color: var(--heyform-answer-color);
   }
 
-  // ----------------------------------------------------------------------------
-  // Opinion scale
+  
+  
   .heyform-opinion-scale {
     .heyform-radio {
       @apply h-14 flex-1;
@@ -481,8 +481,8 @@
     color: var(--heyform-answer-color);
   }
 
-  // ----------------------------------------------------------------------------
-  // Multiple choice
+  
+  
   .heyform-multiple-choice-list {
     @apply inline-flex flex-col max-w-full;
     min-width: 10rem;
@@ -566,8 +566,8 @@
     }
   }
 
-  // ----------------------------------------------------------------------------
-  // Picture choice
+  
+  
   .heyform-picture-choice-list {
     @apply -mx-1 -mb-2 flex flex-wrap items-stretch;
 
@@ -631,8 +631,8 @@
     }
   }
 
-  // -----------------------------------------------------------------------------
-  // File upload
+  
+  
   .heyform-file-uploader {
     @apply flex h-72 cursor-pointer items-center justify-center rounded transition;
     color: var(--heyform-answer-color);
@@ -658,8 +658,8 @@
     color: var(--heyform-label-color);
   }
 
-  // -----------------------------------------------------------------------------
-  // Signature
+  
+  
   .heyform-signature-wrapper {
     @apply h-40 rounded;
     border: 1px dashed var(--heyform-answer-color);
@@ -671,8 +671,8 @@
     color: var(--heyform-label-color);
   }
 
-  // ----------------------------------------------------------------------------
-  // Rating
+  
+  
   .rate {
     @apply flex items-center;
   }
@@ -712,8 +712,8 @@
     }
   }
 
-  // ----------------------------------------------------------------------------
-  // Phone number
+  
+  
   .heyform-phone-number {
     .heyform-input {
       @apply ml-4 w-80;
@@ -730,8 +730,8 @@
     color: var(--heyform-answer-color);
   }
 
-  // ----------------------------------------------------------------------------
-  // Date
+  
+  
   .heyform-date-root {
     @apply flex items-end;
   }
@@ -778,8 +778,8 @@
     }
   }
 
-  // ----------------------------------------------------------------------------
-  // Table
+  
+  
   .heyform-table-scrollable {
     @apply w-full overflow-x-auto;
   }
@@ -867,8 +867,8 @@
     }
   }
 
-  // ----------------------------------------------------------------------------
-  // Payment
+  
+  
   .heyform-payment-header,
   .heyform-payment-label {
     @apply text-base;
@@ -911,8 +911,8 @@
   }
 }
 
-// ----------------------------------------------------------------------------
-// Right sidebar
+
+
 .right-sidebar {
   @apply flex h-full w-80 flex-col border-l border-gray-200 bg-foreground;
 
@@ -925,10 +925,6 @@
 
     .tabs-nav-list {
       @apply justify-between space-x-0;
-    }
-
-    .plan-check {
-      @apply py-4;
     }
 
     .tabs-nav-active {
@@ -1166,10 +1162,6 @@
       @apply cursor-default;
     }
   }
-
-  .tab-pane_plan-check {
-    @apply bg-transparent backdrop-blur-none;
-  }
 }
 
 .logic-panel,
@@ -1283,14 +1275,6 @@
   @extend .button;
 }
 
-.plan-check__redirect {
-  .plan-check-container {
-    .badge {
-      @apply px-1;
-    }
-  }
-}
-
 button.connect-stripe {
   @apply py-2;
 
@@ -1318,8 +1302,8 @@ button.connect-stripe {
   }
 }
 
-// ----------------------------------------------------------------------------
-// Form preview
+
+
 .form-preview {
   .heyform-body {
     @apply lg:rounded-lg;
@@ -1370,8 +1354,8 @@ button.connect-stripe {
   }
 }
 
-// ----------------------------------------------------------------------------
-// Mobile compose
+
+
 .compose-mobile {
   @apply w-screen overflow-x-hidden;
 
@@ -1396,12 +1380,12 @@ button.connect-stripe {
   }
 }
 
-// Preview
+
 .popup {
   @apply pointer-events-auto;
 }
 
-// Report
+
 .heyform-report {
   @apply text-sm;
 

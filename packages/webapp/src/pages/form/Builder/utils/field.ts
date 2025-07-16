@@ -1,4 +1,3 @@
-import { htmlUtils } from '@heyform-inc/answer-utils'
 import {
   ChoiceBadgeEnum,
   FORM_FIELD_KINDS,
@@ -7,6 +6,8 @@ import {
   Property,
   QUESTION_FIELD_KINDS
 } from '@heyform-inc/shared-types-enums'
+
+import { htmlUtils } from '@heyform-inc/answer-utils'
 import { clone, helper, nanoid } from '@heyform-inc/utils'
 
 import { FormFieldType } from '@/types'
@@ -30,7 +31,6 @@ export function serializeFields(rawFields: FormFieldType[]) {
       f.isCollapsed = false
     }
 
-    // Add index to fields
     if (QUESTION_FIELD_KINDS.includes(f.kind)) {
       f.index = index++
 

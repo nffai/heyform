@@ -1,3 +1,5 @@
+import { apollo } from '@/utils'
+
 import {
   CANCEL_USER_DELETION_GQL,
   CHANGE_EMAIL_CODE_GQL,
@@ -11,7 +13,6 @@ import {
   VERIFY_EMAIL_GQL,
   VERIFY_USER_DELETION_GQL
 } from '@/consts'
-import { apollo } from '@/utils'
 
 export class UserService {
   static async userDetail() {
@@ -20,12 +21,7 @@ export class UserService {
     })
   }
 
-  static update(input: {
-    name?: string
-    avatar?: string
-    restoreGravatar?: boolean
-    isOnboardRequired?: boolean
-  }) {
+  static update(input: { name?: string; avatar?: string; restoreGravatar?: boolean }) {
     return apollo.mutate({
       mutation: UPDATE_USER_DETAIL_GQL,
       variables: {

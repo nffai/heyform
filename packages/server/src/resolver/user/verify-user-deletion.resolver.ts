@@ -1,10 +1,3 @@
-/**
- * @program: serves
- * @description:
- * @author: mufeng
- * @date: 12/27/21 1:09 PM
- **/
-
 import { Auth, User } from '@decorator'
 import { ACCOUNT_DELETION_SCHEDULE_INTERVAL } from '@environments'
 import { VerifyUserDeletionInput } from '@graphql'
@@ -27,7 +20,6 @@ export class VerifyUserDeletionResolver {
     @User() user: UserModel,
     @Args('input') input: VerifyUserDeletionInput
   ): Promise<boolean> {
-    // Check if user deletion attempts is exceeded
     const attemptsKey = `limit:user_deletion:${user.id}`
 
     await this.authService.attemptsCheck(attemptsKey, async () => {

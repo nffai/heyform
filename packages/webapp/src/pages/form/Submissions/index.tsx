@@ -1,4 +1,3 @@
-import { flattenFields } from '@heyform-inc/answer-utils'
 import {
   Answer,
   FieldKindEnum,
@@ -17,11 +16,14 @@ import { useBoolean, useRequest } from 'ahooks'
 import { useCallback, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { SubmissionService } from '@/services'
+import { cn, useParam } from '@/utils'
+import { flattenFields } from '@heyform-inc/answer-utils'
+
 import IconMove from '@/assets/move.svg?react'
 import {
   Button,
   EmptyState,
-  OnboardingBadge,
   Repeat,
   Select,
   Table,
@@ -29,14 +31,10 @@ import {
   TableFetchParams,
   TableRef,
   TableState,
-  Tooltip,
-  useOnboardingStorage
+  Tooltip
 } from '@/components'
-import { MAXIMIZE_TABLE_STORAGE_NAME } from '@/consts'
-import { SubmissionService } from '@/services'
 import { useAppStore, useFormStore } from '@/store'
 import { SubmissionType } from '@/types'
-import { cn, useParam } from '@/utils'
 
 import SubmissionCell, { SubmissionHeaderCell } from './SubmissionCell'
 import SubmissionDetailModal from './SubmissionDetailModal'
@@ -57,7 +55,6 @@ export default function FormSubmissions() {
 
   const { formId } = useParam()
   const { form } = useFormStore()
-  const { setItem } = useOnboardingStorage()
   const { openModal, closeModal } = useAppStore()
 
   const tableRef = useRef<TableRef<SubmissionType> | null>(null)
@@ -143,19 +140,16 @@ export default function FormSubmissions() {
       answers: [
         ...row.answers,
 
-        // Variables
         ...(row.variables || []).map(v => ({
           ...v,
           kind: FieldKindEnum.VARIABLE
         })),
 
-        // Hidden fields
         ...(row.hiddenFields || []).map(v => ({
           ...v,
           kind: FieldKindEnum.HIDDEN_FIELDS
         })),
 
-        // Submit date
         {
           id: FieldKindEnum.SUBMIT_DATE,
           kind: FieldKindEnum.SUBMIT_DATE,
@@ -191,7 +185,6 @@ export default function FormSubmissions() {
   )
 
   function handleToggle() {
-    setItem(MAXIMIZE_TABLE_STORAGE_NAME, true)
     toggle()
   }
 
@@ -218,7 +211,7 @@ export default function FormSubmissions() {
 
   return (
     <>
-      <div className={cn(isMaximized ? 'fixed inset-0 bg-foreground p-4' : 'mt-4')}>
+      <div className={cn(isMaximized ? 'bg-foreground fixed inset-0 p-4' : 'mt-4')}>
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-x-2.5">
             <Select
@@ -268,8 +261,6 @@ export default function FormSubmissions() {
                 ) : (
                   <IconMaximize className="h-5 w-5" />
                 )}
-
-                <OnboardingBadge className="-right-1 -top-1" name={MAXIMIZE_TABLE_STORAGE_NAME} />
               </Button.Ghost>
             </Tooltip>
 
@@ -295,7 +286,7 @@ export default function FormSubmissions() {
             columns={columns}
             loader={
               <Repeat count={20}>
-                <div className="flex h-10 items-center gap-x-8 border-b border-accent px-4">
+                <div className="border-accent flex h-10 items-center gap-x-8 border-b px-4">
                   <div className="skeleton h-4 w-4 rounded-md" />
                   <div className="skeleton h-4 w-20 rounded-md" />
                   <div className="skeleton h-4 w-60 rounded-md" />

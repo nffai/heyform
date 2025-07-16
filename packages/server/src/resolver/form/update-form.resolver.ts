@@ -1,7 +1,7 @@
-import { Auth, Form, FormGuard, Team } from '@decorator'
+import { Auth, Form, FormGuard } from '@decorator'
 import { UpdateFormInput } from '@graphql'
 import { helper, pickValidValues } from '@heyform-inc/utils'
-import { FormModel, TeamModel } from '@model'
+import { FormModel } from '@model'
 import { Args, Mutation, Resolver } from '@nestjs/graphql'
 import { FormService, SubmissionService } from '@service'
 
@@ -13,16 +13,9 @@ export class UpdateFormResolver {
     private readonly submissionService: SubmissionService
   ) {}
 
-  /**
-   * Update form
-   *
-   * @param team
-   * @param input
-   */
   @Mutation(returns => Boolean)
   @FormGuard()
   async updateForm(
-    @Team() team: TeamModel,
     @Form() form: FormModel,
     @Args('input') input: UpdateFormInput
   ): Promise<boolean> {
@@ -56,24 +49,17 @@ export class UpdateFormResolver {
       ['enableEmailNotification', 'settings.enableEmailNotification']
     ])
 
-    // Discard at Dec 20, 2021 (v2021.12.3)
-    // Refactor at Jun 12, 2024 (v3.0.0)
     if (helper.isTrue(input.redirectOnCompletion)) {
-      if (team.plan.customUrlRedirects) {
-        updates = {
-          ...updates,
-          ...pickValidValues(input as any, [
-            ['redirectOnCompletion', 'settings.redirectOnCompletion'],
-            ['redirectUrl', 'settings.redirectUrl'],
-            ['redirectDelay', 'settings.redirectDelay']
-          ])
-        }
-      } else {
-        updates['settings.redirectOnCompletion'] = false
+      updates = {
+        ...updates,
+        ...pickValidValues(input as any, [
+          ['redirectOnCompletion', 'settings.redirectOnCompletion'],
+          ['redirectUrl', 'settings.redirectUrl'],
+          ['redirectDelay', 'settings.redirectDelay']
+        ])
       }
     }
 
-    // Add at Sep 23, 2022
     if (input.allowArchive === false) {
       await this.submissionService.deleteByIds(input.formId)
     }
@@ -85,17 +71,14 @@ export class UpdateFormResolver {
       this.formService.addTranslateQueue(input.formId, input.languages!)
     }
 
-    // Add at Jul 12, 2024
     if (input.metaTitle || input.metaDescription || input.metaOGImageUrl) {
-      if (team.plan.customMetaData) {
-        updates = {
-          ...updates,
-          ...pickValidValues(input as any, [
-            ['metaTitle', 'settings.metaTitle'],
-            ['metaDescription', 'settings.metaDescription'],
-            ['metaOGImageUrl', 'settings.metaOGImageUrl']
-          ])
-        }
+      updates = {
+        ...updates,
+        ...pickValidValues(input as any, [
+          ['metaTitle', 'settings.metaTitle'],
+          ['metaDescription', 'settings.metaDescription'],
+          ['metaOGImageUrl', 'settings.metaOGImageUrl']
+        ])
       }
     } else if (helper.isNull(input.metaOGImageUrl)) {
       updates['settings.metaOGImageUrl'] = null

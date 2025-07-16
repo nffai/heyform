@@ -1,12 +1,13 @@
-import { helper } from '@heyform-inc/utils'
 import { useState } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
-import { Form, Input, PasswordStrength } from '@/components'
 import { AuthService } from '@/services'
-import { useUserStore } from '@/store'
 import { useRouter } from '@/utils'
+import { helper } from '@heyform-inc/utils'
+
+import { Form, Input, PasswordStrength } from '@/components'
+import { useUserStore } from '@/store'
 
 import SocialLogin from './SocialLogin'
 
@@ -34,7 +35,7 @@ const SignUp = () => {
     <div className="mx-auto grid w-[21.875rem] gap-6 py-12 lg:py-0">
       <div className="grid gap-2 text-center">
         <h1 className="text-3xl font-bold">{t('signUp.title')}</h1>
-        <p className="text-sm text-secondary">{t('signUp.subHeadline')}</p>
+        <p className="text-secondary text-sm">{t('signUp.subHeadline')}</p>
       </div>
 
       <SocialLogin isSignUp />
@@ -93,7 +94,7 @@ const SignUp = () => {
             {
               required: true,
               pattern:
-                /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[!#$%&()*+\-,.\/\\:<=>?@\[\]^_{|}~0-9a-zA-Z]{8,}$/,
+                /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[!#$%&()*+\-,./\\:<=>?@[\]^_{|}~0-9a-zA-Z]{8,}$/,
               message: t('components.password.invalid')
             },
             {
@@ -106,7 +107,7 @@ const SignUp = () => {
         </Form.Item>
       </Form.Simple>
 
-      <div className="space-y-2 text-center text-sm text-secondary">
+      <div className="text-secondary space-y-2 text-center text-sm">
         <p>
           <Trans
             t={t}
@@ -114,7 +115,7 @@ const SignUp = () => {
             components={{
               a1: (
                 <a
-                  className="underline underline-offset-4 hover:text-primary"
+                  className="hover:text-primary underline underline-offset-4"
                   href="https://docs.heyform.net/terms-conditions"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -122,7 +123,7 @@ const SignUp = () => {
               ),
               a2: (
                 <a
-                  className="underline underline-offset-4 hover:text-primary"
+                  className="hover:text-primary underline underline-offset-4"
                   href="https://docs.heyform.net/privacy-policy"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -137,7 +138,7 @@ const SignUp = () => {
             t={t}
             i18nKey="signUp.haveAccount"
             components={{
-              a: <Link className="underline underline-offset-4 hover:text-primary" to="/login" />
+              a: <Link className="hover:text-primary underline underline-offset-4" to="/login" />
             }}
           />
         </p>

@@ -1,4 +1,5 @@
 import { MongooseModule } from '@nestjs/mongoose'
+
 import {
   AppCodeModel,
   AppCodeSchema,
@@ -10,12 +11,8 @@ import {
   BrandKitSchema,
   EmailTemplateModel,
   EmailTemplateSchema,
-  FailedTaskModel,
-  FailedTaskSchema,
   FormAnalyticModel,
   FormAnalyticSchema,
-  FormCustomReportModel,
-  FormCustomReportSchema,
   FormModel,
   FormOpenHistoryModel,
   FormOpenHistorySchema,
@@ -24,12 +21,6 @@ import {
   FormSchema,
   IntegrationModel,
   IntegrationSchema,
-  InvoiceModel,
-  InvoiceSchema,
-  PlanModel,
-  PlanPriceModel,
-  PlanPriceSchema,
-  PlanSchema,
   ProjectGroupModel,
   ProjectGroupSchema,
   ProjectMemberModel,
@@ -69,9 +60,6 @@ export const ModelModule = MongooseModule.forFeature([
   { name: IntegrationModel.name, schema: IntegrationSchema },
   { name: SubmissionModel.name, schema: SubmissionSchema },
   { name: SubmissionIpLimitModel.name, schema: SubmissionIpLimitSchema },
-  { name: PlanModel.name, schema: PlanSchema },
-  { name: PlanPriceModel.name, schema: PlanPriceSchema },
-  { name: InvoiceModel.name, schema: InvoiceSchema },
   { name: TeamModel.name, schema: TeamSchema },
   { name: TeamActivityModel.name, schema: TeamActivitySchema },
   { name: TeamInvitationModel.name, schema: TeamInvitationSchema },
@@ -83,7 +71,6 @@ export const ModelModule = MongooseModule.forFeature([
     name: UserSocialAccountModel.name,
     schema: UserSocialAccountSchema
   },
-  { name: FailedTaskModel.name, schema: FailedTaskSchema },
   { name: AppModel.name, schema: AppSchema },
   { name: AppCodeModel.name, schema: AppCodeSchema },
   { name: AppTokenModel.name, schema: AppTokenSchema },
@@ -91,6 +78,5 @@ export const ModelModule = MongooseModule.forFeature([
   { name: ProjectModel.name, schema: ProjectSchema },
   { name: ProjectGroupModel.name, schema: ProjectGroupSchema },
   { name: ProjectMemberModel.name, schema: ProjectMemberSchema },
-  { name: FormCustomReportModel.name, schema: FormCustomReportSchema },
   { name: BrandKitModel.name, schema: BrandKitSchema }
 ])

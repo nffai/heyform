@@ -1,19 +1,19 @@
-import { helper } from '@heyform-inc/utils'
 import { useBoolean } from 'ahooks'
 import { FC, useState } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
 
+import { WorkspaceService } from '@/services'
+import { clearCookie, getCookie, useRouter } from '@/utils'
+import { helper } from '@heyform-inc/utils'
+
 import { Form, ImageFormPicker, Input, Modal, SimpleFormProps } from '@/components'
 import { DEFAULT_PROJECT_NAMES, REDIRECT_COOKIE_NAME } from '@/consts'
-import { WorkspaceService } from '@/services'
 import { useModal, useUserStore } from '@/store'
-import { clearCookie, getCookie, useRouter } from '@/utils'
 import { useAppStore } from '@/store'
 
-export const CreateWorkspaceForm: FC<Pick<SimpleFormProps, 'onLoadingChange'> & { onSuccess?: () => void }> = ({
-  onLoadingChange,
-  onSuccess
-}) => {
+export const CreateWorkspaceForm: FC<
+  Pick<SimpleFormProps, 'onLoadingChange'> & { onSuccess?: () => void }
+> = ({ onLoadingChange, onSuccess }) => {
   const { t, i18n } = useTranslation()
 
   const router = useRouter()
@@ -43,7 +43,6 @@ export const CreateWorkspaceForm: FC<Pick<SimpleFormProps, 'onLoadingChange'> & 
       })
     }
 
-    // Navigate to new created workspace page
     if (onSuccess) onSuccess()
     closeModal('CreateWorkspaceModal')
     router.replace(`/workspace/${result}`)
@@ -100,7 +99,7 @@ export const CreateWorkspaceForm: FC<Pick<SimpleFormProps, 'onLoadingChange'> & 
 }
 
 export default function CreateWorkspaceModal() {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
 
   const { isOpen, onOpenChange } = useModal('CreateWorkspaceModal')
   const [loading, { set }] = useBoolean(false)

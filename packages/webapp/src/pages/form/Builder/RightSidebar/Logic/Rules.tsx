@@ -1,10 +1,11 @@
-import { htmlUtils } from '@heyform-inc/answer-utils'
 import { Logic } from '@heyform-inc/shared-types-enums'
-import { helper } from '@heyform-inc/utils'
 import { IconArrowUpRight, IconChevronRight, IconDots } from '@tabler/icons-react'
 import type { FC } from 'react'
 import { useMemo } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
+
+import { htmlUtils } from '@heyform-inc/answer-utils'
+import { helper } from '@heyform-inc/utils'
 
 import { Button, Dropdown } from '@/components'
 import { useAppStore } from '@/store'
@@ -73,7 +74,7 @@ const LogicItem: FC<LogicItemProps> = ({ fields, logic }) => {
           <QuestionIcon kind={field.kind} index={field.index} parentIndex={field.parent?.index} />
           <span className="text-sm/6 font-medium">{htmlUtils.plain(field.title as string)}</span>
         </div>
-        <div className="text-xs/6 text-secondary">
+        <div className="text-secondary text-xs/6">
           {t('form.builder.logic.rule.ruleCount', { count })}
         </div>
       </div>
@@ -90,7 +91,7 @@ const LogicItem: FC<LogicItemProps> = ({ fields, logic }) => {
         onClick={handleMenuClick}
       >
         <Button.Link size="sm" iconOnly>
-          <IconDots className="h-5 w-5 text-secondary" />
+          <IconDots className="text-secondary h-5 w-5" />
         </Button.Link>
       </Dropdown>
     </li>
@@ -109,7 +110,7 @@ export const Rules: FC = () => {
         <span className="font-medium">{t('form.builder.logic.rule.headline')}</span>
 
         <Button.Link
-          className="!pl-2 !pr-0.5 text-secondary hover:text-primary [&_[data-slot=button]]:gap-x-0"
+          className="text-secondary hover:text-primary !pl-2 !pr-0.5 [&_[data-slot=button]]:gap-x-0"
           size="sm"
           onClick={() => openModal('LogicBulkEditModal')}
         >
@@ -125,7 +126,7 @@ export const Rules: FC = () => {
           ))}
         </ul>
       ) : (
-        <p className="text-sm text-secondary">
+        <p className="text-secondary text-sm">
           <Trans
             t={t}
             i18nKey="form.builder.logic.rule.emptyState"
@@ -133,7 +134,7 @@ export const Rules: FC = () => {
               a: (
                 <a
                   key="a"
-                  className="underline underline-offset-4 hover:text-primary"
+                  className="hover:text-primary underline underline-offset-4"
                   href="https://docs.heyform.net/features/conditional-logic"
                   target="_blank"
                   rel="noopener noreferrer"

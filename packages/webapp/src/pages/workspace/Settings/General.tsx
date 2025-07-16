@@ -1,10 +1,11 @@
 import { useRequest } from 'ahooks'
 import { useTranslation } from 'react-i18next'
 
-import { ImageFormPicker, Input } from '@/components'
 import { WorkspaceService } from '@/services'
-import { useWorkspaceStore } from '@/store'
 import { useParam } from '@/utils'
+
+import { ImageFormPicker, Input } from '@/components'
+import { useWorkspaceStore } from '@/store'
 
 export default function WorkspaceGeneral() {
   const { t } = useTranslation()
@@ -44,12 +45,12 @@ export default function WorkspaceGeneral() {
   )
 
   return (
-    <section id="general" className="border-b border-accent-light pb-10">
+    <section id="general" className="border-accent-light border-b pb-10">
       <h2 className="text-lg font-semibold">{t('settings.general.title')}</h2>
 
       <div className="mt-4 space-y-8">
         <div className="space-y-2">
-          <label htmlFor="name" className="block text-sm/6 font-medium leading-6 text-primary">
+          <label htmlFor="name" className="text-primary block text-sm/6 font-medium leading-6">
             {t('settings.general.name')}
           </label>
           <Input id="name" value={workspace?.name} onChange={handleNameChange} />
@@ -60,7 +61,7 @@ export default function WorkspaceGeneral() {
             <label className="block text-sm font-medium leading-6 text-gray-900">
               {t('settings.general.logo')}
             </label>
-            <p data-slot="text" className="text-base/5 text-secondary sm:text-sm/5">
+            <p data-slot="text" className="text-secondary text-base/5 sm:text-sm/5">
               {t('settings.general.pickLogo')}
             </p>
           </div>

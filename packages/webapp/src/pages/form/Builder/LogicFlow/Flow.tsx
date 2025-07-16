@@ -9,10 +9,11 @@ import ReactFlow, {
   useReactFlow
 } from 'react-flow-renderer'
 
+import { fieldLogicToNodesEdges } from '../utils'
+
 import { useAppStore } from '@/store'
 
 import { useStoreContext } from '../store'
-import { fieldLogicToNodesEdges } from '../utils'
 import { ConnectionLine } from './ConnectionLine'
 import { CustomNode } from './CustomNode'
 

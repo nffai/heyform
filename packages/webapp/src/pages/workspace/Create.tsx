@@ -8,7 +8,7 @@ export default function CreateWorkspace() {
   return (
     <div className="mx-auto max-w-lg">
       <h1 className="text-xl font-semibold">{t('workspace.creation.headline')}</h1>
-      <p className="mt-2 text-sm text-secondary">{t('workspace.creation.subHeadline')}</p>
+      <p className="text-secondary mt-2 text-sm">{t('workspace.creation.subHeadline')}</p>
       <div className="mt-10">
         <CreateWorkspaceForm />
       </div>

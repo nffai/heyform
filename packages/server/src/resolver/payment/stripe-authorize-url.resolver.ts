@@ -22,7 +22,6 @@ export class StripeAuthorizeUrlResolver {
     const state = nanoid()
     const key = `connect:stripe:${state}`
 
-    // 保存 state 1小时
     await this.redisService.set({
       key,
       value: input.formId,

@@ -1,5 +1,6 @@
-import { LOGIN_GQL, RESET_PASSWORD_GQL, SEND_RESET_EMAIL_GQL, SIGN_UP_GQL } from '@/consts'
 import { apollo } from '@/utils'
+
+import { LOGIN_GQL, RESET_PASSWORD_GQL, SEND_RESET_EMAIL_GQL, SIGN_UP_GQL } from '@/consts'
 
 export class AuthService {
   static async login(input: { email: string; password: string }) {

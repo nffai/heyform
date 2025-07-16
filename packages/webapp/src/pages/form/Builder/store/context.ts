@@ -1,6 +1,7 @@
 import type { HiddenField, Logic, Variable } from '@heyform-inc/shared-types-enums'
-import { deepEqual } from '@heyform-inc/utils'
 import { createContext } from 'react'
+
+import { deepEqual } from '@heyform-inc/utils'
 
 import { FormFieldType } from '@/types'
 
@@ -10,18 +11,17 @@ export interface IState {
   formId: string
   locale: string
   fields: FormFieldType[]
-  // Version to detect changes whether we need to sync with server or not
+
   version: number
   questions: Partial<FormFieldType>[]
   references: Partial<FormFieldType>[]
-  // Selected field id
+
   currentId?: string
-  // Parent field id
+
   parentId?: string
 
-  // Selected field
   currentField?: FormFieldType
-  // Parent field
+
   parentField?: FormFieldType
 
   logics?: Logic[]
@@ -191,9 +191,7 @@ export interface IContext {
 
 export const StoreContext = createContext<IContext>({
   state: {} as IState,
-  dispatch: () => {
-    // Do nothing
-  }
+  dispatch: () => {}
 })
 
 export type IAction =

@@ -1,8 +1,9 @@
 import { FieldKindEnum, HiddenField } from '@heyform-inc/shared-types-enums'
-import { helper } from '@heyform-inc/utils'
 import { IconArrowUpRight, IconDots, IconPlus } from '@tabler/icons-react'
 import { FC, startTransition } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
+
+import { helper } from '@heyform-inc/utils'
 
 import { Button, Dropdown, Tooltip } from '@/components'
 import { CUSTOM_FIELDS_CONFIGS } from '@/consts'
@@ -77,7 +78,7 @@ const HiddenFieldItem: FC<{ hiddenField: HiddenField }> = ({ hiddenField }) => {
       >
         <Button.Link size="sm" iconOnly>
           <Tooltip label={t('form.builder.logic.hiddenFields.menuTip')}>
-            <IconDots className="h-5 w-5 text-secondary" />
+            <IconDots className="text-secondary h-5 w-5" />
           </Tooltip>
         </Button.Link>
       </Dropdown>
@@ -127,7 +128,7 @@ export const HiddenFields: FC = () => {
           ))}
         </ul>
       ) : (
-        <p className="text-sm text-secondary">
+        <p className="text-secondary text-sm">
           <Trans
             t={t}
             i18nKey="form.builder.logic.hiddenFields.emptyState"
@@ -135,7 +136,7 @@ export const HiddenFields: FC = () => {
               a: (
                 <a
                   key="a"
-                  className="underline underline-offset-4 hover:text-primary"
+                  className="hover:text-primary underline underline-offset-4"
                   href="https://docs.heyform.net/features/hidden-fields"
                   target="_blank"
                   rel="noopener noreferrer"

@@ -1,12 +1,14 @@
 import dayjs from 'dayjs'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import Markdown from 'react-markdown'
+
+import { ChangelogService } from '@/services'
+import { formatDay } from '@/utils'
 
 import { Async, Loader, Modal } from '@/components'
-import { ChangelogService } from '@/services'
 import { useModal } from '@/store'
 import { ChangelogType } from '@/types'
-import { formatDay } from '@/utils'
 
 const Skeleton = () => {
   return (
@@ -31,11 +33,13 @@ const Changelogs = () => {
       <div className="space-y-14">
         {changelogs.map(c => (
           <div key={c.id} className="text-sm/6">
-            <div className="mb-1 text-secondary">
+            <div className="text-secondary mb-1">
               {formatDay(dayjs(c.publishedAt), i18n.language)}
             </div>
             <h2 className="text-2xl/6 font-bold">{c.title}</h2>
-            <div className="changelog" dangerouslySetInnerHTML={{ __html: c.html }} />
+            <div className="changelog">
+              <Markdown>{c.content}</Markdown>
+            </div>
           </div>
         ))}
       </div>

@@ -10,9 +10,7 @@ export class RevokeStripeAccountResolver {
 
   @Mutation(returns => Boolean)
   @FormGuard()
-  async revokeStripeAccount(
-    @Args('input') input: FormDetailInput
-  ): Promise<boolean> {
+  async revokeStripeAccount(@Args('input') input: FormDetailInput): Promise<boolean> {
     return this.formService.update(input.formId, {
       stripeAccount: undefined
     })

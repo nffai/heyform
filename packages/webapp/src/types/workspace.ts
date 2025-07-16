@@ -1,22 +1,8 @@
 import { FormModel, FormTheme } from '@heyform-inc/shared-types-enums'
 
-import { BillingCycleEnum, SubscriptionStatusEnum } from '@/consts'
 import { FormType } from '@/types/index.ts'
 
-import { PlanType } from './plan'
 import { UserType } from './user'
-
-export interface SubscriptionType {
-  id?: string
-  planId: string
-  billingCycle: BillingCycleEnum
-  startAt: number
-  endAt: number
-  canceledAt: number
-  isCanceled?: boolean
-  trialing?: boolean
-  status: SubscriptionStatusEnum
-}
 
 export interface ProjectType {
   id: string
@@ -40,8 +26,6 @@ export interface WorkspaceType {
   name: string
   ownerId: string
   avatar?: string
-  // enableCustomDomain?: boolean
-  customDomain?: string
   removeBranding?: boolean
   inviteCode: string
   inviteCodeExpireAt?: number
@@ -50,10 +34,7 @@ export interface WorkspaceType {
   memberCount: number
   additionalSeats: number
   contactCount: number
-  subscription: SubscriptionType
   brandKits: BrandKitType[]
-  plan: PlanType
-  trialEndAt: number
   isOwner?: boolean
   owner?: UserType
   createdAt?: number

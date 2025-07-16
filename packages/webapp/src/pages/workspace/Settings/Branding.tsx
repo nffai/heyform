@@ -1,10 +1,11 @@
 import { useRequest } from 'ahooks'
 import { useTranslation } from 'react-i18next'
 
-import { Switch } from '@/components'
 import { WorkspaceService } from '@/services'
-import { useWorkspaceStore } from '@/store'
 import { useParam } from '@/utils'
+
+import { Switch } from '@/components'
+import { useWorkspaceStore } from '@/store'
 
 import WorkspaceBrandKit from './BrandKit'
 
@@ -30,7 +31,7 @@ export default function WorkspaceBranding() {
   )
 
   return (
-    <section id="branding" className="border-b border-accent-light py-10">
+    <section id="branding" className="border-accent-light border-b py-10">
       <h2 className="text-lg font-semibold">{t('settings.branding.title')}</h2>
 
       <div className="mt-4 space-y-8">
@@ -41,7 +42,7 @@ export default function WorkspaceBranding() {
             <label className="text-base/7 font-medium sm:text-sm/5">
               {t('settings.branding.removeBrandingHeadline')}
             </label>
-            <p data-slot="text" className="text-base/5 text-secondary sm:text-sm/5">
+            <p data-slot="text" className="text-secondary text-base/5 sm:text-sm/5">
               {t('settings.branding.removeBrandingSubHeadline')}
             </p>
           </div>

@@ -1,6 +1,9 @@
 import { useRequest } from 'ahooks'
 import { Trans, useTranslation } from 'react-i18next'
 
+import { UserService } from '@/services'
+import { useRouter } from '@/utils'
+
 import {
   Button,
   InputOTP,
@@ -9,9 +12,7 @@ import {
   InputOTPSlot,
   useToast
 } from '@/components'
-import { UserService } from '@/services'
 import { useUserStore } from '@/store'
-import { useRouter } from '@/utils'
 
 export default function VerifyEmail() {
   const { t } = useTranslation()
@@ -42,7 +43,7 @@ export default function VerifyEmail() {
   const { loading: verifyLoading, run: verifyRun } = useRequest(
     async (code: string) => {
       await UserService.verifyEmail(code)
-      router.redirect('/onboarding')
+      router.redirect('/')
     },
     {
       manual: true
@@ -53,7 +54,7 @@ export default function VerifyEmail() {
     <div className="mx-auto grid w-[21.875rem] gap-6 py-12 lg:py-0">
       <div className="grid gap-2 text-center">
         <h1 className="text-3xl font-bold">{t('verifyEmail.title')}</h1>
-        <p className="text-sm text-secondary">
+        <p className="text-secondary text-sm">
           {t('verifyEmail.subHeadline', { email: temporaryEmail })}
         </p>
       </div>
@@ -73,14 +74,14 @@ export default function VerifyEmail() {
           </InputOTPGroup>
         </InputOTP>
 
-        <p className="mt-4 text-center text-sm text-secondary">
+        <p className="text-secondary mt-4 text-center text-sm">
           <Trans
             t={t}
             i18nKey="verifyEmail.resend"
             components={{
               button: (
                 <Button.Link
-                  className="!p-0 text-secondary underline hover:bg-transparent hover:text-primary"
+                  className="text-secondary hover:text-primary !p-0 underline hover:bg-transparent"
                   loading={sendLoading}
                   onClick={sendRun}
                 />

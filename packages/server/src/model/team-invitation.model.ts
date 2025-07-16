@@ -15,9 +15,7 @@ export class TeamInvitationModel extends Document {
   expireAt: number
 }
 
-export const TeamInvitationSchema = SchemaFactory.createForClass(
-  TeamInvitationModel
-)
+export const TeamInvitationSchema = SchemaFactory.createForClass(TeamInvitationModel)
 
 // Unique constraint on name and lang
 TeamInvitationSchema.index({ teamId: 1, email: 1 }, { unique: true })

@@ -13,7 +13,6 @@ export interface RichTextPreceding {
 }
 
 export function placeCaretAtEnd(el: HTMLElement) {
-  // Do not move caret if element was not focused
   const isTargetFocused = document.activeElement === el
 
   if (el && !isTargetFocused) {
@@ -48,10 +47,9 @@ export function getTriggerSelection(): RichTextTriggerSelection | undefined {
 
     if (anchorNode != null) {
       const range = selection.getRangeAt(0)
-      // getRangeAt may not exist, need alternative
+
       const startOffset = range.cloneRange().startOffset
 
-      // Hack https://stackoverflow.com/a/62474614
       let rect = range.getBoundingClientRect()
 
       if (range.collapsed && rect.top === 0 && rect.left === 0) {
@@ -101,13 +99,7 @@ export function getTextPrecedingAtTrigger(
 
   const text = getSelectionText()
 
-  if (
-    !text ||
-    // check is the trigger character has been deleted
-    text[startOffset! - 1] !== trigger ||
-    // check if there is a space behind the trigger character
-    text[startOffset!]?.trim() === ''
-  ) {
+  if (!text || text[startOffset! - 1] !== trigger || text[startOffset!]?.trim() === '') {
     return result
   }
 
@@ -162,7 +154,6 @@ export function replaceTriggerText(
 
     range.insertNode(frag)
 
-    // Preserve the selection
     range = range.cloneRange()
     range.setStartAfter(lastNode)
     range.collapse(true)
@@ -202,7 +193,6 @@ export function pasteHtml(
 
     range.insertNode(frag)
 
-    // Preserve the selection
     range = range.cloneRange()
     range.setStartAfter(lastNode)
     range.collapse(true)

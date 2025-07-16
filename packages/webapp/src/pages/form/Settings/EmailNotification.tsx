@@ -19,52 +19,6 @@ export default function FormSettingsEmailNotification() {
         >
           <Switch />
         </Form.Item>
-
-        {/*<div>*/}
-        {/*  <Form.Item*/}
-        {/*    className="[&_[data-slot=content]]:pt-1.5"*/}
-        {/*    name="enableRespondentNotification"*/}
-        {/*    label={t('form.settings.emailNotification.respondent.headline')}*/}
-        {/*    description={t('form.settings.emailNotification.respondent.subHeadline')}*/}
-        {/*    isInline*/}
-        {/*  >*/}
-        {/*    <Switch />*/}
-        {/*  </Form.Item>*/}
-
-        {/*  {tempSettings?.enableRespondentNotification && (*/}
-        {/*    <>*/}
-        {/*      <Form.Item className="[&_[data-slot=content]]:pt-1.5" name="respondentEmails">*/}
-        {/*        <Select*/}
-        {/*          className="w-full"*/}
-        {/*          items={[]}*/}
-        {/*          placeholder={t('form.settings.emailNotification.respondent.emails')}*/}
-        {/*        />*/}
-        {/*      </Form.Item>*/}
-
-        {/*      <Form.Item className="[&_[data-slot=content]]:pt-1.5" name="respondentSubject">*/}
-        {/*        <Input*/}
-        {/*          className="w-full"*/}
-        {/*          placeholder={t('form.settings.emailNotification.respondent.subject')}*/}
-        {/*        />*/}
-        {/*      </Form.Item>*/}
-
-        {/*      <Form.Item className="[&_[data-slot=content]]:pt-1.5" name="respondentSubject">*/}
-        {/*        <Input*/}
-        {/*          className="w-full"*/}
-        {/*          placeholder={t('form.settings.emailNotification.respondent.fromName')}*/}
-        {/*        />*/}
-        {/*      </Form.Item>*/}
-
-        {/*      <Form.Item className="[&_[data-slot=content]]:pt-1.5" name="respondentMessage">*/}
-        {/*        <Input.TextArea*/}
-        {/*          className="w-full"*/}
-        {/*          rows={5}*/}
-        {/*          placeholder={t('form.settings.emailNotification.respondent.message')}*/}
-        {/*        />*/}
-        {/*      </Form.Item>*/}
-        {/*    </>*/}
-        {/*  )}*/}
-        {/*</div>*/}
       </div>
     </section>
   )

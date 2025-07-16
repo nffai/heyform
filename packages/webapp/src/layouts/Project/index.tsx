@@ -3,9 +3,10 @@ import { FC, useEffect, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { NavLink, useLocation } from 'react-router-dom'
 
+import { cn, useParam } from '@/utils'
+
 import { Button } from '@/components'
 import { useAppStore, useWorkspaceStore } from '@/store'
-import { cn, useParam } from '@/utils'
 
 import { WorkspaceLayout } from '../Workspace'
 import ProjectMembers from './ProjectMembers'
@@ -62,14 +63,14 @@ export const ProjectLayout: FC<LayoutProps> = ({ options, children }) => {
         <ProjectMembers />
 
         {/* Navigation */}
-        <div className="mt-5 border-b border-accent-light">
-          <nav className="flex items-center gap-6 text-sm font-medium text-secondary">
+        <div className="border-accent-light mt-5 border-b">
+          <nav className="text-secondary flex items-center gap-6 text-sm font-medium">
             {navigations.map(n => (
               <NavLink
                 key={n.value}
                 className={({ isActive }) =>
-                  cn('py-3 hover:text-primary', {
-                    'relative text-primary after:absolute after:inset-x-0 after:-bottom-px after:h-0.5 after:rounded-full after:bg-primary':
+                  cn('hover:text-primary py-3', {
+                    'text-primary after:bg-primary relative after:absolute after:inset-x-0 after:-bottom-px after:h-0.5 after:rounded-full':
                       isActive
                   })
                 }

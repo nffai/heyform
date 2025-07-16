@@ -1,10 +1,10 @@
-import { deepEqual, helper } from '@heyform-inc/utils'
 import { useRequest } from 'ahooks'
 import FormComponent, { Field, FormProps } from 'rc-field-form'
 import type { FieldProps } from 'rc-field-form/es/Field'
 import { FC, ReactElement, ReactNode, cloneElement, useEffect, useState } from 'react'
 
 import { cn } from '@/utils'
+import { deepEqual, helper } from '@heyform-inc/utils'
 
 import { Button, ButtonProps } from './Button'
 
@@ -77,7 +77,7 @@ const FormItem: FC<FormItemProps> = ({
                   </label>
                 )}
                 {description && (
-                  <div className="text-base/5 text-secondary sm:text-sm/5" data-slot="description">
+                  <div className="text-secondary text-base/5 sm:text-sm/5" data-slot="description">
                     {description}
                   </div>
                 )}
@@ -86,12 +86,12 @@ const FormItem: FC<FormItemProps> = ({
             </div>
 
             {hasError ? (
-              <div className="mt-1 text-sm/6 text-error" data-slot="error">
+              <div className="text-error mt-1 text-sm/6" data-slot="error">
                 {meta.errors[0]}
               </div>
             ) : (
               footer && (
-                <div className="mt-1 text-sm text-secondary" data-slot="footer">
+                <div className="text-secondary mt-1 text-sm" data-slot="footer">
                   {footer}
                 </div>
               )
@@ -179,7 +179,7 @@ const SimpleForm: FC<SimpleFormProps> = ({
       </div>
 
       {showFetchError && error && !loading && (
-        <div className="!mt-1 text-sm/6 text-error" data-slot="form-error">
+        <div className="text-error !mt-1 text-sm/6" data-slot="form-error">
           {error.message}
         </div>
       )}

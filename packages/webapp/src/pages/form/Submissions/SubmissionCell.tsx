@@ -1,15 +1,16 @@
-import { CURRENCY_SYMBOLS, htmlUtils } from '@heyform-inc/answer-utils'
 import { Answer, Choice, Column, FieldKindEnum } from '@heyform-inc/shared-types-enums'
-import { helper } from '@heyform-inc/utils'
 import { IconArrowUpRight, IconCheck, IconClock, IconFile } from '@tabler/icons-react'
 import Big from 'big.js'
 import { FC, Fragment } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Badge, Checkbox, Image } from '@/components'
+import { cn, formatDay, unixDate } from '@/utils'
+import { CURRENCY_SYMBOLS, htmlUtils } from '@heyform-inc/answer-utils'
+import { helper } from '@heyform-inc/utils'
+
+import { Checkbox, Image } from '@/components'
 import { ALL_FIELD_CONFIGS, CUSTOM_FIELDS_CONFIGS } from '@/consts'
 import { FormFieldType, SubmissionType } from '@/types'
-import { cn, formatDay, unixDate } from '@/utils'
 
 import { QuestionIcon } from '../Builder/LeftSidebar/QuestionList'
 
@@ -67,10 +68,10 @@ const AddressItem: FC<SubmissionCellProps> = ({ answer, field, isTableCell }) =>
     <dl className="grid grid-cols-1 text-base/6 sm:grid-cols-[min(50%,theme(spacing.80))_auto] sm:text-sm/6">
       {result.map((row, index) => (
         <Fragment key={index}>
-          <dt className="col-start-1 border-t border-accent-light pt-3 text-secondary first:border-none sm:border-t sm:border-accent-light sm:py-3">
+          <dt className="border-accent-light text-secondary sm:border-accent-light col-start-1 border-t pt-3 first:border-none sm:border-t sm:py-3">
             {row.label}
           </dt>
-          <dd className="sm:[&amp;:nth-child(2)]:border-none pb-3 pt-1 text-primary sm:border-t sm:border-accent-light sm:py-3">
+          <dd className="sm:[&amp;:nth-child(2)]:border-none text-primary sm:border-accent-light pb-3 pt-1 sm:border-t sm:py-3">
             {row.value}
           </dd>
         </Fragment>
@@ -106,7 +107,7 @@ const FileUploadItem: FC<SubmissionCellProps> = ({ answer, field, isTableCell })
   if (isTableCell) {
     return (
       <div className="flex gap-1">
-        <IconFile className="h-5 w-5 text-secondary" />
+        <IconFile className="text-secondary h-5 w-5" />
         <div className="flex-1 truncate">{answer.value.filename}</div>
       </div>
     )
@@ -119,7 +120,7 @@ const FileUploadItem: FC<SubmissionCellProps> = ({ answer, field, isTableCell })
       target="_blank"
       rel="noreferrer"
     >
-      <IconFile className="h-5 w-5 text-secondary" />
+      <IconFile className="text-secondary h-5 w-5" />
       <div className="flex-1 whitespace-nowrap">{answer.value.filename}</div>
     </a>
   )
@@ -175,7 +176,7 @@ const InputTableItem: FC<SubmissionCellProps> = ({ answer, field, isTableCell })
     <div className="scrollbar overflow-x-auto">
       <table className="min-w-full text-left text-sm">
         <thead className="text-secondary">
-          <tr className="border-b border-accent">
+          <tr className="border-accent border-b">
             {columns.map(c => (
               <th key={c.id} className="text-nowrap py-2 text-left font-normal">
                 {c.label}
@@ -187,7 +188,7 @@ const InputTableItem: FC<SubmissionCellProps> = ({ answer, field, isTableCell })
           {result.map((row, index) => (
             <tr
               key={index}
-              className="border-b border-accent last:border-b-0 hover:bg-primary/[2.5%]"
+              className="border-accent hover:bg-primary/[2.5%] border-b last:border-b-0"
             >
               {row.map((cell, index) => (
                 <td key={index} className="h-10 text-nowrap py-2 text-left">
@@ -276,7 +277,7 @@ const PaymentItem: FC<SubmissionCellProps> = ({ answer, field }) => {
             <span className="ml-1">Succeeded</span>
           </div>
         ) : (
-          <div className="flex h-6 items-center rounded bg-gray-100 pl-1 pr-2 text-sm text-primary">
+          <div className="text-primary flex h-6 items-center rounded bg-gray-100 pl-1 pr-2 text-sm">
             <IconClock className="h-4 w-4" />
             <span className="ml-1">Incomplete</span>
           </div>
